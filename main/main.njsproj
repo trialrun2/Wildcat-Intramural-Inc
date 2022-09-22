@@ -11,7 +11,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>54a271d3-a596-44b0-85b4-73acca5eecd9</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>index.js</StartupFile>
+    <StartupFile>WII.js</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -28,15 +28,28 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="index.html">
+    <Content Include="public\css\about.css">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="index.js" />
+    <Content Include="views\index.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\about.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="WII.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
-    <Content Include="index.css">
+    <Content Include="public\css\index.css">
       <SubType>Code</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="public\css\" />
+    <Folder Include="public\img\" />
+    <Folder Include="public\js\" />
+    <Folder Include="views\" />
+    <Folder Include="public\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>
