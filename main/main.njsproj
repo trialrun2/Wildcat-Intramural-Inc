@@ -31,10 +31,16 @@
     <Content Include="public\css\about.css">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\index.html">
+    <Content Include="views\home.html">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\about.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\leagues.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\teams.html">
       <SubType>Code</SubType>
     </Content>
     <Content Include="WII.js" />
