@@ -1,0 +1,27 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+body {
+    font-family: 'Roboto';
+    background: linear-gradient(90deg, #9900cc 0%, #9900cca4 50%);
+}
+
+.inner-row {
+    height: 100vh;
+}
+
+.primaryBg {
+    background: #9900cc;
+}
+
+.primaryColor {
+    background: #9900cc;
+}
+
+.form-box {
+    background: #fff;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.registration-form {
+    display: none;
+}

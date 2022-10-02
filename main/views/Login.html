@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
+    <link rel="stylesheet" type="text/css" href="../public/css/login.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" />
+    <title>Login</title>
+</head>
+
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center align-items-center inner-row">
+            <div class="col-lg-5 col-md-7">
+                <div class="form-box login-form p-5">
+                    <div class="form-title">
+                        <h2 class="fw-bold mb-3">Login</h2>
+                    </div>
+                    <form action="">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control form-control-sm" placeholder="Email" id="floatingEmail" />
+                            <label for="floatingEmail">Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control form-control-sm" placeholder="Password" id="floatingPassword" />
+                            <label for="floatingPassword">Password</label>
+                        </div>
+                        <div class="mt-3">
+                            <button class="btn primaryBg text-black">Login</button>
+                        </div>
+                    </form>
+                    <div class="mt-3">
+                        <span>Don't have account?'</span> <button class="p-0 border-0 bg-transparent primaryColor" onclick="signup-show">Sign Up</button>
+                    </div>
+                    <div class="mt-3"></div>
+                </div>
+
+                <div class="form-box registration-form p-5">
+                    <div class="form-title">
+                        <h2 class="fw-bold mb-3">Create Your Account</h2>
+                    </div>
+                    <form action="">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm" placeholder="First Name" id="floatingFirst" />
+                            <label for="floatingFirst">Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm" placeholder="Last Name" id="floatingLast" />
+                            <label for="floatingLast">Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control form-control-sm" placeholder="Email" id="floatingEmail" />
+                            <label for="floatingEmail">Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control form-control-sm" placeholder="Password" id="floatingPassword" />
+                            <label for="floatingPassword">Password</label>
+                        </div>
+                        <div class="mt-3">
+                            <button class="btn primaryBg text-black">Sign Up</button>
+                        </div>
+                    </form>
+                    <div class="mt-3">
+                        <span>Already have account?'</span> <button class="p-0 border-0 bg-transparent primaryColor login-show">Login</button>
+                    </div>
+                    <div class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+            crossorigin="anonymous"></script>
+    <script src="https://fonts.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+        $('.signup-show').click(function(){
+            $('.registration-form').show();
+            $('.login-form').hide();
+        })
+    </script>
+    <script>
+        $('login-show').click(function(){
+            $('.login-form').show();
+            $('registration-form').hide();
+        })
+    </script>
+</body>
+</html>

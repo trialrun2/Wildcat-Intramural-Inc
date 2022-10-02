@@ -31,6 +31,9 @@
     <Content Include="public\css\about.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\css\login.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\home.html">
       <SubType>Code</SubType>
     </Content>
@@ -38,6 +41,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\leagues.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\Login.html">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\teams.html">
