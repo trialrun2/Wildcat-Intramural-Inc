@@ -34,6 +34,12 @@
     <Content Include="public\css\login.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="routes\index.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\users.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\home.html">
       <SubType>Code</SubType>
     </Content>
@@ -57,9 +63,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="routes\" />
     <Folder Include="public\css\" />
     <Folder Include="public\img\" />
-    <Folder Include="public\js\" />
     <Folder Include="views\" />
     <Folder Include="public\" />
   </ItemGroup>

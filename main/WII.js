@@ -1,32 +1,32 @@
-/*//Imports
-const express = require('express');
-const wii = express();
-var port = process.env.PORT || 1337;
+module.exports = router;
 
-//Static Files
-wii.use(express.static('public'));
-wii.use('/css', express.static(__dirname + 'public/css'));
-wii.use('/js', express.static(__dirname + 'public/js'));
-wii.use('/img', express.static(__dirname + 'public/img'));
+wii.use(express.urlencoded({ extended: false }));
+wii.use(cookieParser());
+wii.use(express.static(path.join(__dirname, 'public')));
 
-//Set Views
-wii.set('views', './views');
-wii.set('view engine', 'ejs');
+wii.use('/', indexRouter);
+wii.use('/users', usersRouter);
 
-//Index Page
-wii.get('', (req, res) => {
-    res.render('index');
+// catch 404 error and send to error handler
+wii.use(function (req, res, next) {
+    next(createError(404));
 });
 
-//About Page
-wii.get('/about', (req, res) => {
-    res.render('about', { text: 'About Page' });
+// error handler
+wii.use(function (err, re1, res, next) {
+    // set locals, only provide error in dev
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
-wii.listen(port, () => console.info('Listening on port ${port}'));
-*/
+module.exports = wii;
 
-//using with HTML
+
+/*using with HTML
 'use strict';
 var http = require('http');
 var port = process.env.PORT || 1337;
@@ -42,3 +42,4 @@ http.createServer(function (req, res) {
 }).listen(port);
 
 console.log('Server running at http:127.0.0.1:' + port + '/ ',);
+*/
