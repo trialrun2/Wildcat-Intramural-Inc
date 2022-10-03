@@ -1,0 +1,60 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0 ')
+  link(rel='stylesheet' type='text/css' href='../public/css/login.css')
+  link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css')
+  title Login
+.container
+  .row.justify-content-center.align-items-center.inner-row
+    .col-lg-5.col-md-7
+      .form-box.login-form.p-5
+        .form-title
+          h2.fw-bold.mb-3 Login
+        form(action='')
+          .form-floating.mb-3
+            input#floatingEmail.form-control.form-control-sm(type='email' placeholder='Email')
+            label(for='floatingEmail') Email
+          .form-floating.mb-3
+            input#floatingPassword.form-control.form-control-sm(type='password' placeholder='Password')
+            label(for='floatingPassword') Password
+          .mt-3
+            button.btn.primaryBg.text-black Login
+        .mt-3
+          span Don&apos;t have account?&apos;
+          button.p-0.border-0.bg-transparent.primaryColor(onclick='signup-show') Sign Up
+        .mt-3
+      .form-box.registration-form.p-5
+        .form-title
+          h2.fw-bold.mb-3 Create Your Account
+        form(action='')
+          .form-floating.mb-3
+            input#floatingFirst.form-control.form-control-sm(type='text' placeholder='First Name')
+            label(for='floatingFirst') Email
+          .form-floating.mb-3
+            input#floatingLast.form-control.form-control-sm(type='text' placeholder='Last Name')
+            label(for='floatingLast') Email
+          .form-floating.mb-3
+            input#floatingEmail.form-control.form-control-sm(type='email' placeholder='Email')
+            label(for='floatingEmail') Email
+          .form-floating.mb-3
+            input#floatingPassword.form-control.form-control-sm(type='password' placeholder='Password')
+            label(for='floatingPassword') Password
+          .mt-3
+            button.btn.primaryBg.text-black Sign Up
+        .mt-3
+          span Already have account?&apos;
+          button.p-0.border-0.bg-transparent.primaryColor.login-show Login
+        .mt-3
+script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css' crossorigin='anonymous')
+script(src='https://fonts.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js')
+script.
+  $('.signup-show').click(function(){
+  $('.registration-form').show();
+  $('.login-form').hide();
+  })
+script.
+  $('login-show').click(function(){
+  $('.login-form').show();
+  $('registration-form').hide();
+  })

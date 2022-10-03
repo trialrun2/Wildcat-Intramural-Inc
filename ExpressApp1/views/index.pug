@@ -1,0 +1,95 @@
+doctype html
+head
+  title Home
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css' rel='stylesheet')
+  script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js')
+  style.
+    .fakeimg {
+    height: 200px;
+    background: #aaa;
+    }
+.p-5.text-white.text-center(style='background-color:#9900cc')
+  h1(style="font-family:'Brush Script MT';font-size:500%") Wildcat Intramural Inc.
+nav.navbar.navbar-expand-sm.bg-dark.navbar-dark
+  .container-fluid
+    ul.navbar-nav
+      li.nav-item
+        a.nav-link.active(href='./home') Home
+      li.nav-item
+        a.nav-link(href='./leagues') Leagues
+      li.nav-item
+        a.nav-link(href='./teams') Teams
+      li.nav-item
+        a.nav-link(href='#') Stats
+      li.nav-item
+        a.nav-link(href='./login') Rules
+.container.mt-5
+  .row
+    .col-sm-4
+      h2 Users Name
+      h5 Photo:
+      .fakeimg Photo submitted by user
+      p Height: 6&apos;0&apos;
+      p Weight: 180
+      p Number of Teams: 4
+      p Most played sport: Basketball
+      h3.mt-4 Stats
+      ul.nav.nav-pills.flex-column
+        li.nav-item
+          a.nav-link(href='#') Team Stats
+        li.nav-item
+          a.nav-link(href='#') Player Stats
+        li.nav-item
+          a.nav-link(href='#') Records
+        li.nav-item
+          a.nav-link.disabled(href='#') Disabled
+      hr.d-sm-none
+    .col-sm-8
+      h2
+        | My Teams
+        button.btn.btn-light(type='button') Create Team
+        button.btn.btn-light(type='button') Join Team
+      table.table.table-striped.table-hover
+        thead
+          tr
+            th Team Name
+            th Sport
+            th League
+        tbody
+          tr
+            td Example Team
+            td Example Basketball
+            td Example Date
+          tr
+            td Example Team
+            td Example Basketball
+            td Example Date
+          tr
+            td Example Team
+            td Example Basketball
+            td Example Date
+      h2.mt-5 Open Leagues
+      table.table.table-striped.table-hover
+        thead
+          tr
+            th Sport
+            th Game Dates
+            th Current Teams
+        tbody
+          tr
+            td Example Sport
+            td Example Date
+            td Example number
+          tr
+            td Example Sport
+            td Example Date
+            td Example number
+          tr
+            td Example Sport
+            td Example Date
+            td Example number
+.mt-5.p-4.bg-dark.text-white.text-center
+  p Footer
+tle
