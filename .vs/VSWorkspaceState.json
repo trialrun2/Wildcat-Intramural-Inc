@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\ExpressApp1"
+    "\\ExpressApp1",
+    "\\ExpressApp1\\views"
   ],
-  "SelectedNode": "\\ExpressApp1\\app.js",
+  "SelectedNode": "\\ExpressApp1\\views\\login.pug",
   "PreviewInSolutionExplorer": false
 }
