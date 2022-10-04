@@ -31,6 +31,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="database\database.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\javascripts\login.js">
       <SubType>Code</SubType>
     </Content>
@@ -65,6 +68,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="database\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascripts\" />
