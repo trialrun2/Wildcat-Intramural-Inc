@@ -31,6 +31,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="public\javascripts\login.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\stylesheets\about.css">
       <SubType>Code</SubType>
     </Content>
