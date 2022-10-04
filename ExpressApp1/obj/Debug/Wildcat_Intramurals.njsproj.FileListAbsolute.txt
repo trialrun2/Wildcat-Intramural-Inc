@@ -1,3 +1,6 @@
 C:\Users\zanem\source\repos\fall2022-W.I.I\ExpressApp1\obj\Debug\Wildcat_Intramurals.njsproj.AssemblyReference.cache
 C:\Users\zanem\source\repos\fall2022-W.I.I\ExpressApp1\obj\Debug\Wildcat_Intramurals.njsproj.CoreCompileInputs.cache
 C:\Users\zanem\source\repos\fall2022-W.I.I\ExpressApp1\bin\Microsoft.NodejsTools.WebRole.dll
+C:\Users\adamw\Source\Repos\fall2022-W.I.I\ExpressApp1\obj\Debug\Wildcat_Intramurals.njsproj.AssemblyReference.cache
+C:\Users\adamw\Source\Repos\fall2022-W.I.I\ExpressApp1\obj\Debug\Wildcat_Intramurals.njsproj.CoreCompileInputs.cache
+C:\Users\adamw\Source\Repos\fall2022-W.I.I\ExpressApp1\bin\Microsoft.NodejsTools.WebRole.dll
