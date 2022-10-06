@@ -1,5 +1,11 @@
-var sqlite3 = require('sqlite3');
-new sqlite.Database('./player.db', sqlite3.OPEN_Create, (err) => {
+var sqlite3 = require('better-sqlite3');
+
+const Database = require('better-sqlite3');
+var db = new Database('db/development.sqlite3');
+
+/*
+
+new sqlite3.Database('./users.db', sqlite3.OPEN_Create, (err) => {
     if (err && err.code == "SQLITE_CANTOPEN") {
         createDatabase();
         return;
@@ -11,7 +17,7 @@ new sqlite.Database('./player.db', sqlite3.OPEN_Create, (err) => {
 })
 
 function createDatabase() {
-    var newdb = new sqlite3.Database('mcu.db', (err) => {
+    var newdb = new sqlite3.Database('user.db', (err) => {
         if (err) {
             console.log("Getting error " + err);
             exit(1);
@@ -25,8 +31,8 @@ function createDatabase() {
 //1 means league is open 0 means league is closed
 function createTables(newdb) {
     newdb.exec(`
-    create table leagues (
-        league_id int primary key not null,
+    create table users (
+        user_id int primary key not null,
         league_name text not null,
         league_dateTime text not null
     );
@@ -59,4 +65,4 @@ function runQueries(db) {
             console.log(row.league_name + "\t" + row.league_dateTime + "\t" + row.league_status);
         });
     });
-}
+}*/
