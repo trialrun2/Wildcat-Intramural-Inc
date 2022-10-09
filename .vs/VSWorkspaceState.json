@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\ExpressApp1",
-    "\\ExpressApp1\\views"
+    "\\ExpressApp1\\public",
+    "\\ExpressApp1\\public\\stylesheets"
   ],
-  "SelectedNode": "\\ExpressApp1\\views\\login.pug",
+  "SelectedNode": "\\ExpressApp1\\public\\stylesheets\\login.css",
   "PreviewInSolutionExplorer": false
 }
