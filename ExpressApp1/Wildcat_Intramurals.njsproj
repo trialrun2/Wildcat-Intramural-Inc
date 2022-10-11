@@ -31,10 +31,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
-    <Content Include="database\database.js">
+    <Content Include="database\development.sqlite3">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\javascripts\database.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\javascripts\handle-requests.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\javascripts\login.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\javascripts\signup.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\javascripts\views.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\stylesheets\about.css">
