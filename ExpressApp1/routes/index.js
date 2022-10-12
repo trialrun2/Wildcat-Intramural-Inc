@@ -1,9 +1,11 @@
 var express = require('express');
+const db = require('../database');
 var router = express.Router();
 
 // Get home page
 router.get('/', function (req, res, next) {
-    res.render('index', { title: 'Data goes here' });
+    var users = db.prepare("SELECT * FROM users").all();
+    res.render('index', { title: 'Data goes here', users: JSON.stringify(users) });
 });
 
 // Get teams page
@@ -29,6 +31,21 @@ router.get('/login', function (req, res, next) {
 // Get sign-up page
 router.get('/signup', function (req, res, next) {
     res.render('signup', { title: 'Data goes here' });
+});
+
+// Get home page
+router.get('/home', function (req, res, next) {
+    res.render('home', { title: 'Data goes here' });
+});
+
+// Get stats page
+router.get('/stats', function (req, res, next) {
+    res.render('stats', { title: 'Data goes here' });
+});
+
+// Get rules page
+router.get('/rules', function (req, res, next) {
+    res.render('rules', { title: 'Data goes here' });
 });
 
 module.exports = router;

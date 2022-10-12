@@ -30,7 +30,13 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".gitignore">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="app.js" />
+    <Content Include="database.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="database\development.sqlite3">
       <SubType>Code</SubType>
     </Content>
@@ -52,6 +58,9 @@
     <Content Include="public\stylesheets\about.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\stylesheets\home.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\stylesheets\index.css">
       <SubType>Code</SubType>
     </Content>
@@ -64,12 +73,18 @@
     <Content Include="public\stylesheets\signup.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\stylesheets\teams.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\index.js" />
     <Content Include="routes\users.js" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
     <Content Include="views\about.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\home.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\index.pug" />
@@ -81,7 +96,13 @@
     <Content Include="views\login.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\rules.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\signup.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\stats.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\teams.pug">

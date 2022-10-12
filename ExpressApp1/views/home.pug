@@ -1,0 +1,72 @@
+extends layout.pug
+
+block append style
+    style
+        include ../public/stylesheets/home.css
+
+block content
+  .container.mt-5
+    .row
+      .col-sm-4
+        h2 Users Name
+        h5 Photo:
+        .fakeimg Photo submitted by user
+        p Height: 6&apos;0&apos;
+        p Weight: 180
+        p Number of Teams: 4
+        p Most played sport: Basketball
+        h3.mt-4 Stats
+        ul.nav.nav-pills.flex-column
+          li.nav-item
+            a.nav-link(href='') Team Stats
+          li.nav-item
+            a.nav-link(href='#') Player Stats
+          li.nav-item
+            a.nav-link(href='#') Records
+          li.nav-item
+            a.nav-link.disabled(href='#') Disabled
+        hr.d-sm-none
+      .col-sm-8
+        h2
+          | My Teams
+          button.btn.btn-light.ms-3(type='button') Create Team
+          button.btn.btn-light.ms-3(type='button') Join Team
+        table.table.table-striped.table-hover
+          thead
+            tr
+              th Team Name
+              th Sport
+              th League
+          tbody
+            tr
+              td Example Team
+              td Example Basketball
+              td Example Date
+            tr 
+              td Example Team
+              td Example Basketball
+              td Example Date
+            tr
+              td Example Team
+              td Example Basketball
+              td Example Date
+        h2.mt-5 Open Leagues
+        table.table.table-striped.table-hover
+          thead
+            tr
+              th Sport
+              th Game Dates
+              th Current Teams
+          tbody
+            tr
+              td Example Sport
+              td Example Date
+              td Example number
+            tr
+              td Example Sport
+              td Example Date
+              td Example number
+            tr
+              td Example Sport
+              td Example Date
+              td Example number
