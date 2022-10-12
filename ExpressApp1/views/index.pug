@@ -5,6 +5,7 @@ block append style
         include ../public/stylesheets/index.css
 
 block content
+  p= users
   .container.mt-5
     .row
       .col-sm-4
@@ -31,6 +32,8 @@ block content
           | My Teams
           button.btn.btn-light.ms-3(type='button') Create Team
           button.btn.btn-light.ms-3(type='button') Join Team
+        
+        
         table.table.table-striped.table-hover
           thead
             tr
