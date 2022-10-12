@@ -1,7 +1,5 @@
-var sqlite3 = require('better-sqlite3');
+const db = require('better-sqlite3')('data.db');
 
-const Database = require('better-sqlite3');
-var db = new Database('db/development.sqlite3');
 
 /*
 

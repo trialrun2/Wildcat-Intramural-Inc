@@ -49,6 +49,9 @@
     <Content Include="public\stylesheets\signup.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\stylesheets\teams.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\index.js" />
     <Content Include="routes\users.js" />
     <Content Include="package.json" />
