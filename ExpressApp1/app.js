@@ -7,12 +7,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-require('./public/javascripts/database');
-var javascripts = require('./public/javascripts/handle-requests');
+//require('./public/javascripts/database');
+//var javascripts = require('./public/javascripts/handle-requests');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-var app = express(javascripts);
+var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
