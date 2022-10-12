@@ -19,17 +19,24 @@ body
         .container-fluid
             ul.navbar-nav
                li.nav-item
-                 a.nav-link.active(href='./') Home
+                 a.nav-link.active(href='./home') Home
                li.nav-item
                  a.nav-link(href='./leagues') Leagues
                li.nav-item
                  a.nav-link(href='./teams') Teams
                li.nav-item
-                 a.nav-link(href='./signup') Stats
+                 a.nav-link(href='./stats') Stats
                li.nav-item
-                 a.nav-link(href='./login') Rules
+                 a.nav-link(href='./rules') Rules
                li.nav-item
                  a.nav-link(href='./about') About
+               //temporary items
+               li.nav-item
+                 a.nav-link(href='./login') Login
+               li.nav-item
+                 a.nav-link(href='./signup') Sign Up
+               li.nav-item
+                 a.nav-link(href='./') Sign Out
             form.row.g-2
               .col-auto
                 input.form-control(type='search' placeholder='Search' aria-label='Search')
@@ -37,6 +44,7 @@ body
                 button.btn(type='submit') Search
 
   block content
+    .container
 
   footer.text-center.text-lg-start.text-white
     section
