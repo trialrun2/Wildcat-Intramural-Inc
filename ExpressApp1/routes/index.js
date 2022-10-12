@@ -1,9 +1,11 @@
 var express = require('express');
+const db = require('../database');
 var router = express.Router();
 
 // Get home page
 router.get('/', function (req, res, next) {
-    res.render('index', { title: 'Data goes here' });
+    var users = db.prepare("SELECT * FROM users").all();
+    res.render('index', { title: 'Data goes here', users: JSON.stringify(users) });
 });
 
 // Get teams page

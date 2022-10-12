@@ -30,7 +30,13 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".gitignore">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="app.js" />
+    <Content Include="database.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="database\development.sqlite3">
       <SubType>Code</SubType>
     </Content>
@@ -65,6 +71,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\stylesheets\signup.css">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\stylesheets\teams.css">
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\index.js" />
