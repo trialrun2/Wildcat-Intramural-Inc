@@ -52,6 +52,9 @@
     <Content Include="public\stylesheets\about.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\stylesheets\home.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\stylesheets\index.css">
       <SubType>Code</SubType>
     </Content>
@@ -72,6 +75,9 @@
     <Content Include="views\about.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\home.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
@@ -81,7 +87,13 @@
     <Content Include="views\login.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\rules.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\signup.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\stats.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\teams.pug">

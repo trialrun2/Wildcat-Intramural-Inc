@@ -1,7 +1,38 @@
-body {
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+body {
+    font-family: 'Roboto';
+    background: linear-gradient(90deg, #9900cc 0%, #9900cca4 50%);
 }
-.fakeimg {
-    height: 200px;
-    background: #aaa;
+
+.inner-row {
+    height: 100vh;
+}
+
+.primaryBg {
+    background: #9900cc;
+    color: white;
+}
+
+.form-box {
+    background: #fff;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+h1 {
+    text-align: center;
+    font-size: 750%;
+    text-shadow: -.5px .5px 0 #000, .5px .5px 0 #000, .5px -.5px 0 #000;*/
+}
+.p-5 {
+    font-family: 'Brush Script MT';
+    color: white;
+}
+
+.primaryColor {
+    background: #9900cc;
+}
+
+.btn {
+    
 }

@@ -31,4 +31,19 @@ router.get('/signup', function (req, res, next) {
     res.render('signup', { title: 'Data goes here' });
 });
 
+// Get home page
+router.get('/home', function (req, res, next) {
+    res.render('home', { title: 'Data goes here' });
+});
+
+// Get stats page
+router.get('/stats', function (req, res, next) {
+    res.render('stats', { title: 'Data goes here' });
+});
+
+// Get rules page
+router.get('/rules', function (req, res, next) {
+    res.render('rules', { title: 'Data goes here' });
+});
+
 module.exports = router;
