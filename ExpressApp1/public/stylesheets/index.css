@@ -34,5 +34,7 @@ h1 {
 }
 
 .btn {
-    
+    font-size: 500%;
+    justify-content: center;
+    height: 200px;
 }
