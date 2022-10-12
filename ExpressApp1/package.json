@@ -3,20 +3,24 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "node app",
+    "dev": "nodemon app.js"
   },
   "description": "ExpressApp1",
   "author": {
     "name": ""
   },
   "dependencies": {
+    "better-sqlite3": "^7.6.2",
     "body-parser": "^1.15.0",
     "cookie-parser": "^1.4.6",
     "debug": "^2.2.0",
     "express": "^4.18.1",
     "morgan": "^1.10.0",
     "pug": "^3.0.2",
-    "serve-favicon": "^2.5.0",
-    "sqlite3": "^5.1.2"
+    "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.20"
   }
 }

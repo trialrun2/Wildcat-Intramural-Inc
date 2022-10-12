@@ -1,0 +1,29 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+body {
+
+}
+.p-5 {
+    background: linear-gradient(90deg, #9900cc 0%, #9900cca4 50%);
+    font-family: 'Brush Script MT';
+}
+h1{
+    font-size: 500%;
+}
+.navbar {
+    background: #434343;
+    font-family: 'Roboto';
+    font-size: initial;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.btn {
+    background: #9900cc;
+    color: white;
+}
+footer {
+    background-color: #1c2331;
+}
+hr {
+    background-color: #7c4dff;
+    height: 2px;
+}

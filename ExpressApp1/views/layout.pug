@@ -1,7 +1,93 @@
 doctype html
-html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/main.css')
-  body
-    block content
+head
+  title WildCat Intramural Inc.
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css' rel='stylesheet')
+  block scripts
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js')
+
+  block style
+    style
+        include ../public/stylesheets/layout.css
+
+body
+  header
+      .p-5.text-white.text-center
+        h1 Wildcat Intramural Inc.
+      nav.navbar.navbar-expand-sm.bg-dark.navbar-dark
+        .container-fluid
+            ul.navbar-nav
+               li.nav-item
+                 a.nav-link.active(href='./') Home
+               li.nav-item
+                 a.nav-link(href='./leagues') Leagues
+               li.nav-item
+                 a.nav-link(href='./teams') Teams
+               li.nav-item
+                 a.nav-link(href='./signup') Stats
+               li.nav-item
+                 a.nav-link(href='./login') Rules
+               li.nav-item
+                 a.nav-link(href='./about') About
+            form.row.g-2
+              .col-auto
+                input.form-control(type='search' placeholder='Search' aria-label='Search')
+              .col-auto
+                button.btn(type='submit') Search
+
+  block content
+
+  footer.text-center.text-lg-start.text-white
+    section
+      .container.text-center.text-md-start.mt-5
+        .row.mt-3
+          .col-md-3.col-lg-4.col-xl-3.mx-auto.mb-4.mt-4
+            h6.text-uppercase.fw-bold Wildcat Intramural Incorperated
+            hr.mb-4.mt-0.d-inline-block.mx-auto(style='width: 305px')
+            p
+              | Our whole goal is to bring students at Kansas State 
+              | University a clean and easy to use website for their
+              | intramural needs!
+          .col-md-2.col-lg-2.col-xl-2.mx-auto.mb-4.mt-4
+            h6.text-uppercase.fw-bold Social Media
+            hr.mb-4.mt-0.d-inline-block.mx-auto(style='width: 115px')
+            p
+              a.text-white.me-4(href='https://www.facebook.com/KStateRec/') Facebook
+                i.fab.fa-facebook-f
+            p
+              a.text-white.me-4(href='https://twitter.com/KStateRec') Twitter
+                i.fab.fa-twitter
+            p
+              a.text-white.me-4(href='https://www.instagram.com/kstaterec/') Instagram
+                i.fab.fa-instagram
+            p
+              a.text-white.me-4(href='https://blogs.k-state.edu/fit/') Blogs
+                i.fab.fa-blogs
+          .col-md-3.col-lg-2.col-xl-2.mx-auto.mb-4.mt-4
+            h6.text-uppercase.fw-bold Useful links
+            hr.mb-4.mt-0.d-inline-block.mx-auto(style='width: 110px')
+            p
+              a.text-white(href='#!') Your Account
+            p
+              a.text-white(href='./signup') Sign Up
+            p
+              a.text-white(href='/') Rules
+            p
+              a.text-white(href='/about') About
+          .col-md-4.col-lg-3.col-xl-3.mx-auto.mb-md-0.mb-4.mt-4
+            h6.text-uppercase.fw-bold Contact
+            hr.mb-4.mt-0.d-inline-block.mx-auto(style='width: 75px')
+            p
+              i.fas.fa-home.mr-3
+              | Kansas State University #[br]
+              | 101 Peters Rec Complex  #[br]
+              | 1831 Olympic Dr. Manhattan, KS 66502
+            p
+              i.fas.fa-envelope.mr-3
+              |  recservices@k-state.edu
+            p
+              i.fas.fa-phone.mr-3
+              |  (785)-532-6980
+    .text-center.p-3(style='background-color: rgba(0, 0, 0, 0.2)')
+      | &copy; 2022 Copyright: Wildcat Intramural Inc.
