@@ -3,8 +3,9 @@
     "",
     "\\ExpressApp1",
     "\\ExpressApp1\\public",
-    "\\ExpressApp1\\public\\stylesheets"
+    "\\ExpressApp1\\public\\stylesheets",
+    "\\ExpressApp1\\views"
   ],
-  "SelectedNode": "\\ExpressApp1\\app.js",
+  "SelectedNode": "\\ExpressApp1.sln",
   "PreviewInSolutionExplorer": false
 }

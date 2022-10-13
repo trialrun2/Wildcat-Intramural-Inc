@@ -34,7 +34,12 @@ h1 {
 }
 
 .btn {
+    font-family: 'Bernard MT';
     font-size: 500%;
+    font-weight: bold;
     justify-content: center;
-    height: 200px;
+    height: 150px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    text-shadow: -.5px .5px 0 #000, .5px .5px 0 #000, .5px -.5px 0 #000;
 }
