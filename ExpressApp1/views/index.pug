@@ -1,75 +1,22 @@
-extends layout.pug
+doctype html
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0 ')
+  link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css')
+  title Login
+  style
+    include ../public/stylesheets/index.css
 
-block append style
-    style
-        include ../public/stylesheets/index.css
+body
+  header
+      .p-5.text-white.text-center
+        h1 Welcome to Wildcat Intramural Inc.
 
-block content
   p= users
-  .container.mt-5
-    .row
-      .col-sm-4
-        h2 Users Name
-        h5 Photo:
-        .fakeimg Photo submitted by user
-        p Height: 6&apos;0&apos;
-        p Weight: 180
-        p Number of Teams: 4
-        p Most played sport: Basketball
-        h3.mt-4 Stats
-        ul.nav.nav-pills.flex-column
-          li.nav-item
-            a.nav-link(href='') Team Stats
-          li.nav-item
-            a.nav-link(href='#') Player Stats
-          li.nav-item
-            a.nav-link(href='#') Records
-          li.nav-item
-            a.nav-link.disabled(href='#') Disabled
-        hr.d-sm-none
-      .col-sm-8
-        h2
-          | My Teams
-          button.btn.btn-light.ms-3(type='button') Create Team
-          button.btn.btn-light.ms-3(type='button') Join Team
-        
-        
-        table.table.table-striped.table-hover
-          thead
-            tr
-              th Team Name
-              th Sport
-              th League
-          tbody
-            tr
-              td Example Team
-              td Example Basketball
-              td Example Date
-            tr 
-              td Example Team
-              td Example Basketball
-              td Example Date
-            tr
-              td Example Team
-              td Example Basketball
-              td Example Date
-        h2.mt-5 Open Leagues
-        table.table.table-striped.table-hover
-          thead
-            tr
-              th Sport
-              th Game Dates
-              th Current Teams
-          tbody
-            tr
-              td Example Sport
-              td Example Date
-              td Example number
-            tr
-              td Example Sport
-              td Example Date
-              td Example number
-            tr
-              td Example Sport
-              td Example Date
-              td Example number
+  
+  .container
+    .row.justify-content-center.align-items-center
+      .col-lg-5.col-md-7
+        .d-grid.gap-2
+          a.btn.btn-light.primaryBg(href='/login' ) Login
+          a.btn.btn-light.primaryBg(href='/signup' ) Sign Up
