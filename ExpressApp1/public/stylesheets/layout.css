@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 body {
-
+    height: 100%;
 }
 .p-5 {
     background: linear-gradient(90deg, #9900cc 0%, #9900cca4 50%);
@@ -21,7 +21,10 @@ h1{
     color: white;
 }
 footer {
+    position: relative;
     background-color: #1c2331;
+    width: 100%;
+    bottom: 0;
 }
 hr {
     background-color: #7c4dff;

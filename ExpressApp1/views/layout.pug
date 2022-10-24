@@ -11,6 +11,12 @@ head
     style
         include ../public/stylesheets/layout.css
 
+  block navigation
+    - var NavItems = [{'url':'home', 'title': 'Home'}, {'url':'leagues', 'title': 'Leagues'}, {'url':'teams', 'title': 'Teams'}, {'url':'stats', 'title': 'Stats'}, {'url':'rules', 'title': 'Rules'}, {'url':'about', 'title': 'About'}];
+
+  block variables
+    - var PageID = 'home'
+
 body
   header
       .p-5.text-white.text-center
@@ -18,25 +24,22 @@ body
       nav.navbar.navbar-expand-sm.bg-dark.navbar-dark
         .container-fluid
             ul.navbar-nav
-               li.nav-item
-                 a.nav-link.active(href='./home') Home
-               li.nav-item
-                 a.nav-link(href='./leagues') Leagues
-               li.nav-item
-                 a.nav-link(href='./teams') Teams
-               li.nav-item
-                 a.nav-link(href='./stats') Stats
-               li.nav-item
-                 a.nav-link(href='./rules') Rules
-               li.nav-item
-                 a.nav-link(href='./about') About
-               //temporary items
-               li.nav-item
-                 a.nav-link(href='./login') Login
-               li.nav-item
-                 a.nav-link(href='./signup') Sign Up
-               li.nav-item
-                 a.nav-link(href='./') Sign Out
+              //-javascript code to place items in navbar and highlight correct link 
+              each page,i in NavItems
+                if PageID === page.url
+                    li.nav-item
+                        a.nav-link.active(href='./' + page.url) #{page.title}
+                else
+                    li.nav-item
+                        a.nav-link(href='./' + page.url) #{page.title}
+
+              //-temporary items
+              li.nav-item
+                a.nav-link(href='./login') Login
+              li.nav-item
+                a.nav-link(href='./signup') Sign Up
+              li.nav-item
+                a.nav-link(href='./') Sign Out
             form.row.g-2
               .col-auto
                 input.form-control(type='search' placeholder='Search' aria-label='Search')
@@ -46,7 +49,7 @@ body
   block content
     .container
 
-  footer.text-center.text-lg-start.text-white
+footer.text-center.text-lg-start.text-white
     section
       .container.text-center.text-md-start.mt-5
         .row.mt-3
