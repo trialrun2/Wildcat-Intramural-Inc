@@ -23,7 +23,13 @@ head
             input#floatingPassword.form-control.form-control-sm(type='password' placeholder='Password')
             label(for='floatingPassword') Password
           .mt-3
-            a.btn.btn-light.primaryBg(href='/home' ) Login
+            a.btn.btn-light.primaryBg(onclick='login()') Login
+            script.
+              function login(){
+                alert(document.getElementsByTagName("input")[0].value)
+                
+              }
         .mt-3
           span Don't have account? 
           a.button(href='./signup') Sign Up
+          
