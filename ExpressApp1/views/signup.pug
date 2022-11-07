@@ -27,7 +27,13 @@ head
             input#floatingPassword.form-control.form-control-sm(type='password' placeholder='Password')
             label(for='floatingPassword') Password
           .mt-3
-            a.btn.btn-light.primaryBg(href='/home' ) Sign Up
+            a.btn.btn-light.primaryBg(onclick='signup()') Sign Up
+            script.
+              function signup(){
+                var fname = document.getElementsByTagName("input")[0].value
+                if fname === undefined
+                  alert("need first name")
+              }
         .mt-3
           span Already have account? 
           a(href='./login') Login
