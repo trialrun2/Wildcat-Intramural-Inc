@@ -1,6 +1,7 @@
 var express = require('express');
 const db = require('../database');
 var router = express.Router();
+//: JSON.stringify(users)
 
 // Get home page
 router.get('/', function (req, res, next) {
@@ -26,7 +27,7 @@ router.get('/about', function (req, res, next) {
 // Get login page
 router.get('/login', function (req, res, next) {
     var users = db.prepare("SELECT * FROM users").all();
-    res.render('login', { title: 'Data goes here' });
+    res.render('login', { title: 'Data goes here', users });
 });
 
 // Get sign-up page

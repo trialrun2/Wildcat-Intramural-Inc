@@ -6,6 +6,7 @@ head
   title Login
   style
     include ../public/stylesheets/login.css
+    include ../views/login.js
 
 
   
@@ -23,15 +24,17 @@ head
             input#floatingPassword.form-control.form-control-sm(type='password' placeholder='Password')
             label(for='floatingPassword') Password
           .mt-3
-            a.btn.btn-light.primaryBg(onclick='login()' href='./home') Login
+            a.btn.btn-light.primaryBg(onclick='login()') Login
             script.
               function login(){
                 //alert(document.getElementsByTagName("input")[0].value)
-                var uname = document.getElementsByTagName("input")[0].value 
+                var email = document.getElementsByTagName("input")[0].value 
                 var pass = document.getElementsByTagName("input")[1].value
-                alert(uname) 
+                //var user = users.prepare("SELECT * FROM users WHERE id = ?").get(email)
+                alert(email)
               }
         .mt-3
+          p= db.prepare(SELECT * FROM users WHERE email = adam@ksu.edu).all()
           span Don't have account? 
           a.button(href='./signup') Sign Up
           
