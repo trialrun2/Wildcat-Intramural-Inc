@@ -6,8 +6,8 @@ head
   title Login
   style
     include ../public/stylesheets/login.css
-    include ../views/login.js
 
+script(src="login.js")
 
   
 .container
@@ -25,16 +25,23 @@ head
             label(for='floatingPassword') Password
           .mt-3
             a.btn.btn-light.primaryBg(onclick='login()') Login
-            script.
-              function login(){
-                //alert(document.getElementsByTagName("input")[0].value)
-                var email = document.getElementsByTagName("input")[0].value 
-                var pass = document.getElementsByTagName("input")[1].value
-                //var user = users.prepare("SELECT * FROM users WHERE id = ?").get(email)
-                alert(email)
-              }
+            
         .mt-3
-          p= db.prepare(SELECT * FROM users WHERE email = adam@ksu.edu).all()
+          //ul 
+            each user in users
+              li= `${user.id}: ${user.email}`
+          //let user = users.prepare(`SELECT * FROM users WHERE email = ?`).get("adam@ksu.edu")
+          //p= user
           span Don't have account? 
           a.button(href='./signup') Sign Up
-          
+script.
+  function login(){
+  //alert(document.getElementsByTagName("input")[0].value)
+  var email = document.getElementsByTagName("input")[0].value 
+  var pass = document.getElementsByTagName("input")[1].value
+  //var user = users.prepare("SELECT * FROM users WHERE id = ?").get(email)
+  //alert(email)
+  
+  
+  
+  }

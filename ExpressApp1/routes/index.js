@@ -1,12 +1,13 @@
 var express = require('express');
 const db = require('../database');
+const loginjs = require('../views/login.js');
 var router = express.Router();
 //: JSON.stringify(users)
 
 // Get home page
 router.get('/', function (req, res, next) {
     var users = db.prepare("SELECT * FROM users").all();
-    res.render('index', { title: 'Data goes here', users: JSON.stringify(users) });
+    res.render('index', { title: 'Data goes here', users: users });
 });
 
 // Get teams page
@@ -27,7 +28,7 @@ router.get('/about', function (req, res, next) {
 // Get login page
 router.get('/login', function (req, res, next) {
     var users = db.prepare("SELECT * FROM users").all();
-    res.render('login', { title: 'Data goes here', users });
+    res.render('login', { title: 'Data goes here', users: users });
 });
 
 // Get sign-up page
