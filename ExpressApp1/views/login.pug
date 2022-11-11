@@ -27,11 +27,7 @@ script(src="login.js")
             a.btn.btn-light.primaryBg(onclick='login()') Login
             
         .mt-3
-          //ul 
-            each user in users
-              li= `${user.id}: ${user.email}`
-          //let user = users.prepare(`SELECT * FROM users WHERE email = ?`).get("adam@ksu.edu")
-          //p= user
+         
           span Don't have account? 
           a.button(href='./signup') Sign Up
 script.

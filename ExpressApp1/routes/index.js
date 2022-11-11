@@ -31,6 +31,10 @@ router.get('/login', function (req, res, next) {
     res.render('login', { title: 'Data goes here', users: users });
 });
 
+router.post('/login', function (req, res, next)=> {
+    
+});
+
 // Get sign-up page
 router.get('/signup', function (req, res, next) {
     res.render('signup', { title: 'Data goes here' });
