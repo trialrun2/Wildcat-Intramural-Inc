@@ -1,13 +1,12 @@
 var express = require('express');
 const db = require('../database');
-const loginjs = require('../views/login.js');
+const login = require('../public/javascripts/login');
 var router = express.Router();
-//: JSON.stringify(users)
 
-// Get home page
+// Get index page
 router.get('/', function (req, res, next) {
     var users = db.prepare("SELECT * FROM users").all();
-    res.render('index', { title: 'Data goes here', users: users });
+    res.render('index', { title: 'Data goes here', users: JSON.stringify(users) });
 });
 
 // Get teams page
@@ -28,17 +27,33 @@ router.get('/about', function (req, res, next) {
 // Get login page
 router.get('/login', function (req, res, next) {
     var users = db.prepare("SELECT * FROM users").all();
-    res.render('login', { title: 'Data goes here', users: users });
+    console.log('Now on login page')
+    res.render('login', { title: 'Data goes here', users: (users) });
 });
 
-router.post('/login', function (req, res, next)=> {
-    
+// Post from login page
+router.post('/login', function (req, res, next) {
+    var email = req.body.email;
+    var pass = req.body.password;
+    console.log(email, pass);
+    res.redirect('./home')
 });
+
 
 // Get sign-up page
 router.get('/signup', function (req, res, next) {
     res.render('signup', { title: 'Data goes here' });
 });
+
+// Post from sign-up page
+router.post('/signup', function (req, res, next) {
+    var fname = req.body.fname;
+    var lname = req.body.lname;
+    var email = req.body.email;
+    var pass = req.body.password;
+    console.log(fname, lname, email, pass);
+    res.redirect('./home')
+})
 
 // Get home page
 router.get('/home', function (req, res, next) {

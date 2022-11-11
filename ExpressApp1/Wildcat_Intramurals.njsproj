@@ -40,6 +40,7 @@
     <Content Include="database\development.sqlite3">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\favicon.ico" />
     <Content Include="public\javascripts\database.js">
       <SubType>Code</SubType>
     </Content>
