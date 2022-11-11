@@ -13,21 +13,23 @@ head
       .form-box.registration-form.p-5
         .form-title
           h2.fw-bold.mb-3 Create Your Account
-        form(action='')
+        //- this is what is needed to send back to the router
+        form(action='/signup' method='post')
           .form-floating.mb-3
-            input#floatingFirst.form-control.form-control-sm(type='text' placeholder='First Name')
+            input.form-control.form-control-sm(id='fname' name='fname' type='text' placeholder='First Name')
             label(for='floatingFirst') First Name
           .form-floating.mb-3
-            input#floatingLast.form-control.form-control-sm(type='text' placeholder='Last Name')
+            input.form-control.form-control-sm(id='lname' name='lname' type='text' placeholder='Last Name')
             label(for='floatingLast') Last Name
           .form-floating.mb-3
-            input#floatingEmail.form-control.form-control-sm(type='email' placeholder='Email')
+            input.form-control.form-control-sm(id='email' name='email' type='email' placeholder='Email')
             label(for='floatingEmail') Email
           .form-floating.mb-3
-            input#floatingPassword.form-control.form-control-sm(type='password' placeholder='Password')
+            input.form-control.form-control-sm(id='password' name='password' type='password' placeholder='Password')
             label(for='floatingPassword') Password
           .mt-3
-            a.btn.btn-light.primaryBg(href='/home' ) Sign Up
+            //- must be this type of input to submit the values to the router page
+            input.btn.btn-light.primaryBg(type='submit' value='Sign Up')
         .mt-3
           span Already have account? 
           a(href='./login') Login
