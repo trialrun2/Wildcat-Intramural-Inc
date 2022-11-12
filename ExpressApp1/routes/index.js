@@ -63,9 +63,18 @@ router.get('/signup', function (req, res, next) {
 router.post('/signup', function (req, res, next) {
     var fname = req.body.fname;
     var lname = req.body.lname;
+    var name = fname + " " + lname;
     var email = req.body.email;
     var pass = req.body.password;
     console.log(fname, lname, email, pass);
+
+    var user = db.prepare("SELECT * FROM users WHERE email = ?").get(email);
+    if (!user) {
+        db.run("INSERT INTO users (email, name, password_hash) VALUES (email, name, pass)");
+    } else {
+        res.render('signup', { title: 'Signup', msg: 'Email already exists' });
+    }
+
     res.redirect('./home')
 })
 
