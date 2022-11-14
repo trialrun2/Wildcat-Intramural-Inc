@@ -70,7 +70,7 @@ router.post('/signup', function (req, res, next) {
 
     var user = db.prepare("SELECT * FROM users WHERE email = ?").get(email);
     if (!user) {
-        db.run("INSERT INTO users (email, name, password_hash) VALUES (email, name, pass)");
+        db.prepare("INSERT INTO users (email, name, password_hash) VALUES (?, ?, ?)").run(email, name, pass);
     } else {
         res.render('signup', { title: 'Signup', msg: 'Email already exists' });
     }
