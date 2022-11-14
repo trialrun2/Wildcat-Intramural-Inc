@@ -1,6 +1,8 @@
 var express = require('express');
+var bcrypt = require('bcrypt');
 const db = require('../database');
 var router = express.Router();
+const saltRounds = 10;
 
 // Get index page
 router.get('/', function (req, res, next) {
@@ -43,14 +45,14 @@ router.post('/login', function (req, res, next) {
     if (!user) {
         res.render('login', { title: 'Login', msg: 'Incorrect Usename/Password. Please try again.', users: (users) });
     }
-    if (pass === user.password_hash) {
+
+    var result = bcrypt.compare(pass, user.password_hash);
+    if (result) {
         res.redirect('./home');
     }
     else {
         res.render('login', { title: 'Login', msg: 'Incorrect Username/Password. Please try again.', users: (users) });
     }
-
-    
 });
 
 
@@ -68,10 +70,13 @@ router.post('/signup', function (req, res, next) {
     var pass = req.body.password;
     console.log(fname, lname, email, pass);
 
-    var user = db.prepare("SELECT * FROM users WHERE email = ?").get(email);
+    var user = db.prepare(`SELECT * FROM users WHERE email = ?`).get(email);
     if (!user) {
-        db.prepare("INSERT INTO users (email, name, password_hash) VALUES (?, ?, ?)").run(email, name, pass);
-    } else {
+        bcrypt.hash(pass, saltRounds, (err, hash) => {
+            db.prepare(`INSERT INTO users (email, name, password_hash) VALUES (?, ?, ?)`).run(email, name, hash);
+        });
+    }
+    else {
         res.render('signup', { title: 'Signup', msg: 'Email already exists' });
     }
 
