@@ -8,7 +8,7 @@ block append style
         include ../public/stylesheets/home.css
 
 block content
-  //-p= `${user.id}: ${user.email} ${user.password_hash}`
+ body
   .container.mt-5
     .row
       .col-sm-4
@@ -76,20 +76,22 @@ block content
               td Example Date
               td Example number
 
-  // The Modal
-  #myModal.modal.fade
-    .modal-dialog.modal-dialog-centered
-      .modal-content
-        // Modal Header
-        .modal-header
-          h4.modal-title Join Team
-          button.btn-close(type='button' data-bs-dismiss='modal')
-        form(action='./home' method='post')
-          // Modal body
-          .modal-body
-            label.mb-3(for='team-code') Team Code    
-            input.form-control.form-control-sm.float-end(id='team-code' name='team-code' type='text' placeholder='Team Code')
-          // Modal footer
-          .modal-footer
-            input.btn.btn-light.primaryBg(type= 'submit' value='Search')
-            button.btn.btn-danger(type='button' data-bs-dismiss='modal') Close
+
+
+    // The Modal
+    #myModal.modal.fade
+      .modal-dialog.modal-dialog-centered
+        .modal-content
+          // Modal Header
+          .modal-header
+            h4.modal-title Join Team
+            button.btn-close(type='button' data-bs-dismiss='modal')
+          form(action='/home' method='post')
+            // Modal body
+            .modal-body
+              label.mb-3(for='tc') Team Code    
+              input.form-control.form-control-sm.float-end(id='tc' name='tc' type='text' placeholder='Team Code')
+            // Modal footer
+            .modal-footer
+              input.btn.btn-light.primaryBg(type= 'submit' value='Search')
+              button.btn.btn-danger(type='button' data-bs-dismiss='modal') Close

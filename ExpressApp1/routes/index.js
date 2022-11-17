@@ -105,9 +105,9 @@ router.get('/home', function (req, res, next) {
 });
 
 // Posts for home pages
-router.post('./home', function (req, res, next) {
-    var code = req.body.team-code;
-    console.log(code);
+router.post('/home', function (req, res, next) {
+    var tc = req.body.tc;
+    console.log(tc);
 });
 
 // Get stats page
