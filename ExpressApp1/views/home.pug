@@ -8,10 +8,11 @@ block append style
         include ../public/stylesheets/home.css
 
 block content
+ body
   .container.mt-5
     .row
       .col-sm-4
-        h2 Users Name
+        h2 #{user.name}
         h5 Photo:
         .fakeimg Photo submitted by user
         p Height: 6&apos;0&apos;
@@ -33,7 +34,8 @@ block content
         h2
           | My Teams
           button.btn.btn-light.ms-3(type='button') Create Team
-          button.btn.btn-light.ms-3(type='button') Join Team
+          button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#myModal') Join Team
+
         table.table.table-striped.table-hover
           thead
             tr
@@ -73,3 +75,23 @@ block content
               td Example Sport
               td Example Date
               td Example number
+
+
+
+    // The Modal
+    #myModal.modal.fade
+      .modal-dialog.modal-dialog-centered
+        .modal-content
+          // Modal Header
+          .modal-header
+            h4.modal-title Join Team
+            button.btn-close(type='button' data-bs-dismiss='modal')
+          form(action='/home' method='post')
+            // Modal body
+            .modal-body
+              label.mb-3(for='tc') Team Code    
+              input.form-control.form-control-sm.float-end(id='tc' name='tc' type='text' placeholder='Team Code')
+            // Modal footer
+            .modal-footer
+              input.btn.btn-light.primaryBg(type= 'submit' value='Search')
+              button.btn.btn-danger(type='button' data-bs-dismiss='modal') Close

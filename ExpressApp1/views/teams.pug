@@ -2,3 +2,8 @@ extends layout.pug
 
 block variables
   - var PageID = 'teams';
+
+.container
+  ul
+    each team in teams
+      li= `${team.name}`
