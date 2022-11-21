@@ -7,13 +7,16 @@ var logged_in;
 
 // Get index page
 router.get('/', function (req, res, next) {
-    var users = db.prepare("SELECT * FROM users").all();
-    res.render('index', { title: 'Wildcat Intramural Inc.', users: JSON.stringify(users) });
+    //var users = db.prepare("SELECT * FROM users").all();
+    //res.render('index', { title: 'Wildcat Intramural Inc.', users: JSON.stringify(users) });
+    res.render('index', { title: 'Wildcat Intramural Inc.' });
 });
 
 // Get teams page
 router.get('/teams', function (req, res, next) {
     var teams = db.prepare(`SELECT * FROM teams`).all();
+    var code = req.query.tc;
+    console.log(code);
     res.render('teams', { title: 'Teams', teams: teams});
 });
 
@@ -29,9 +32,10 @@ router.get('/about', function (req, res, next) {
 
 // Get login page
 router.get('/login', function (req, res, next) {
-    var users = db.prepare("SELECT * FROM users").all();
+    //var users = db.prepare("SELECT * FROM users").all();
     console.log('Now on login page')
-    res.render('login', { title: 'Login', msg: '', users: (users) });
+    //res.render('login', { title: 'Login', msg: '', users: (users) });
+    res.render('login', { title: 'Login', msg: '' });
 });
 
 // Post from login page

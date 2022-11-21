@@ -31,7 +31,7 @@ body.container
           span Don't have account? 
           a.button(href='./signup') Sign Up
 
-        .mt-3
+        //.mt-3
           ul
             each user in users
               li= `${user.id}: ${user.email} ${user.password_hash}`

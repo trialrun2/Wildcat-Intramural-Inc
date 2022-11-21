@@ -6,3 +6,8 @@ body {
     background: #aaa;
     max-width: 300px;
 }
+
+a{
+    color: black;
+    text-decoration: none;
+}
