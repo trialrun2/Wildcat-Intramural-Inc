@@ -3,8 +3,13 @@ extends layout.pug
 block variables
   - var PageID = 'createTeam';
 
+  block append style
+    style
+        include ../public/stylesheets/createTeam.css
+
 block content 
- body
-  .container
-    h2
-      | Choose a Sport
+  body
+   .grid-container
+     each sport in sports
+       .grid-item
+         .gbutton.btn.btn-light #{sport.sportName}

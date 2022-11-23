@@ -59,6 +59,9 @@
     <Content Include="public\stylesheets\about.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\stylesheets\createTeam.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\stylesheets\home.css">
       <SubType>Code</SubType>
     </Content>
@@ -95,9 +98,6 @@
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
     <Content Include="views\leagues.pug">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="views\login.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\login.pug">

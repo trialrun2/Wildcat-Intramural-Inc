@@ -5,7 +5,13 @@ block variables
 
 block content
  body
-  .container
-   ul
-     each team in teams
-       li= `${team.teamName}`
+  p=teams
+  //-
+   table.table.table-striped.table-hover
+     thead
+       tr
+         th Name
+     tbody
+       each team in teams
+         tr
+           td #{team.teamName}

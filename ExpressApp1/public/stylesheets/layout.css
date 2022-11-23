@@ -19,6 +19,7 @@ h1{
 .btn {
     background: #9900cc;
     color: white;
+    border: none;
 }
 footer {
     position: relative;

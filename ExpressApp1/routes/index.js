@@ -23,9 +23,10 @@ router.get('/teams', function (req, res, next) {
     for (let i = 0; i < players.length; i++) {
         members = db.prepare(`SELECT * FROM users`).get(players[i].user_id);
     }*/
-    var team = db.prepare("SELECT * FROM teams").all();
+    var teams = db.prepare("SELECT * FROM teams").all();
 
-    res.render('teams', { title: 'Teams', teams: team });
+    res.render('teams', { title: 'Teams', teams: JSON.stringify(teams) });
+    //res.render('teams', { title: 'Teams', teams: teams });
 });
 
 // Get leagues page
@@ -135,13 +136,14 @@ router.get('/rules', function (req, res, next) {
     res.render('rules', { title: 'Rules' });
 });
 
-router.get('/create-team', function (req, res, next){
-    res.render('create-team', { title: 'Create Team' });
+router.get('/createTeam', function (req, res, next) { 
+    var sports = db.prepare("SELECT * FROM sports").all();
+    res.render('createTeam', { title: 'Create Team', sports: sports });
 });
 
 router.get('/sports', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();
-    res.render('sports', { title: 'Sports', sports: sports });
+    res.render('sports', { title: 'Sports', sports: sports, s: JSON.stringify(sports) });
 });
 
 module.exports = router;
