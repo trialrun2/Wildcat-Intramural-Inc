@@ -85,6 +85,9 @@
     <Content Include="views\about.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\createTeam.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\home.pug">
       <SubType>Code</SubType>
     </Content>

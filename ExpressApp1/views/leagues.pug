@@ -9,3 +9,10 @@ block append style
     height: 200px;
     background: #aaa;
     }
+
+block content
+ body
+  .container
+   ul
+     each league in leagues
+       li= `${league.leagueName}`

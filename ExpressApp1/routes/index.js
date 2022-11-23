@@ -22,7 +22,9 @@ router.get('/teams', function (req, res, next) {
 
 // Get leagues page
 router.get('/leagues', function (req, res, next) {
-    res.render('leagues', { title: 'Leagues' });
+    var leagues = db.prepare('SELECT * FROM leagues').all();
+
+    res.render('leagues', { title: 'Leagues', leagues: leagues });
 });
 
 // Get about page
@@ -116,6 +118,7 @@ router.post('/home', function (req, res, next) {
 
 // Get stats page
 router.get('/stats', function (req, res, next) {
+
     res.render('stats', { title: 'Stats' });
 });
 
