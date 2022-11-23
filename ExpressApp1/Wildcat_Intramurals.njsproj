@@ -85,6 +85,9 @@
     <Content Include="views\about.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\create-team.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\home.pug">
       <SubType>Code</SubType>
     </Content>
@@ -94,9 +97,6 @@
     <Content Include="views\leagues.pug">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\login.js">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="views\login.pug">
       <SubType>Code</SubType>
     </Content>
@@ -104,6 +104,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\signup.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\sports.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\stats.pug">
