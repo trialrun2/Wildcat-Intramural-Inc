@@ -32,8 +32,7 @@ router.get('/teams', function (req, res, next) {
 // Get leagues page
 router.get('/leagues', function (req, res, next) {
     var leagues = db.prepare('SELECT * FROM leagues').all();
-
-    res.render('leagues', { title: 'Leagues', leagues: leagues });
+    res.render('leagues', { title: 'Leagues', leagues: leagues, l: JSON.stringify(leagues) });
 });
 
 // Get about page
@@ -138,7 +137,8 @@ router.get('/rules', function (req, res, next) {
 
 router.get('/createTeam', function (req, res, next) { 
     var sports = db.prepare("SELECT * FROM sports").all();
-    res.render('createTeam', { title: 'Create Team', sports: sports });
+    var leagues = db.prepare("SELECT * FROM leagues").all();
+    res.render('createTeam', { title: 'Create Team', sports: sports, leagues: leagues });
 });
 
 router.get('/sports', function (req, res, next) {
