@@ -32,6 +32,25 @@ router.get('/about', function (req, res, next) {
     res.render('about', { title: 'About' });
 });
 
+//get createTeam page
+router.get('/createTeam', function (req, res, next) {
+    var sports = db.prepare("SELECT * FROM sports").all();
+    var bballLeague = db.prepare("SELECT * FROM leagues WHERE sport_id = ?").get(1);
+    console.log(bballLeague);
+    var fballLeague = db.prepare("SELECT * FROM leagues WHERE sport_id = ?").get(2);
+    console.log(fballLeague);
+    res.render('createTeam', {
+        title: 'CreateTeam', sports: sports,
+        bballLeague: bballLeague,
+        fballLeague: fballLeague
+    });
+});
+
+//post from createTeam page
+router.post('/createTeam', function (req, res, next) {
+    
+});
+
 // Get login page
 router.get('/login', function (req, res, next) {
     //var users = db.prepare("SELECT * FROM users").all();
@@ -107,13 +126,18 @@ router.post('/signup', function (req, res, next) {
 
 // Get home page
 router.get('/home', function (req, res, next) {
-    res.render('home', { title: 'Home', user: logged_in });
+    var sports = db.prepare("SELECT * FROM sports").all();
+    res.render('home', {
+        title: 'Home', user: logged_in,
+        sports: sports
+    });
 });
 
 // Posts for home pages
 router.post('/home', function (req, res, next) {
     var tc = req.body.tc;
-    console.log(tc);
+    console.log("tc" + tc);
+    
 });
 
 // Get stats page
