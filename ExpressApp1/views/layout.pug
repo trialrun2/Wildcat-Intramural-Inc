@@ -12,7 +12,7 @@ head
         include ../public/stylesheets/layout.css
 
   block navigation
-    - var NavItems = [{'url':'home', 'title': 'Home'}, {'url':'leagues', 'title': 'Leagues'}, {'url':'teams', 'title': 'Teams'}, {'url':'stats', 'title': 'Stats'}, {'url':'rules', 'title': 'Rules'}, {'url':'about', 'title': 'About'}];
+    - var NavItems = [{'url':'home', 'title': 'Home'}, {'url':'sports', 'title': 'Sports'}, {'url':'leagues', 'title': 'Leagues'}, {'url':'teams', 'title': 'Teams'}, {'url':'stats', 'title': 'Stats'}, {'url':'rules', 'title': 'Rules'}, {'url':'about', 'title': 'About'}];
 
   block variables
     - var PageID = 'home'
@@ -40,11 +40,6 @@ body
                 a.nav-link(href='./signup') Sign Up
               li.nav-item
                 a.nav-link(href='./') Sign Out
-            form.row.g-2
-              .col-auto
-                input.form-control(type='search' placeholder='Search' aria-label='Search')
-              .col-auto
-                button.btn(type='submit') Search
 
   block content
     .container

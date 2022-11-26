@@ -14,17 +14,25 @@ router.get('/', function (req, res, next) {
 
 // Get teams page
 router.get('/teams', function (req, res, next) {
-    var teams = db.prepare(`SELECT * FROM teams`).all();
-    var code = req.query.tc;
+    /*var code = req.query.tc;
     console.log(code);
-    res.render('teams', { title: 'Teams', teams: teams});
+    var team = db.prepare(`SELECT * FROM teams`).get(code);
+    var players = db.prepare(`SELECT * FROM userToTeam`).get(teams.team_id);
+    var members;
+
+    for (let i = 0; i < players.length; i++) {
+        members = db.prepare(`SELECT * FROM users`).get(players[i].user_id);
+    }*/
+    var teams = db.prepare("SELECT * FROM teams").all();
+
+    res.render('teams', { title: 'Teams', teams: JSON.stringify(teams) });
+    //res.render('teams', { title: 'Teams', teams: teams });
 });
 
 // Get leagues page
 router.get('/leagues', function (req, res, next) {
     var leagues = db.prepare('SELECT * FROM leagues').all();
-
-    res.render('leagues', { title: 'Leagues', leagues: leagues });
+    res.render('leagues', { title: 'Leagues', leagues: leagues, l: JSON.stringify(leagues) });
 });
 
 // Get about page
@@ -149,6 +157,17 @@ router.get('/stats', function (req, res, next) {
 // Get rules page
 router.get('/rules', function (req, res, next) {
     res.render('rules', { title: 'Rules' });
+});
+
+router.get('/createTeam', function (req, res, next) { 
+    var sports = db.prepare("SELECT * FROM sports").all();
+    var leagues = db.prepare("SELECT * FROM leagues").all();
+    res.render('createTeam', { title: 'Create Team', sports: sports, leagues: leagues });
+});
+
+router.get('/sports', function (req, res, next) {
+    var sports = db.prepare("SELECT * FROM sports").all();
+    res.render('sports', { title: 'Sports', sports: sports, s: JSON.stringify(sports) });
 });
 
 module.exports = router;

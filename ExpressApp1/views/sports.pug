@@ -1,0 +1,21 @@
+extends layout.pug
+
+block variables
+  - var PageID = 'sports';
+
+block content
+ body
+   p=s
+   table.table.table-striped.table-hover
+     thead
+       tr
+         th ID
+         th Sport
+         th Rules
+     tbody
+       each sport in sports
+         tr
+           td #{sport.sport_id}
+           td #{sport.sportName}
+           td #{sport.sportRules}
+         
