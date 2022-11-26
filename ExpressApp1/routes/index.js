@@ -31,8 +31,10 @@ router.get('/teams', function (req, res, next) {
 
 // Get leagues page
 router.get('/leagues', function (req, res, next) {
-    var leagues = db.prepare('SELECT * FROM leagues').all();
-    res.render('leagues', { title: 'Leagues', leagues: leagues, l: JSON.stringify(leagues) });
+    var sportId = req.query.si;
+    var leagues = db.prepare("SELECT * FROM leagues WHERE sport_id = ?").all(sportId);
+    var aleagues = db.prepare("SELECT * FROM leagues").all();
+    res.render('leagues', { title: 'Leagues', leagues: leagues, aleagues: aleagues });
 });
 
 // Get about page
@@ -42,9 +44,6 @@ router.get('/about', function (req, res, next) {
 
 // Get login page
 router.get('/login', function (req, res, next) {
-    //var users = db.prepare("SELECT * FROM users").all();
-    console.log('Now on login page')
-    //res.render('login', { title: 'Login', msg: '', users: (users) });
     res.render('login', { title: 'Login', msg: '' });
 });
 
@@ -53,8 +52,6 @@ router.post('/login', function (req, res, next) {
     var users = db.prepare("SELECT * FROM users").all();
     var email = req.body.email;
     var pass = req.body.password;
-    let success = true;
-    console.log(email, pass);
 
     var user = db.prepare("SELECT * FROM users WHERE email = ?").get(email);
     console.log('user', user);
@@ -97,7 +94,6 @@ router.post('/signup', function (req, res, next) {
     var name = fname + " " + lname;
     var email = req.body.email;
     var pass = req.body.password;
-    console.log(fname, lname, email, pass);
 
     var user = db.prepare(`SELECT * FROM users WHERE email = ?`).get(email);
     if (!user) {
@@ -137,9 +133,9 @@ router.get('/rules', function (req, res, next) {
 
 router.get('/createTeam', function (req, res, next) { 
     var sports = db.prepare("SELECT * FROM sports").all();
-    var leagues = db.prepare("SELECT * FROM leagues").all();
-    res.render('createTeam', { title: 'Create Team', sports: sports, leagues: leagues });
+    res.render('createTeam', { title: 'Create Team', sports: sports });
 });
+
 
 router.get('/sports', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();

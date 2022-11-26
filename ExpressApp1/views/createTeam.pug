@@ -3,42 +3,13 @@ extends layout.pug
 block variables
   - var PageID = 'createTeam';
 
-  block append style
-    style
-        include ../public/stylesheets/createTeam.css
+block append style
+  style
+    include ../public/stylesheets/createTeam.css
 
 block content 
   body
    .grid-container#sports
      each sport in sports
        .grid-item
-         .gbutton.btn.btn-light(onclick="showLeagues(this)" data-sport-id=sport.sport_id) #{sport.sportName}
-
-   table.table.table-striped.table-hover#league_table
-          thead
-            tr
-              th Leagues
-          tbody
-            
-            
-                
-
-
-  script.
-    function showLeagues(element){
-      document.getElementById("sports").style.display = "none";
-      let sportID = element.getAttribute("data-sport-id");
-
-      leagues.forEach(addRows);
-      
-      document.getElementById("league_table").style.display = "block";
-    }
-
-    function addRows(){
-      var tb = document.getElementById("league_table");
-      if (sportID === leagues.sport_id){
-        var tr = document.createElement('tr');
-        var td = document.createElement('td');
-        td.app
-      }
-    }
+         a.btn(class='gbutton' href='/leagues/?si=' + sport.sport_id) #{sport.sportName}

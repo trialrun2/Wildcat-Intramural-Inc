@@ -77,6 +77,9 @@
     <Content Include="public\stylesheets\signup.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\stylesheets\sports.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\stylesheets\teams.css">
       <SubType>Code</SubType>
     </Content>
@@ -86,6 +89,12 @@
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
     <Content Include="views\about.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\addLeague.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\addSport.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\createTeam.pug">

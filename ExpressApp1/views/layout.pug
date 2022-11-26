@@ -16,6 +16,7 @@ head
 
   block variables
     - var PageID = 'home'
+    - var user = 3
 
 body
   header
@@ -32,6 +33,13 @@ body
                 else
                     li.nav-item
                         a.nav-link(href='./' + page.url) #{page.title}
+
+              if user <= 2
+                li.nav-item
+                  a.nav-link(href='./addLeague') Add League
+                li.nav-item
+                  a.nav-link(href='./addSport') Add Sport
+ 
 
               //-temporary items
               li.nav-item
