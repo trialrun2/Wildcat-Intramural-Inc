@@ -25,7 +25,7 @@ router.get('/teams', function (req, res, next) {
     }*/
     var teams = db.prepare("SELECT * FROM teams").all();
 
-    res.render('teams', { title: 'Teams', teams: JSON.stringify(teams) });
+    res.render('teams', { title: 'Teams', teams: JSON.stringify(teams), user: logged_in });
     //res.render('teams', { title: 'Teams', teams: teams });
 });
 
@@ -34,26 +34,19 @@ router.get('/leagues', function (req, res, next) {
     var sportId = req.query.si;
     var leagues = db.prepare("SELECT * FROM leagues WHERE sport_id = ?").all(sportId);
     var aleagues = db.prepare("SELECT * FROM leagues").all();
-    res.render('leagues', { title: 'Leagues', leagues: leagues, aleagues: aleagues });
+    res.render('leagues', { title: 'Leagues', leagues: leagues, aleagues: aleagues, user: logged_in });
 });
 
 // Get about page
 router.get('/about', function (req, res, next) {
-    res.render('about', { title: 'About' });
+    res.render('about', { title: 'About', user: logged_in });
 });
 
 //get createTeam page
 router.get('/createTeam', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();
-    var bballLeague = db.prepare("SELECT * FROM leagues WHERE sport_id = ?").get(1);
-    console.log(bballLeague);
-    var fballLeague = db.prepare("SELECT * FROM leagues WHERE sport_id = ?").get(2);
-    console.log(fballLeague);
-    res.render('createTeam', {
-        title: 'CreateTeam', sports: sports,
-        bballLeague: bballLeague,
-        fballLeague: fballLeague
-    });
+    var leagues = db.prepare("SELECT * FROM leagues").all();
+    res.render('createTeam', {title: 'CreateTeam', sports: sports, leagues: leagues, user: logged_in });
 });
 
 //post from createTeam page
@@ -131,10 +124,7 @@ router.post('/signup', function (req, res, next) {
 // Get home page
 router.get('/home', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();
-    res.render('home', {
-        title: 'Home', user: logged_in,
-        sports: sports
-    });
+    res.render('home', { title: 'Home', user: logged_in });
 });
 
 // Posts for home pages
@@ -147,23 +137,30 @@ router.post('/home', function (req, res, next) {
 // Get stats page
 router.get('/stats', function (req, res, next) {
 
-    res.render('stats', { title: 'Stats' });
+    res.render('stats', { title: 'Stats', user: logged_in });
 });
 
 // Get rules page
 router.get('/rules', function (req, res, next) {
-    res.render('rules', { title: 'Rules' });
+    res.render('rules', { title: 'Rules', user: logged_in });
 });
 
 router.get('/createTeam', function (req, res, next) { 
     var sports = db.prepare("SELECT * FROM sports").all();
-    res.render('createTeam', { title: 'Create Team', sports: sports });
+    res.render('createTeam', { title: 'Create Team', sports: sports, user: logged_in });
 });
-
 
 router.get('/sports', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();
-    res.render('sports', { title: 'Sports', sports: sports, s: JSON.stringify(sports) });
+    res.render('sports', { title: 'Sports', sports: sports, user: logged_in });
+});
+
+router.get('/addLeague', function (req, res, next) {
+    res.render('addLeague', { title: 'Add League', user: logged_in });
+});
+
+router.get('/addSport', function (req, res, next) {
+    res.render('addSport', { title: 'Add Sport', user: logged_in });
 });
 
 module.exports = router;

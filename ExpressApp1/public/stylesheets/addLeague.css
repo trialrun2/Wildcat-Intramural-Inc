@@ -1,0 +1,21 @@
+body {
+    font-family: 'Roboto';
+}
+
+.inner-row {
+    height: 60vh;
+}
+
+.primaryBg {
+    background: #9900cc;
+    color: white;
+}
+
+.primaryColor {
+    background: #9900cc;
+}
+
+.form-box {
+    background: #fff;
+    font-family: 'Roboto';
+}

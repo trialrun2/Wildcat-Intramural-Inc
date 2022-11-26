@@ -118,6 +118,9 @@
     <Content Include="views\signup.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\sports.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\stats.pug">
       <SubType>Code</SubType>
     </Content>

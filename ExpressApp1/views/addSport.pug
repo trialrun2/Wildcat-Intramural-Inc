@@ -1,1 +1,29 @@
 extends layout.pug
+
+block variables
+  - var PageID = 'addSport';
+  - var user = user.id;
+
+block append style
+  style
+    include ../public/stylesheets/addSport.css
+
+block content
+  body
+    .container
+      .row.justify-content-center.align-items-center.inner-row
+        .col-lg-5.col-md-7
+          .form-box.p-5
+            .form-title
+              h2.fw-bold.mb-3 Add New Sport
+            //- this is what is needed to send back to the router
+            form(action='/addSport' method='post')
+              .form-floating.mb-3
+                input.form-control.form-control-sm(id='sname' name='sname' type='text' placeholder='Sport')
+                label(for='floatingFirst') Sport
+              .form-floating.mb-3
+                input.form-control.form-control-sm(id='rules' name='rules' type='text' placeholder='Rules')
+                label(for='floatingLast') Rules
+              .mt-3
+                //- must be this type of input to submit the values to the router page
+                input.btn.btn-light.primaryBg(type='submit' value='Add')

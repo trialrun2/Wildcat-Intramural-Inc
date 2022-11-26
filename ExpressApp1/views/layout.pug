@@ -13,6 +13,7 @@ head
 
   block navigation
     - var NavItems = [{'url':'home', 'title': 'Home'}, {'url':'sports', 'title': 'Sports'}, {'url':'leagues', 'title': 'Leagues'}, {'url':'teams', 'title': 'Teams'}, {'url':'stats', 'title': 'Stats'}, {'url':'rules', 'title': 'Rules'}, {'url':'about', 'title': 'About'}];
+    - var AddItems = [{'url':'addLeague', 'title': 'Add League'}, {'url':'addSport', 'title': 'Add Sport'}];
 
   block variables
     - var PageID = 'home'
@@ -28,24 +29,21 @@ body
               //-javascript code to place items in navbar and highlight correct link 
               each page,i in NavItems
                 if PageID === page.url
-                    li.nav-item
-                        a.nav-link.active(href='./' + page.url) #{page.title}
+                  li.nav-item
+                    a.nav-link.active(href='./' + page.url) #{page.title}
                 else
-                    li.nav-item
-                        a.nav-link(href='./' + page.url) #{page.title}
+                  li.nav-item
+                    a.nav-link(href='./' + page.url) #{page.title}
 
               if user <= 2
-                li.nav-item
-                  a.nav-link(href='./addLeague') Add League
-                li.nav-item
-                  a.nav-link(href='./addSport') Add Sport
- 
-
-              //-temporary items
-              li.nav-item
-                a.nav-link(href='./login') Login
-              li.nav-item
-                a.nav-link(href='./signup') Sign Up
+                each page, i in AddItems
+                  if PageID === page.url
+                    li.nav-item
+                      a.nav-link.active(href='./' + page.url) #{page.title}
+                  else
+                    li.nav-item
+                      a.nav-link(href='./' + page.url) #{page.title}
+            ul.navbar-nav
               li.nav-item
                 a.nav-link(href='./') Sign Out
 
