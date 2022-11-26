@@ -1,0 +1,38 @@
+.grid-container {
+    height: 100%;
+    margin: auto;
+    max-width: 900px;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-gap: 20px;
+    grid-auto-rows: 100px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    justify-items: center;
+    text-align: center;
+}
+
+.grid-item {
+    position: relative;
+    height: 100px;
+    width: 200px;
+    text-align: center;
+}
+
+.grid-item div {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.gbutton {
+    background: #9900cc;
+    width: 200px;
+    height: 100px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    font-size: 30px;
+    text-shadow: -.25px .25px 0 #000, .25px .25px 0 #000, .25px -.25px 0 #000;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}

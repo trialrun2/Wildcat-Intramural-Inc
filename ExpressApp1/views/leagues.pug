@@ -11,9 +11,25 @@ block append style
     }
 
 block content
- body
-  p=l
-  .container
-   ul
-     each league in leagues
-       li= `${league.leagueName}`
+  body
+    table.table.table-striped.table-hover
+     thead
+       tr
+         th Leagues
+     tbody
+       each league in leagues
+         tr
+           td #{league.leagueName}
+           td
+             .btn.btn-light Select
+
+    table.table.table-striped.table-hover
+     thead
+       tr
+         th All Leagues
+     tbody
+       each league in aleagues
+         tr
+           td #{league.leagueName}
+           td
+             .btn.btn-light Select
