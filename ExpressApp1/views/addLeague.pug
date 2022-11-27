@@ -4,6 +4,8 @@ block variables
   - var PageID = 'addLeague';
   - var user = user.id;
   - var divisions = ['Dorm', 'Co-Ed', 'Independent', 'Fraternity'];
+  - var days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+  - var times = ['6:00', '7:00', '8:00', '9:00'];
 
 block append style
   style
@@ -31,12 +33,18 @@ block content
                   option.selected 
                   each division in divisions
                     option(value= division) #{division}
-              label Day/s
+              label Day
               .form-floating.mb-3
-                input.form-control-lg(id='rules' name='rules' type='text' placeholder='Day/s')
-              label Times
+                select.form-control-lg(id='day' name='day')
+                  option.selected 
+                  each day in days
+                    option(value= day) #{day}
+              label Time
               .form-floating.mb-3
-                input.form-control-lg(id='rules' name='rules' type='text' placeholder='Times')
+                select.form-control-lg(id='time' name='time')
+                  option.selected 
+                  each time in times
+                    option(value= time) #{time}
               .mt-3
                 //- must be this type of input to submit the values to the router page
                 input.btn.btn-light.primaryBg(type='submit' value='Add')
