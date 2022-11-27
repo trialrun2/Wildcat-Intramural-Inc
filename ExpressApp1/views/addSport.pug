@@ -18,12 +18,12 @@ block content
               h2.fw-bold.mb-3 Add New Sport
             //- this is what is needed to send back to the router
             form(action='/addSport' method='post')
+              label Name
               .form-floating.mb-3
-                input.form-control.form-control-sm(id='sname' name='sname' type='text' placeholder='Sport')
-                label(for='floatingFirst') Sport
+                input.form-control-lg(id='rules' name='rules' type='text' placeholder='Sport')
+              label Rules
               .form-floating.mb-3
-                input.form-control.form-control-sm(id='rules' name='rules' type='text' placeholder='Rules')
-                label(for='floatingLast') Rules
+                textarea.form-control-lg(id='rules' name='rules' type='text' placeholder='Rules')
               .mt-3
                 //- must be this type of input to submit the values to the router page
                 input.btn.btn-light.primaryBg(type='submit' value='Add')

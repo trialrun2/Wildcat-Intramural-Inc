@@ -59,6 +59,12 @@
     <Content Include="public\stylesheets\about.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\stylesheets\addLeague.css">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\stylesheets\addSport.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\stylesheets\createTeam.css">
       <SubType>Code</SubType>
     </Content>

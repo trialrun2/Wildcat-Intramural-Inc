@@ -3,7 +3,7 @@ body {
 }
 
 .inner-row {
-    height: 50vh;
+    height: 75vh;
 }
 
 .primaryBg {
@@ -19,3 +19,29 @@ body {
     background: #fff;
     font-family: 'Roboto';
 }
+
+
+label {
+    font-size: 20px;
+}
+
+.form-control-lg {
+    width: 100%;
+}
+
+.btn {
+    float: right;
+    height: 50px;
+    width: 100px;
+    font-size: 20px;
+}
+
+textarea{
+    height: 250px;
+}
+
+input {
+    border: 1px;
+    border-style: solid;
+}
+

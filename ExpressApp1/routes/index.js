@@ -93,7 +93,6 @@ router.post('/login', function (req, res, next) {
     });
 });
 
-
 // Get sign-up page
 router.get('/signup', function (req, res, next) {
     res.render('signup', { title: 'Sign Up' });
@@ -145,20 +144,23 @@ router.get('/rules', function (req, res, next) {
     res.render('rules', { title: 'Rules', user: logged_in });
 });
 
-router.get('/createTeam', function (req, res, next) { 
-    var sports = db.prepare("SELECT * FROM sports").all();
-    res.render('createTeam', { title: 'Create Team', sports: sports, user: logged_in });
-});
-
+// Get sports page
 router.get('/sports', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();
     res.render('sports', { title: 'Sports', sports: sports, user: logged_in });
 });
 
+// Get addLeague page
 router.get('/addLeague', function (req, res, next) {
-    res.render('addLeague', { title: 'Add League', user: logged_in });
+    var sports = db.prepare("SELECT * FROM sports").all();
+    res.render('addLeague', { title: 'Add League', user: logged_in, sports: sports });
 });
 
+router.post('/addLeague', function (req, res, next) {
+    
+});
+
+// Get addSports page
 router.get('/addSport', function (req, res, next) {
     res.render('addSport', { title: 'Add Sport', user: logged_in });
 });
