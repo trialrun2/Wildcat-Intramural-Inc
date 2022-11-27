@@ -1,28 +1,21 @@
 .grid-container {
-    height: 100%;
-    margin: auto;
+    min-height: 300px;
     max-width: 900px;
+    margin-left: 35%;
     width: 100%;
     padding: 20px;
     display: grid;
     grid-gap: 20px;
     grid-auto-rows: 100px;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    justify-items: center;
-    text-align: center;
+    align-content: center;
 }
 
 .grid-item {
     position: relative;
     height: 100px;
     width: 200px;
-    text-align: center;
-}
-
-.grid-item div {
-    display: flex;
-    justify-content: center;
-    align-content: center;
+    place-content: center;
 }
 
 .gbutton {
