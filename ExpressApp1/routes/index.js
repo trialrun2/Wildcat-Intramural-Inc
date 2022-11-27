@@ -157,7 +157,12 @@ router.get('/addLeague', function (req, res, next) {
 });
 
 router.post('/addLeague', function (req, res, next) {
-    
+    var sport = req.body.sname;
+    var div = req.body.div;
+    var day = req.body.day;
+    var time = req.body.time;
+    console.log(sport + div + day + time);
+
 });
 
 // Get addSports page
