@@ -170,4 +170,10 @@ router.get('/addSport', function (req, res, next) {
     res.render('addSport', { title: 'Add Sport', user: logged_in });
 });
 
+router.post('/addSport', function (req, res, next) {
+    var sportName = req.body.sport;
+    var rules = req.body.rules;
+    console.log(sportName + ' ' + rules);
+})
+
 module.exports = router;
