@@ -3,6 +3,7 @@ extends layout.pug
 block variables
   - var PageID = 'createTeam';
   - var user = user.id;
+  - var leagueID;
 
 block append style
   style
@@ -32,7 +33,34 @@ block content
                   td Game Days
                   td game time needs added
                   td
-                    .btn.btn-light Select
+                    button.btn.btn-light(value='league' data-bs-toggle='modal' data-bs-target='#nameModal' data-league-id= league.league_id onclick='setLeagueID(this);') Select
+
+    // modal to get name for team
+    #nameModal.modal.fade
+      .modal-dialog.modal-dialog-centered
+        .modal-content
+          // Modal Header
+          .modal-header
+            h4.modal-title Team Name
+            button.btn-close(type='button' data-bs-dismiss='modal')
+          form(action='/createTeam' method='post')
+            // Modal body
+            .modal-body
+              label.mb-3(for='tn') What would you like to name your team? #{leagueID}
+              input.form-control.form-control-sm.float-end(id='tn' name='tn' type='text' placeholder='Team Name')
+              //input.form-control.form-control-sm.float-end(id='lid' name='lid' type='text' placeholder= leagueID)
+            // Modal footer
+            .modal-footer
+              input.btn.btn-light.primaryBg(type= 'submit' value='Create')
+              button.btn.btn-danger(type='button' data-bs-dismiss='modal') Close
+
+
+  script.
+    function setLeagueID(element){
+      form(action='/createTeam' method='post');
+        leagueID = element.getAttribute("data-league-id");
+    }
+
 
 //-
   #Baseball.container-fluid.bg-success.text-white(style='padding:100px 20px;')
@@ -82,3 +110,6 @@ block content
         a.nav-link(href='#Volleyball') Volleyball
       li.nav-item
         a.nav-link(href='#Other') Other
+
+
+  
