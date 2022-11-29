@@ -14,15 +14,15 @@ router.get('/', function (req, res, next) {
 
 // Get teams page
 router.get('/teams', function (req, res, next) {
-    /*var code = req.query.tc;
+    var code = req.query.tc;
     console.log(code);
     var team = db.prepare(`SELECT * FROM teams`).get(code);
     var players = db.prepare(`SELECT * FROM userToTeam`).get(teams.team_id);
     var members;
 
     for (let i = 0; i < players.length; i++) {
-        members = db.prepare(`SELECT * FROM users`).get(players[i].user_id);
-    }*/
+        members.push(db.prepare(`SELECT * FROM users`).get(players[i].user_id));
+    }
     var teams = db.prepare("SELECT * FROM teams").all();
 
     res.render('teams', { title: 'Teams', teams: JSON.stringify(teams), user: logged_in });
@@ -147,7 +147,7 @@ router.get('/rules', function (req, res, next) {
 // Get sports page
 router.get('/sports', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();
-    res.render('sports', { title: 'Sports', sports: sports, user: logged_in });
+    res.render('sports', { title: 'Sports', sports: sports, user: logged_in, s: JSON.stringify(sports) });
 });
 
 // Get addLeague page
@@ -172,8 +172,17 @@ router.get('/addSport', function (req, res, next) {
 
 router.post('/addSport', function (req, res, next) {
     var sportName = req.body.sport;
-    var rules = req.body.rules;
-    console.log(sportName + ' ' + rules);
+    var r = req.body.rules;
+
+    console.log(sportName + ' ' + r);
+    db.prepare(`INSERT INTO sports (sportName, sportRules) VALUES (?, ?)`).run(sportName, r)
+    res.render('home', { title: 'Home', user: logged_in });
+})
+
+router.post('/rmSport', function (req, res, next) {
+    var sID = req.body.id;
+    db.prepare(`DELETE FROM sports WHERE sport_id = ?`).run(sID);
+    res.render('home', { title: 'Home', user: logged_in });
 })
 
 module.exports = router;

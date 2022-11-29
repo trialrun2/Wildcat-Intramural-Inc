@@ -1,14 +1,17 @@
 .grid-container {
-    min-height: 300px;
-    max-width: 900px;
-    margin-left: 35%;
-    width: 100%;
+    min-height: 350px;
+    width: 80%;
+    max-width: 1119px;
     padding: 20px;
     display: grid;
     grid-gap: 20px;
     grid-auto-rows: 100px;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    align-content: center;
+    place-content: center;
+    place-items: center;
+
+    position: relative;
+    margin-left: 10%;
 }
 
 
@@ -16,7 +19,6 @@
     position: relative;
     height: 100px;
     width: 200px;
-    place-content: center;
 }
 
 
