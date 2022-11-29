@@ -55,7 +55,7 @@ router.post('/createTeam', function (req, res, next) {
     var league = req.body.league;
     console.log(league);
     console.log(tn);
-    var leagueChoice = req.body.leagueID;
+    var leagueChoice = req.body.league;
     console.log('create team page: ' + leagueChoice);
 });
 
@@ -181,14 +181,16 @@ router.get('/addLeague', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();
     res.render('addLeague', { title: 'Add League', user: logged_in, sports: sports });
 });
-
+// post addLeague page
 router.post('/addLeague', function (req, res, next) {
     var sport = req.body.sname;
     var div = req.body.div;
     var day = req.body.day;
     var time = req.body.time;
     console.log(sport + div + day + time);
-
+    var sportdb = db.prepare("SELECT * FROM sports WHERE sportName = ?").get(sport);
+    var sportID = sportdb.sport_id;
+    db.prepare("INSERT INTO leagues (sport_id, leagueName, gameDay, gameTime) VALUES (?, ?, ?, ?)").run(sportID, div, day, time);
 });
 
 // Get addSports page
@@ -200,6 +202,7 @@ router.post('/addSport', function (req, res, next) {
     var sportName = req.body.sport;
     var rules = req.body.rules;
     console.log(sportName + ' ' + rules);
+    db.prepare("INSERT INTO sports (sportName, sportRules) VALUES (?, ?)").run(sportName, rules);
 })
 
 module.exports = router;
