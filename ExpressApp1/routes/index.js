@@ -51,7 +51,12 @@ router.get('/createTeam', function (req, res, next) {
 
 //post from createTeam page
 router.post('/createTeam', function (req, res, next) {
-    
+    var tn = req.body.tn;
+    var league = req.body.league;
+    console.log(league);
+    console.log(tn);
+    var leagueChoice = req.body.leagueID;
+    console.log('create team page: ' + leagueChoice);
 });
 
 // Get login page
@@ -66,17 +71,17 @@ router.post('/login', function (req, res, next) {
     var pass = req.body.password;
 
     var user = db.prepare("SELECT * FROM users WHERE email = ?").get(email);
-    console.log('user', user);
+    //console.log('user', user);
 
     if (!user) {
         res.render('login', { title: 'Login', msg: 'Incorrect Usename/Password. Please try again.', users: (users) });
     }
 
-    console.log(user.password_hash);
+    //console.log(user.password_hash);
 
     bcrypt.compare(pass, user.password_hash, (err, result) => {
         if (err) return serveError(req, res, 500, err);
-        console.log('result', result);
+        //console.log('result', result);
         if (!result) {
             if (pass === user.password_hash) {
                 logged_in = user;
@@ -123,13 +128,34 @@ router.post('/signup', function (req, res, next) {
 // Get home page
 router.get('/home', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();
-    res.render('home', { title: 'Home', user: logged_in });
+    var teams = [];
+    var leagues = [];
+
+    var userID = logged_in.id;
+    //console.log('userID' + userID);
+    var u2t = db.prepare("SELECT * FROM userToTeam WHERE user_id = ?").all(userID);
+    //console.log('u:'+u2t.user_id + ' t:' +u2t.team_id + ' c:'+u2t.captain);
+    for (let i = 0; i < u2t.length; i++) {
+        teams.push(db.prepare("SELECT * FROM teams WHERE team_id = ?").get(u2t[i].team_id));
+    }
+
+    for (let i = 0; i < teams.length; i++) {
+        //console.log(teams[i]);
+        leagues.push(db.prepare("SELECT * FROM leagues WHERE league_id = ?").get(teams[i].league_id));
+
+        //console.log(leagues[i].leagueName);
+    }
+    
+    //console.log(teams);
+    res.render('home', { title: 'Home', user: logged_in, teams: teams, u2t: u2t, leagues: leagues});
 });
 
 // Posts for home pages
 router.post('/home', function (req, res, next) {
     var tc = req.body.tc;
-    console.log("tc" + tc);
+    //console.log("tc" + tc);
+
+    
     
 });
 
