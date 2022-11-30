@@ -216,17 +216,17 @@ router.post('/addLeague', function (req, res, next) {
     var day = req.body.day;
     var time = req.body.time;
     console.log(sport + div + day + time);
-    var sportdb = db.prepare("SELECT * FROM sports WHERE sportName = ?").get(sport);
-    var sportID = sportdb.sport_id;
-    db.prepare("INSERT INTO leagues (sport_id, leagueName, gameDay, gameTime) VALUES (?, ?, ?, ?)").run(sportID, div, day, time);
+    db.prepare("INSERT INTO leagues (sport_id, leagueName, gameDay, gameTime) VALUES (?, ?, ?, ?)").run(sport, div, day, time);
+    var sports = db.prepare("SELECT * FROM sports").all();
+    var leagues = db.prepare("SELECT * FROM leagues").all();
+    res.render('addLeague', { title: 'Add League', user: logged_in, sports: sports, leagues: leagues });
 });
 
 router.post('/removeLeague', function (req, res, next) {
+    var lid = req.body.lid;
+    db.prepare(`DELETE FROM leagues WHERE league_id = ?`).run(lid);
     var sports = db.prepare("SELECT * FROM sports").all();
     var leagues = db.prepare("SELECT * FROM leagues").all();
-    var lid = req.body.lid;
-    console.log(lid);
-
     res.render('addLeague', { title: 'Add League', user: logged_in, sports: sports, leagues: leagues });
 });
 
@@ -235,9 +235,10 @@ router.get('/addSport', function (req, res, next) {
     var teams = [];
     var leagues = [];
     var userID = logged_in.id;
+    var sports = db.prepare("SELECT * FROM sports").all();
 
     if (userID < 3) {
-        res.render('addSport', { title: 'Add Sport', user: logged_in });
+        res.render('addSport', { title: 'Add Sport', user: logged_in, sports: sports });
     }
     else {
         var u2t = db.prepare("SELECT * FROM userToTeam WHERE user_id = ?").all(userID);
@@ -255,16 +256,16 @@ router.get('/addSport', function (req, res, next) {
 router.post('/addSport', function (req, res, next) {
     var sportName = req.body.sport;
     var r = req.body.rules;
-
-    console.log(sportName + ' ' + r);
     db.prepare(`INSERT INTO sports (sportName, sportRules) VALUES (?, ?)`).run(sportName, r)
-    res.render('home', { title: 'Home', user: logged_in });
-})
+    var sports = db.prepare("SELECT * FROM sports").all();
+    res.render('addSport', { title: 'Add Sport', user: logged_in, sports: sports });
+});
 
 router.post('/removeSport', function (req, res, next) {
-    var sID = req.body.id;
+    var sID = req.body.sid;
     db.prepare(`DELETE FROM sports WHERE sport_id = ?`).run(sID);
-    res.render('home', { title: 'Home', user: logged_in });
-})
+    var sports = db.prepare("SELECT * FROM sports").all();
+    res.render('addSport', { title: 'Add Sport', user: logged_in, sports: sports });
+});
 
 module.exports = router;

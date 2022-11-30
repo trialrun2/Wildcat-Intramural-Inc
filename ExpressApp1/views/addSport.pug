@@ -3,6 +3,7 @@ extends layout.pug
 block variables
   - var PageID = 'addSport';
   - var user = user.id;
+  - var sportID;
 
 block append style
   style
@@ -10,14 +11,30 @@ block append style
 
 block content
   body
-    .container
-      .row.justify-content-center.align-items-center.inner-row
-        .col-lg-5.col-md-7
-          .form-box.p-5
-            .form-title
-              h2.fw-bold.mb-3 Add New Sport
-            //- this is what is needed to send back to the router
-            form(action='/addSport' method='post')
+    .add-sport
+      button.btn.btn-light.ms-3(id='addbutton' data-bs-toggle='modal' data-bs-target='#sportModal') Add Sport
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th All Sports
+      tbody
+        each sport in sports
+          tr
+            td #{sport.sportName}
+            td
+              button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#deleteModal' data-sport-id= sport.sport_id onclick='deleteLeague(this);') Delete
+
+
+    #sportModal.modal.fade
+      .modal-dialog.modal-dialog-centered
+        .modal-content
+          // Modal Header
+          .modal-header
+            h4.modal-title Add New Sport
+            button.btn-close(type='button' data-bs-dismiss='modal')
+          form(action='/addSport' method='post')
+            // Modal body
+            .modal-body
               label Name
               .form-floating.mb-3
                 input.form-control-lg(id='sport' name='sport' type='text' placeholder='Sport')
@@ -25,5 +42,33 @@ block content
               .form-floating.mb-3
                 textarea.form-control-lg(id='rules' name='rules' type='text' placeholder='Rules')
               .mt-3
-                //- must be this type of input to submit the values to the router page
-                input.btn.btn-light.primaryBg(type='submit' value='Add')
+            // Modal footer
+            .modal-footer
+              input.btn.btn-light.primaryBg(type= 'submit' value='Add')
+              button.btn.btn-danger(type='button' data-bs-dismiss='modal') Close
+
+
+    #deleteModal.modal.fade
+      .modal-dialog.modal-dialog-centered
+        .modal-content
+          // Modal Header
+          .modal-header
+            h4.modal-title
+            button.btn-close(type='button' data-bs-dismiss='modal')
+          form(action='/removeSport' method='post')
+            // Modal body
+            .modal-body
+              label Are you sure you want to delete this Sport?
+              .form-floating.mb-3
+                input(id= 'sid' name='sid' type='hidden')
+            // Modal footer
+            .modal-footer
+              input.btn.btn-light.primaryBg(type= 'submit' value='Yes')
+              button.btn.btn-danger(type='button' data-bs-dismiss='modal') No
+
+  script.
+    function deleteLeague(element){
+        sportID = element.getAttribute("data-sport-id");
+        var sid = document.getElementById('sid');
+        sid.setAttribute("value", sportID);
+    }
