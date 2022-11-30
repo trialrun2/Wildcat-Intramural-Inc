@@ -52,3 +52,13 @@ input{
     height: 60px;
     width: 200px;
 }
+
+th{
+    text-align: start;
+    padding-left: 10px;
+}
+
+td {
+    text-align: start;
+    margin-left: 5%;
+}

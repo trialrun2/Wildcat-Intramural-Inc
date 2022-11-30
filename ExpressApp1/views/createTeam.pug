@@ -33,7 +33,7 @@ block content
                   td #{league.gameDay}
                   td #{league.gameTime}
                   td
-                    button.btn.btn-light(value='league' data-bs-toggle='modal' data-bs-target='#nameModal' data-league-id= league.league_id onclick='setLeagueID(this);') Select
+                    button.btn.btn-light(data-bs-toggle='modal' data-bs-target='#nameModal' data-league-id= league.league_id onclick='setLeagueID(this);') Select
 
     // modal to get name for team
     #nameModal.modal.fade
@@ -46,9 +46,9 @@ block content
           form(action='/createTeam' method='post')
             // Modal body
             .modal-body
-              label.mb-3(for='tn') What would you like to name your team? #{leagueID}
+              label.mb-3(for='tn') What would you like to name your team?
               input.form-control.form-control-sm.float-end(id='tn' name='tn' type='text' placeholder='Team Name')
-              //input.form-control.form-control-sm.float-end(id='lid' name='lid' type='text' placeholder= leagueID)
+              input(id='lid' name='lid' type='hidden')
             // Modal footer
             .modal-footer
               input.btn.btn-light.primaryBg(type= 'submit' value='Create')
@@ -57,8 +57,9 @@ block content
 
   script.
     function setLeagueID(element){
-      form(action='/createTeam' method='post');
         leagueID = element.getAttribute("data-league-id");
+        var lid = document.getElementById('lid');
+        lid.setAttribute("value", leagueID);
     }
 
 

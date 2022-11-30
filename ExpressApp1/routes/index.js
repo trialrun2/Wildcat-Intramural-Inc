@@ -51,12 +51,24 @@ router.get('/createTeam', function (req, res, next) {
 
 //post from createTeam page
 router.post('/createTeam', function (req, res, next) {
+    var teams = [];
+    var leagues = [];
     var tn = req.body.tn;
-    var league = req.body.league;
-    console.log(league);
+    var leagueID = req.body.lid;
+    var userID = logged_in.id;
+    var u2t = db.prepare("SELECT * FROM userToTeam WHERE user_id = ?").all(userID);
+
+    console.log(leagueID);
     console.log(tn);
-    var leagueChoice = req.body.league;
-    console.log('create team page: ' + leagueChoice);
+
+    for (let i = 0; i < u2t.length; i++) {
+        teams.push(db.prepare("SELECT * FROM teams WHERE team_id = ?").get(u2t[i].team_id));
+    }
+
+    for (let i = 0; i < teams.length; i++) {
+        leagues.push(db.prepare("SELECT * FROM leagues WHERE league_id = ?").get(teams[i].league_id));
+    }
+    res.render('home', { title: 'Home', user: logged_in, teams: teams, u2t: u2t, leagues: leagues });
 });
 
 // Get login page
@@ -178,8 +190,6 @@ router.get('/sports', function (req, res, next) {
 
 // Get addLeague page
 router.get('/addLeague', function (req, res, next) {
-    var teams = [];
-    var leagues = [];
     var userID = logged_in.id;
     var sports = db.prepare("SELECT * FROM sports").all();
     var leagues = db.prepare("SELECT * FROM leagues").all();
@@ -199,7 +209,7 @@ router.get('/addLeague', function (req, res, next) {
         res.render('home', { title: 'Home', user: logged_in, teams: teams, u2t: u2t, leagues: leagues });
     }
 });
-// post addLeague page
+
 router.post('/addLeague', function (req, res, next) {
     var sport = req.body.sname;
     var div = req.body.div;
@@ -212,12 +222,11 @@ router.post('/addLeague', function (req, res, next) {
 });
 
 router.post('/removeLeague', function (req, res, next) {
+    var sports = db.prepare("SELECT * FROM sports").all();
+    var leagues = db.prepare("SELECT * FROM leagues").all();
     var lid = req.body.lid;
     console.log(lid);
 
-
-    var sports = db.prepare("SELECT * FROM sports").all();
-    var leagues = db.prepare("SELECT * FROM leagues").all();
     res.render('addLeague', { title: 'Add League', user: logged_in, sports: sports, leagues: leagues });
 });
 

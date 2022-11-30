@@ -6,6 +6,7 @@ block variables
   - var divisions = ['Dorm', 'Co-Ed', 'Independent', 'Fraternity'];
   - var days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   - var times = ['6:00', '7:00', '8:00', '9:00'];
+  - var leagueID;
 
 block append style
   style
@@ -15,17 +16,16 @@ block content
   body
     .add-league
       button.btn.btn-light.ms-3(id='addbutton' data-bs-toggle='modal' data-bs-target='#myModal') Add League
-    form(action= '/removeLeague' method='post')
-      table.table.table-striped.table-hover
-       thead
-         tr
-           th All Leagues
-       tbody
-         each league in leagues
-           tr
-             td #{league.leagueName}
-             td
-               input.btn.btn-light.primaryBg(type= 'submit' value='Delete')
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th All Leagues
+      tbody
+        each league in leagues
+          tr
+            td #{league.leagueName}
+            td
+              button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#deleteModal' data-league-id= league.league_id onclick='deleteLeague(this);') Delete
 
     #myModal.modal.fade
       .modal-dialog.modal-dialog-centered
@@ -65,3 +65,28 @@ block content
             .modal-footer
               input.btn.btn-light.primaryBg(type= 'submit' value='Add')
               button.btn.btn-danger(type='button' data-bs-dismiss='modal') Close
+
+    #deleteModal.modal.fade
+      .modal-dialog.modal-dialog-centered
+        .modal-content
+          // Modal Header
+          .modal-header
+            h4.modal-title
+            button.btn-close(type='button' data-bs-dismiss='modal')
+          form(action='/removeLeague' method='post')
+            // Modal body
+            .modal-body
+              label Are you sure you want to delete this league?
+              .form-floating.mb-3
+                input(id= 'lid' name='lid' type='hidden')
+            // Modal footer
+            .modal-footer
+              input.btn.btn-light.primaryBg(type= 'submit' value='Yes')
+              button.btn.btn-danger(type='button' data-bs-dismiss='modal') No
+
+  script.
+    function deleteLeague(element){
+        leagueID = element.getAttribute("data-league-id");
+        var lid = document.getElementById('lid');
+        lid.setAttribute("value", leagueID);
+    }
