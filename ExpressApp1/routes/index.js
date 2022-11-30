@@ -14,15 +14,15 @@ router.get('/', function (req, res, next) {
 
 // Get teams page
 router.get('/teams', function (req, res, next) {
-    var code = req.query.tc;
+    /*var code = req.query.tc;
     console.log(code);
     var team = db.prepare(`SELECT * FROM teams`).get(code);
     var players = db.prepare(`SELECT * FROM userToTeam`).get(teams.team_id);
     var members;
 
     for (let i = 0; i < players.length; i++) {
-        members.push(db.prepare(`SELECT * FROM users`).get(players[i].user_id));
-    }
+        members = db.prepare(`SELECT * FROM users`).get(players[i].user_id);
+    }*/
     var teams = db.prepare("SELECT * FROM teams").all();
 
     res.render('teams', { title: 'Teams', teams: JSON.stringify(teams), user: logged_in });
@@ -55,7 +55,7 @@ router.post('/createTeam', function (req, res, next) {
     var league = req.body.league;
     console.log(league);
     console.log(tn);
-    var leagueChoice = req.body.leagueID;
+    var leagueChoice = req.body.league;
     console.log('create team page: ' + leagueChoice);
 });
 
@@ -173,7 +173,7 @@ router.get('/rules', function (req, res, next) {
 // Get sports page
 router.get('/sports', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();
-    res.render('sports', { title: 'Sports', sports: sports, user: logged_in, s: JSON.stringify(sports) });
+    res.render('sports', { title: 'Sports', sports: sports, user: logged_in });
 });
 
 // Get addLeague page
@@ -199,14 +199,16 @@ router.get('/addLeague', function (req, res, next) {
         res.render('home', { title: 'Home', user: logged_in, teams: teams, u2t: u2t, leagues: leagues });
     }
 });
-
+// post addLeague page
 router.post('/addLeague', function (req, res, next) {
     var sport = req.body.sname;
     var div = req.body.div;
     var day = req.body.day;
     var time = req.body.time;
     console.log(sport + div + day + time);
-
+    var sportdb = db.prepare("SELECT * FROM sports WHERE sportName = ?").get(sport);
+    var sportID = sportdb.sport_id;
+    db.prepare("INSERT INTO leagues (sport_id, leagueName, gameDay, gameTime) VALUES (?, ?, ?, ?)").run(sportID, div, day, time);
 });
 
 router.post('/removeLeague', function (req, res, next) {

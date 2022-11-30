@@ -23,15 +23,15 @@ block content
           thead
             tr
               th Division
-              th League
+              th Game Days
               th Game Time
           tbody
             each league in leagues
               if league.sport_id === sport.sport_id
                 tr
-                  td Dorm Fraternity Co-Ed Independent?
-                  td Game Days
-                  td game time needs added
+                  td #{league.leagueName}
+                  td #{league.gameDay}
+                  td #{league.gameTime}
                   td
                     button.btn.btn-light(value='league' data-bs-toggle='modal' data-bs-target='#nameModal' data-league-id= league.league_id onclick='setLeagueID(this);') Select
 
