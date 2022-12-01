@@ -13,7 +13,7 @@ head
 
   block navigation
     - var NavItems = [{'url':'home', 'title': 'Home'}, {'url':'sports', 'title': 'Sports'}, {'url':'leagues', 'title': 'Leagues'}, {'url':'teams', 'title': 'Teams'}, {'url':'stats', 'title': 'Stats'}, {'url':'rules', 'title': 'Rules'}, {'url':'about', 'title': 'About'}];
-    - var AddItems = [{'url':'addLeague', 'title': 'Add League'}, {'url':'addSport', 'title': 'Add Sport'}];
+    - var AddItems = [{'url':'addLeague', 'title': 'Add/Remove League'}, {'url':'addSport', 'title': 'Add/Remove Sport'}, {'url':'removeTeam', 'title': 'Remove Team'}, {'url':'updateUser', 'title': 'Update User'}];
 
   block variables
     - var PageID = 'home'
@@ -30,19 +30,19 @@ body
               each page,i in NavItems
                 if PageID === page.url
                   li.nav-item
-                    a.nav-link.active(href='./' + page.url) #{page.title}
+                    a.nav-link.active(href='/' + page.url) #{page.title}
                 else
                   li.nav-item
-                    a.nav-link(href='./' + page.url) #{page.title}
+                    a.nav-link(href='/' + page.url) #{page.title}
 
               if user <= 2
                 each page, i in AddItems
                   if PageID === page.url
                     li.nav-item
-                      a.nav-link.active(href='./' + page.url) #{page.title}
+                      a.nav-link.active(href='/' + page.url) #{page.title}
                   else
                     li.nav-item
-                      a.nav-link(href='./' + page.url) #{page.title}
+                      a.nav-link(href='/' + page.url) #{page.title}
             ul.navbar-nav
               li.nav-item
                 a.nav-link(href='./') Sign Out

@@ -33,7 +33,7 @@ block content
                   td #{league.gameDay}
                   td #{league.gameTime}
                   td
-                    button.btn.btn-light(value='league' data-bs-toggle='modal' data-bs-target='#nameModal' data-league-id= league.league_id onclick='setLeagueID(this);') Select
+                    button.btn.btn-light(data-bs-toggle='modal' data-bs-target='#nameModal' data-league-id= league.league_id onclick='setLeagueID(this);') Select
 
     // modal to get name for team
     #nameModal.modal.fade
@@ -46,9 +46,9 @@ block content
           form(action='/createTeam' method='post')
             // Modal body
             .modal-body
-              label.mb-3(for='tn') What would you like to name your team? #{leagueID}
+              label.mb-3(for='tn') What would you like to name your team?
               input.form-control.form-control-sm.float-end(id='tn' name='tn' type='text' placeholder='Team Name')
-              //input.form-control.form-control-sm.float-end(id='lid' name='lid' type='text' placeholder= leagueID)
+              input(id='lid' name='lid' type='hidden')
             // Modal footer
             .modal-footer
               input.btn.btn-light.primaryBg(type= 'submit' value='Create')
@@ -57,59 +57,9 @@ block content
 
   script.
     function setLeagueID(element){
-      form(action='/createTeam' method='post');
         leagueID = element.getAttribute("data-league-id");
+        var lid = document.getElementById('lid');
+        lid.setAttribute("value", leagueID);
     }
-
-
-//-
-  #Baseball.container-fluid.bg-success.text-white(style='padding:100px 20px;')
-    h1 Baseball
-  #Basketball.container-fluid.bg-warning(style='padding:100px 20px;')
-    h1 Basketball
-    ul
-      each bball in bballLeague
-        li='${bball.leagueName}'
-          
-  #Football.container-fluid.bg-secondary.text-white(style='padding:100px 20px;')
-    h1 Football
-    table.table.table-striped.table-hover
-      thead
-        tr
-          th Sport
-          th League
-          th Game Time
-      tbody
-        each fball in fballLeague
-          tr
-            td #{fball.sport_id}
-            td #{fball.leagueName}
-            td game time needs added
-  #Soccer.container-fluid.bg-secondary.text-white(style='padding:100px 20px;')
-    h1 Soccer
-  #Tennis.container-fluid.bg-secondary.text-white(style='padding:100px 20px;')
-    h1 Tennis
-  #Volleyball.container-fluid.bg-secondary.text-white(style='padding:100px 20px;')
-    h1 Volleyball
-  #Other.container-fluid.bg-secondary.text-white(style='padding:100px 20px;')
-    h1 Other
-    nav.navbar.navbar-expand-sm.bg-dark.navbar-dark.fixed-top
-   .container-fluid
-    ul.navbar-nav
-      li.nav-item
-        a.nav-link(href='#Baseball') Baseball
-      li.nav-item
-        a.nav-link(href='#Basketball') Basketball
-      li.nav-item
-        a.nav-link(href='#Football') Football
-      li.nav-item
-        a.nav-link(href='#Soccer') Soccer
-      li.nav-item
-        a.nav-link(href='#Tennis') Tennis
-      li.nav-item
-        a.nav-link(href='#Volleyball') Volleyball
-      li.nav-item
-        a.nav-link(href='#Other') Other
-
 
   

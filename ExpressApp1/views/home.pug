@@ -45,16 +45,26 @@ block content
           thead
             tr
               th Team Name
-              th Division
+              th Sport
               th League
+              th Captain's Code
           tbody
             each team in teams
               tr
                 td #{team.teamName}
                 each league in leagues
+                  each sport in sports
+                    if sport.sport_id === league.sport_id
+                      if league.league_id === team.league_id
+                        td #{sport.sportName}
                   if league.league_id === team.league_id
-                    td #{league.leagueName}
-                td #{team.code}
+                    td #{league.leagueName} #{league.gameDay} #{league.gameTime}
+                each t in u2t
+                  if t.team_id === team.team_id
+                    if t.captain == 1
+                      td #{team.code}
+                    else
+                      td
 
 
 
@@ -66,7 +76,7 @@ block content
           .modal-header
             h4.modal-title Join Team
             button.btn-close(type='button' data-bs-dismiss='modal')
-          form(action='/home' method='post')
+          form(action='/joinTeam' method='post')
             // Modal body
             .modal-body
               label.mb-3(for='tc') Team Code    
