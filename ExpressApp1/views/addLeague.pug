@@ -17,13 +17,22 @@ block content
     .add-league
       button.btn.btn-light.ms-3(id='addbutton' data-bs-toggle='modal' data-bs-target='#myModal') Add League
     table.table.table-striped.table-hover
+      h2 All Leagues
       thead
         tr
-          th All Leagues
+          th Division
+          th Sport 
+          th Day
+          th League
       tbody
         each league in leagues
           tr
+            each sport in sports
+              if sport.sport_id === league.sport_id
+                td #{sport.sportName} 
             td #{league.leagueName}
+            td #{league.gameDay} 
+            td #{league.gameTime}
             td
               button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#deleteModal' data-league-id= league.league_id onclick='deleteLeague(this);') Delete
 
