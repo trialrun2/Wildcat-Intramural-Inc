@@ -209,6 +209,15 @@ router.post('/addLeague', function (req, res, next) {
 router.post('/removeLeague', function (req, res, next) {
     var lid = req.body.lid;
     db.prepare(`DELETE FROM leagues WHERE league_id = ?`).run(lid);
+
+
+    //code to remove a team and its references in user to team
+    /*var teams = db.prepare(`SELECT * FROM teams WHERE code = ?`).all(63441);
+    for (let i = 0; i < teams.length; i++) {
+        db.prepare(`DELETE FROM userToTeam WHERE team_id = ?`).run(teams[i].team_id);
+        db.prepare(`DELETE FROM teams WHERE team_id = ?`).run(teams[i].team_id);
+    }*/
+
     res.redirect('/addLeague');
 });
 

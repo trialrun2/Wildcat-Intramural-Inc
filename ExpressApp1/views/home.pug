@@ -59,6 +59,8 @@ block content
                         td #{sport.sportName}
                   if league.league_id === team.league_id
                     td #{league.leagueName} #{league.gameDay} #{league.gameTime}
+                td #{team.code}
+              //
                 each t in u2t
                   if t.user_id === client.id
                     if t.captain == 1
