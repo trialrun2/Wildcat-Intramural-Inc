@@ -62,3 +62,12 @@ td {
     text-align: start;
     margin-left: 5%;
 }
+
+thead {
+    font-size: 20px;
+}
+
+h2 {
+    padding-left: 10px;
+    font-weight:bold;
+}
