@@ -1,0 +1,23 @@
+extends layout.pug
+
+block variables
+  - var PageID = 'u2t';
+  - var user = user.id;
+
+block append style
+  style
+
+block content
+  body
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th user id
+          th team id
+          th captain
+      tbody
+        each t in u2t
+          tr
+            td #{t.user_id}
+            td #{t.team_id}
+            td #{t.captain}

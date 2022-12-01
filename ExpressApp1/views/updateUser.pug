@@ -19,7 +19,6 @@ block content
         each a in allUsers
           tr
             td #{a.name}
-            td #{a.}
             td 
               button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#adminModal' data-user-id= a.id onclick='makeAdmin(this);') Make Administrator
             td
