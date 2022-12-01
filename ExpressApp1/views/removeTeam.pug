@@ -1,0 +1,48 @@
+extends layout.pug
+
+block variables
+  - var PageID = 'removeTeam';
+  - var user = user.id;
+  - var teamID;
+
+block append style
+  style
+    include ../public/stylesheets/removeTeam.css
+
+block content
+  body
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th All Teams
+      tbody
+        each team in teams
+          tr
+            td #{team.teamName}
+            td
+              button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#deleteModal' data-team-id= team.team_id onclick='deleteTeam(this);') Delete
+
+    #deleteModal.modal.fade
+      .modal-dialog.modal-dialog-centered
+        .modal-content
+          // Modal Header
+          .modal-header
+            h4.modal-title
+            button.btn-close(type='button' data-bs-dismiss='modal')
+          form(action='/removeTeam' method='post')
+            // Modal body
+            .modal-body
+              label Are you sure you want to delete this league?
+              .form-floating.mb-3
+                input(id= 'tid' name='tid' type='hidden')
+            // Modal footer
+            .modal-footer
+              input.btn.btn-light.primaryBg(type= 'submit' value='Yes')
+              button.btn.btn-danger(type='button' data-bs-dismiss='modal') No
+
+  script.
+    function deleteTeam(element){
+        teamID = element.getAttribute("data-team-id");
+        var tid = document.getElementById('tid');
+        tid.setAttribute("value", teamID);
+    }

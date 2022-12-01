@@ -80,6 +80,9 @@
     <Content Include="public\stylesheets\login.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\stylesheets\removeTeam.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\stylesheets\signup.css">
       <SubType>Code</SubType>
     </Content>
@@ -87,6 +90,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\stylesheets\teams.css">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\stylesheets\updateUser.css">
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\index.js" />
@@ -116,6 +122,12 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\login.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\removeTeam.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\updateUser.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\rules.pug">

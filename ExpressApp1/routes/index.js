@@ -209,15 +209,6 @@ router.post('/addLeague', function (req, res, next) {
 router.post('/removeLeague', function (req, res, next) {
     var lid = req.body.lid;
     db.prepare(`DELETE FROM leagues WHERE league_id = ?`).run(lid);
-
-
-    //code to remove a team and its references in user to team
-    /*var teams = db.prepare(`SELECT * FROM teams WHERE code = ?`).all(63441);
-    for (let i = 0; i < teams.length; i++) {
-        db.prepare(`DELETE FROM userToTeam WHERE team_id = ?`).run(teams[i].team_id);
-        db.prepare(`DELETE FROM teams WHERE team_id = ?`).run(teams[i].team_id);
-    }*/
-
     res.redirect('/addLeague');
 });
 
@@ -245,6 +236,56 @@ router.post('/removeSport', function (req, res, next) {
     var sID = req.body.sid;
     db.prepare(`DELETE FROM sports WHERE sport_id = ?`).run(sID);
     res.redirect('/addSport');
+});
+
+// Gets the remove Team page
+router.get('/removeTeam', function (req, res, next) {
+    var teams = db.prepare("SELECT * FROM teams").all();
+    res.render('removeTeam', { title: 'Update User', user: logged_in, teams: teams });
+});
+
+router.post('/removeTeam', function (req, res, next) {
+    var tid = req.body.tid;
+    console.log(tid);
+    // hopefully would remove team from teams and delete all instances from the many to many table
+    /*
+    db.prepare(`DELETE FROM teams WHERE team_id = ?`).run(tid);
+    var u2t = db.prepare(`SELECT * FROM userToTeam WHERE team_id = ?`).all(tid);
+    for (let i = 0; i < u2t.length; i++) {
+        db.prepare(`DELETE FROM userToTeam WHERE team_id = ?`).run(u2t[i].team_id);
+    }
+    */
+    res.redirect('/removeTeam');
+});
+
+
+// Gets the update User page
+router.get('/updateUser', function (req, res, next) {
+    var allusers = db.prepare("SELECT * FROM users").all();
+    res.render('updateUser', { title: 'Update User', user: logged_in, allUsers: allusers });
+});
+
+router.post('/updateUser', function (req, res, next) {
+    var uID = req.body.auid;
+    console.log(uID);
+    // this needs to update the user to be an admin - need to give the user an admin column with 1 or 0
+    //db.prepare(`DELETE FROM sports WHERE sport_id = ?`).run(sID);
+    res.redirect('/updateUser');
+});
+
+router.post('/removeUser', function (req, res, next) {
+    var uID = req.body.uid;
+    console.log(uID);
+
+    // hopefully would remove user from users and delete all instances from the many to many table
+    /*
+    db.prepare(`DELETE FROM users WHERE id = ?`).run(uID);
+    var u2t = db.prepare(`SELECT * FROM userToTeam WHERE user_id = ?`).all(uID);
+    for (let i = 0; i < u2t.length; i++) {
+        db.prepare(`DELETE FROM userToTeam WHERE user_id = ?`).run(u2t[i].user_id);
+    }
+    */
+    res.redirect('/updateUser');
 });
 
 module.exports = router;

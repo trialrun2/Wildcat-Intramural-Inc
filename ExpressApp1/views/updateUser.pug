@@ -1,0 +1,77 @@
+extends layout.pug
+
+block variables
+  - var PageID = 'updateUser';
+  - var user = user.id;
+  - var duids
+
+block append style
+  style
+    include ../public/stylesheets/updateUser.css
+
+block content
+  body
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th All Users
+      tbody
+        each a in allUsers
+          tr
+            td #{a.name}
+            td
+              button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#adminModal' data-user-id= a.id onclick='makeAdmin(this);') Make Administrator
+            td
+              button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#deleteModal' data-user-id= a.id onclick='deleteUser(this);') Delete
+    
+
+    #deleteModal.modal.fade
+      .modal-dialog.modal-dialog-centered
+        .modal-content
+          // Modal Header
+          .modal-header
+            h4.modal-title
+            button.btn-close(type='button' data-bs-dismiss='modal')
+          form(action='/removeUser' method='post')
+            // Modal body
+            .modal-body
+              label Are you sure you want to delete this user?
+              .form-floating.mb-3
+                input(id= 'uid' name='uid' type='hidden')
+            // Modal footer
+            .modal-footer
+              input.btn.btn-light.primaryBg(type= 'submit' value='Yes')
+              button.btn.btn-danger(type='button' data-bs-dismiss='modal') No
+
+
+    #adminModal.modal.fade
+      .modal-dialog.modal-dialog-centered
+        .modal-content
+          // Modal Header
+          .modal-header
+            h4.modal-title
+            button.btn-close(type='button' data-bs-dismiss='modal')
+          form(action='/updateUser' method='post')
+            // Modal body
+            .modal-body
+              label Are you sure you want to make this user an administrator?
+              .form-floating.mb-3
+                input(id= 'auid' name='auid' type='hidden')
+            // Modal footer
+            .modal-footer
+              input.btn.btn-light.primaryBg(type= 'submit' value='Yes')
+              button.btn.btn-danger(type='button' data-bs-dismiss='modal') No
+
+
+  script.
+    function deleteUser(element){
+        duid = element.getAttribute("data-user-id");
+        var uid = document.getElementById('uid');
+        uid.setAttribute("value", duid);
+    }
+
+    function makeAdmin(element){
+        duid = element.getAttribute("data-user-id");
+        var auid = document.getElementById('auid');
+        auid.setAttribute("value", duid);
+    }
