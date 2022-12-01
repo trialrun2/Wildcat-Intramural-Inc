@@ -19,7 +19,8 @@ block content
         each a in allUsers
           tr
             td #{a.name}
-            td
+            td #{a.}
+            td 
               button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#adminModal' data-user-id= a.id onclick='makeAdmin(this);') Make Administrator
             td
               button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#deleteModal' data-user-id= a.id onclick='deleteUser(this);') Delete
