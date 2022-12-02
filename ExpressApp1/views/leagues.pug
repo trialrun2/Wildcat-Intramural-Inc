@@ -4,33 +4,30 @@ block variables
   - var PageID = 'leagues';
   - var user = user.id;
 
+  
 block append style
-  style.
-    .fakeimg {
-    height: 200px;
-    background: #aaa;
-    }
+    style
+        include ../public/stylesheets/leagues.css
 
 block content
-  body
-    table.table.table-striped.table-hover
-     thead
-       tr
-         th Leagues
-     tbody
-       each league in leagues
-         tr
-           td #{league.leagueName}
-           td
-             .btn.btn-light Select
+ body
+  .container.mt-5
+    .row
+      .col-sm-4
+        h2 League Information
+        p Sport: #{sport.sportName}
+        p Division: #{league.leagueName}
+        p Day: #{league.gameDay}
+        p Times: #{league.gameTime}
 
-    table.table.table-striped.table-hover
-     thead
-       tr
-         th All Leagues
-     tbody
-       each league in aleagues
-         tr
-           td #{league.leagueName}
-           td
-             .btn.btn-light Select
+      .col-sm-8
+        h2 Teams
+        table.table.table-striped.table-hover
+          thead
+            tr
+              th Team Name
+          tbody
+            each team in teams
+              tr
+                td #{team.teamName}
+  

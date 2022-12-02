@@ -3,3 +3,13 @@ extends layout.pug
 block variables
   - var PageID = 'rules';
   - var user = user.id;
+
+block append style
+  style
+    include ../public/stylesheets/rules.css
+
+block content
+  body
+    .container
+      h2 #{sport.sportName}
+      p #{sport.sportRules}

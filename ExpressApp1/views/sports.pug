@@ -9,9 +9,8 @@ block append style
     include ../public/stylesheets/sports.css
 
 block content
-  p= s
   body
     .grid-container
       each sport in sports
         .grid-item
-          a.btn(class='gbutton' href='/rules/?si=' + sport.sport_id) #{sport.sportName}
+          a.btn(class='gbutton' href='/rules/?sid=' + sport.sport_id) #{sport.sportName}

@@ -77,10 +77,16 @@
     <Content Include="public\stylesheets\layout.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\stylesheets\leagues.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\stylesheets\login.css">
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\stylesheets\removeTeam.css">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\stylesheets\rules.css">
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\stylesheets\signup.css">
