@@ -72,6 +72,7 @@ router.post('/login', function (req, res, next) {
         }
         else {
             logged_in = user;
+            console.log(logged_in);
             res.redirect('./home');
         }
     });
@@ -95,9 +96,7 @@ router.post('/signup', function (req, res, next) {
         bcrypt.hash(pass, saltRounds, (err, hash) => {
             db.prepare(`INSERT INTO users (email, name, password_hash) VALUES (?, ?, ?)`).run(email, name, hash);
         });
-        user = db.prepare(`SELECT * FROM users WHERE email ?`).get(email);
-        logged_in = user;
-        res.redirect('./home')
+        res.redirect('/login');
     }
     else {
         res.render('signup', { title: 'Signup', msg: 'Email already exists' });
@@ -240,15 +239,12 @@ router.get('/removeTeam', function (req, res, next) {
 
 router.post('/removeTeam', function (req, res, next) {
     var tid = req.body.tid;
-    console.log(tid);
-    // hopefully would remove team from teams and delete all instances from the many to many table
-    /*
+    
     db.prepare(`DELETE FROM teams WHERE team_id = ?`).run(tid);
     var u2t = db.prepare(`SELECT * FROM userToTeam WHERE team_id = ?`).all(tid);
     for (let i = 0; i < u2t.length; i++) {
         db.prepare(`DELETE FROM userToTeam WHERE team_id = ?`).run(u2t[i].team_id);
     }
-    */
     res.redirect('/removeTeam');
 });
 
@@ -269,16 +265,14 @@ router.post('/updateUser', function (req, res, next) {
 
 router.post('/removeUser', function (req, res, next) {
     var uID = req.body.uid;
-    console.log(uID);
 
     // hopefully would remove user from users and delete all instances from the many to many table
-    /*
+    
     db.prepare(`DELETE FROM users WHERE id = ?`).run(uID);
     var u2t = db.prepare(`SELECT * FROM userToTeam WHERE user_id = ?`).all(uID);
     for (let i = 0; i < u2t.length; i++) {
         db.prepare(`DELETE FROM userToTeam WHERE user_id = ?`).run(u2t[i].user_id);
     }
-    */
     res.redirect('/updateUser');
 });
 
