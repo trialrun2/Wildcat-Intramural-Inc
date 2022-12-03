@@ -77,10 +77,16 @@
     <Content Include="public\stylesheets\layout.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\stylesheets\leagues.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\stylesheets\login.css">
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\stylesheets\removeTeam.css">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\stylesheets\rules.css">
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\stylesheets\signup.css">
@@ -90,6 +96,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\stylesheets\teams.css">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\stylesheets\u2t.css">
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\stylesheets\updateUser.css">
@@ -125,6 +134,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\removeTeam.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\u2t.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\updateUser.pug">

@@ -12,42 +12,12 @@ router.get('/', function (req, res, next) {
     res.render('index', { title: 'Wildcat Intramural Inc.' });
 });
 
-// Get teams page
-router.get('/teams', function (req, res, next) {
-    var code = req.query.tc;
-    console.log(code);
-    var team = db.prepare(`SELECT * FROM teams`).get(code);
-    var players = db.prepare(`SELECT * FROM userToTeam`).get(teams.team_id);
-    var members;
-
-    for (let i = 0; i < players.length; i++) {
-        members.push(db.prepare(`SELECT * FROM users`).get(players[i].user_id));
-    }
-    var teams = db.prepare("SELECT * FROM teams").all();
-
-    res.render('teams', { title: 'Teams', teams: JSON.stringify(teams), user: logged_in });
-    //res.render('teams', { title: 'Teams', teams: teams });
-});
-
-// Get leagues page
-router.get('/leagues', function (req, res, next) {
-    var sportId = req.query.si;
-    var leagues = db.prepare("SELECT * FROM leagues WHERE sport_id = ?").all(sportId);
-    var aleagues = db.prepare("SELECT * FROM leagues").all();
-    res.render('leagues', { title: 'Leagues', leagues: leagues, aleagues: aleagues, user: logged_in });
-});
-
-// Get about page
-router.get('/about', function (req, res, next) {
-    res.render('about', { title: 'About', user: logged_in });
-});
 
 // Get login page
 router.get('/login', function (req, res, next) {
     res.render('login', { title: 'Login', msg: '' });
 });
 
-// Post from login page
 router.post('/login', function (req, res, next) {
     var users = db.prepare("SELECT * FROM users").all();
     var email = req.body.email;
@@ -72,6 +42,7 @@ router.post('/login', function (req, res, next) {
         }
         else {
             logged_in = user;
+            console.log(logged_in);
             res.redirect('./home');
         }
     });
@@ -82,7 +53,6 @@ router.get('/signup', function (req, res, next) {
     res.render('signup', { title: 'Sign Up' });
 });
 
-// Post from sign-up page
 router.post('/signup', function (req, res, next) {
     var fname = req.body.fname;
     var lname = req.body.lname;
@@ -95,14 +65,13 @@ router.post('/signup', function (req, res, next) {
         bcrypt.hash(pass, saltRounds, (err, hash) => {
             db.prepare(`INSERT INTO users (email, name, password_hash) VALUES (?, ?, ?)`).run(email, name, hash);
         });
-        user = db.prepare(`SELECT * FROM users WHERE email ?`).get(email);
-        logged_in = user;
-        res.redirect('./home')
+        res.redirect('/login');
     }
     else {
         res.render('signup', { title: 'Signup', msg: 'Email already exists' });
     }
 });
+
 
 // Get home page
 router.get('/home', function (req, res, next) {
@@ -123,7 +92,6 @@ router.get('/home', function (req, res, next) {
     res.render('home', { title: 'Home', user: logged_in, teams: teams, u2t: u2t, leagues: leagues, sports: sports });
 });
 
-// Posts for home pages
 router.post('/home', function (req, res, next) {
     
     
@@ -132,20 +100,53 @@ router.post('/home', function (req, res, next) {
     
 });
 
-// Get stats page
-router.get('/stats', function (req, res, next) {
-    res.render('stats', { title: 'Stats', user: logged_in });
+
+// Get teams page
+router.get('/teams', function (req, res, next) {
+    var players = [];
+    var tid = req.query.tid;
+    var team = db.prepare(`SELECT * FROM teams WHERE team_id = ?`).get(tid);
+    var u2t = db.prepare(`SELECT * FROM userToTeam WHERE team_id = ?`).all(team.team_id);
+    var league = db.prepare(`SELECT * FROM leagues WHERE league_id = ?`).get(team.league_id);
+    var sport = db.prepare(`SELECT * FROM sports WHERE sport_id = ?`).get(league.sport_id);
+
+    for (let i = 0; i < u2t.length; i++) {
+        players.push(db.prepare(`SELECT * FROM users WHERE id = ?`).get(u2t[i].user_id));
+    }
+
+    res.render('teams', { title: 'Teams', team: team, user: logged_in, players: players, league: league, sport: sport });
+});
+
+// Get leagues page
+router.get('/leagues', function (req, res, next) {
+    var lid = req.query.lid;
+    var league = db.prepare(`SELECT * FROM leagues WHERE league_id = ?`).get(lid);
+    var teams = db.prepare(`SELECT * FROM teams WHERE league_id = ?`).all(lid);
+    var sport = db.prepare(`SELECT * FROM sports WHERE sport_id = ?`).get(league.sport_id);
+    res.render('leagues', { title: 'Leagues', league: league, teams: teams, user: logged_in, sport: sport });
 });
 
 // Get rules page
 router.get('/rules', function (req, res, next) {
-    res.render('rules', { title: 'Rules', user: logged_in });
+    var sid = req.query.sid;
+    var sport = db.prepare(`SELECT * FROM sports WHERE sport_id = ?`).get(sid);
+    res.render('rules', { title: 'Rules', user: logged_in, sport: sport });
 });
 
 // Get sports page
 router.get('/sports', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();
     res.render('sports', { title: 'Sports', sports: sports, user: logged_in, s: JSON.stringify(sports) });
+});
+
+// Get stats page
+router.get('/stats', function (req, res, next) {
+    res.render('stats', { title: 'Stats', user: logged_in });
+});
+
+// Get about page
+router.get('/about', function (req, res, next) {
+    res.render('about', { title: 'About', user: logged_in });
 });
 
 // get createTeam page
@@ -212,6 +213,7 @@ router.post('/removeLeague', function (req, res, next) {
     res.redirect('/addLeague');
 });
 
+
 // Get addSports page
 router.get('/addSport', function (req, res, next) {
     var userID = logged_in.id;
@@ -230,6 +232,67 @@ router.post('/addSport', function (req, res, next) {
     var rules = req.body.rules;
     console.log(sportName + ' ' + rules);
     db.prepare("INSERT INTO sports (sportName, sportRules) VALUES (?, ?)").run(sportName, rules);
+    res.redirect('/addSport');
+});
+
+router.post('/removeSport', function (req, res, next) {
+    var sid = req.body.sid;
+    db.prepare(`DELETE FROM sports WHERE sport_id = ?`).run(sid);
+    res.redirect('/addSport');
+});
+
+
+// Gets the remove Team page
+router.get('/removeTeam', function (req, res, next) {
+    var teams = db.prepare("SELECT * FROM teams").all();
+    res.render('removeTeam', { title: 'Update User', user: logged_in, teams: teams });
+});
+
+router.post('/removeTeam', function (req, res, next) {
+    var tid = req.body.tid;
+    
+    db.prepare(`DELETE FROM teams WHERE team_id = ?`).run(tid);
+    var u2t = db.prepare(`SELECT * FROM userToTeam WHERE team_id = ?`).all(tid);
+    for (let i = 0; i < u2t.length; i++) {
+        db.prepare(`DELETE FROM userToTeam WHERE team_id = ?`).run(u2t[i].team_id);
+    }
+    res.redirect('/removeTeam');
+});
+
+
+// Gets the update User page
+router.get('/updateUser', function (req, res, next) {
+    var allusers = db.prepare("SELECT * FROM users").all();
+    res.render('updateUser', { title: 'Update User', user: logged_in, allUsers: allusers });
+});
+
+router.post('/updateUser', function (req, res, next) {
+    var uID = req.body.auid;
+    console.log(uID);
+    // this needs to update the user to be an admin - need to give the user an admin column with 1 or 0
+    //db.prepare(`DELETE FROM sports WHERE sport_id = ?`).run(sID);
+    res.redirect('/updateUser');
+});
+
+router.post('/removeUser', function (req, res, next) {
+    var uID = req.body.uid;
+
+    // hopefully would remove user from users and delete all instances from the many to many table
+    
+    db.prepare(`DELETE FROM users WHERE id = ?`).run(uID);
+    var u2t = db.prepare(`SELECT * FROM userToTeam WHERE user_id = ?`).all(uID);
+    for (let i = 0; i < u2t.length; i++) {
+        db.prepare(`DELETE FROM userToTeam WHERE user_id = ?`).run(u2t[i].user_id);
+    }
+    res.redirect('/updateUser');
+});
+
+
+// Get u2t table to display, mostly for testing to see if users/ teams are deleted correctly
+router.get('/u2t', function (req, res, next) {
+    var u2t = db.prepare(`SELECT * FROM userToTeam`).all();
+    res.render('u2t', {title: 'U2T', user: logged_in, u2t: u2t})
 })
+
 
 module.exports = router;

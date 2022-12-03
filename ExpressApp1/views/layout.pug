@@ -12,8 +12,9 @@ head
         include ../public/stylesheets/layout.css
 
   block navigation
-    - var NavItems = [{'url':'home', 'title': 'Home'}, {'url':'sports', 'title': 'Sports'}, {'url':'leagues', 'title': 'Leagues'}, {'url':'teams', 'title': 'Teams'}, {'url':'stats', 'title': 'Stats'}, {'url':'rules', 'title': 'Rules'}, {'url':'about', 'title': 'About'}];
-    - var AddItems = [{'url':'addLeague', 'title': 'Add/Remove League'}, {'url':'addSport', 'title': 'Add/Remove Sport'}, {'url':'removeTeam', 'title': 'Remove Team'}, {'url':'updateUser', 'title': 'Update User'}];
+    - var notUsedItems = [{'url':'leagues', 'title': 'Leagues'}, {'url':'teams', 'title': 'Teams'}, {'url':'rules', 'title': 'Rules'}];
+    - var NavItems = [{'url':'home', 'title': 'Home'}, {'url':'sports', 'title': 'Sports'}, {'url':'stats', 'title': 'Stats'}, {'url':'about', 'title': 'About'}];
+    - var AddItems = [{'url':'addLeague', 'title': 'Add/Remove League'}, {'url':'addSport', 'title': 'Add/Remove Sport'}, {'url':'removeTeam', 'title': 'Remove Team'}, {'url':'updateUser', 'title': 'Update User'}, {'url':'u2t', 'title': 'U2T'}];
 
   block variables
     - var PageID = 'home'
@@ -34,18 +35,18 @@ body
                 else
                   li.nav-item
                     a.nav-link(href='/' + page.url) #{page.title}
-
+              
+              
               if user <= 2
-                each page, i in AddItems
-                  if PageID === page.url
-                    li.nav-item
-                      a.nav-link.active(href='/' + page.url) #{page.title}
-                  else
-                    li.nav-item
-                      a.nav-link(href='/' + page.url) #{page.title}
+                li.nav-item.dropdown
+                  a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false') Edit
+                  ul.dropdown-menu(aria-labelledby='navbarDropdown')
+                    each page, i in AddItems
+                        li
+                          a.dropdown-item(href='/' + page.url) #{page.title} 
             ul.navbar-nav
               li.nav-item
-                a.nav-link(href='./') Sign Out
+                a.nav-link(href='/') Sign Out
 
   block content
     .container

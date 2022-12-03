@@ -4,15 +4,35 @@ block variables
   - var PageID = 'teams';
   - var user = user.id;
 
+  
+block append style
+    style
+        include ../public/stylesheets/teams.css
+
 block content
  body
-  p=teams
-  //-
-   table.table.table-striped.table-hover
-     thead
-       tr
-         th Name
-     tbody
-       each team in teams
-         tr
-           td #{team.teamName}
+  .container.mt-5
+    .row
+      .col-sm-4
+        h2 #{team.teamName}
+        p Sport: #{sport.sportName}
+        p Division: #{league.leagueName}
+        p Day: #{league.gameDay}
+        p Times: #{league.gameTime}
+        h3.mt-4 Stats
+        ul.nav.nav-pills.flex-column
+          li Wins: (input)
+          li Losses: (input)
+        hr.d-sm-none
+
+      .col-sm-8
+        h2 Team Members
+        table.table.table-striped.table-hover
+          thead
+            tr
+              th Name
+          tbody
+            each player in players
+              tr
+                td #{player.name}
+  

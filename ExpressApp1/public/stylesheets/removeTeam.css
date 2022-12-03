@@ -1,0 +1,40 @@
+body {
+    font-family: 'Roboto';
+}
+
+.primaryBg {
+    background: #9900cc;
+    color: white;
+}
+
+label {
+    font-size: 20px;
+}
+
+input {
+    border: 1px;
+    border-style: solid;
+}
+
+.btn {
+    float: right;
+    height: 50px;
+    width: 100px;
+    font-size: 20px;
+    font-family: 'Roboto';
+}
+
+th {
+    text-align: start;
+    padding-left: 10px;
+}
+
+td {
+    text-align: start;
+    margin-left: 5%;
+    font-size: 20px;
+}
+
+thead {
+    font-size: 20px;
+}
