@@ -4,7 +4,7 @@ body {
     height: 100%;
 }
 .p-5 {
-    background: linear-gradient(90deg, #9900cc 0%, #9900cca4 50%);
+    background: linear-gradient(90deg, #8F00FF 0%, #8F00FFa4 50%);
     font-family: 'Brush Script MT';
 }
 h1{
@@ -18,7 +18,7 @@ h1{
 }
 
 .btn {
-    background: #9900cc;
+    background: #8F00FF;
     color: white;
     border: none;
 }
