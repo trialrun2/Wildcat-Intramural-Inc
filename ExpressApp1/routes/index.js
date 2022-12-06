@@ -141,7 +141,12 @@ router.get('/sports', function (req, res, next) {
 
 // Get stats page
 router.get('/stats', function (req, res, next) {
-    res.render('stats', { title: 'Stats', user: logged_in });
+    var sports = db.prepare("SELECT * FROM sports").all();
+    var leagues = db.prepare("SELECT * FROM leagues").all();
+
+    res.render('stats', { title: 'Stats', user: logged_in, sports: sports, leagues: leagues });
+    
+    //res.render('stats', { title: 'Stats', user: logged_in });
 });
 
 // Get about page
@@ -156,23 +161,44 @@ router.get('/createTeam', function (req, res, next) {
     res.render('createTeam', { title: 'CreateTeam', sports: sports, leagues: leagues, user: logged_in });
 });
 
+// createTeam post
 router.post('/createTeam', function (req, res, next) {
     var tn = req.body.tn;
     var leagueID = req.body.lid;
+    var inLeague = 0;
+    var u2t = db.prepare(`SELECT * FROM userToTeam where user_id = ?`).all(logged_in.id);
+    var userTeams = [];
+    for (let i = 0; i < u2t.length; i++) {
+        userTeams.push(db.prepare(`SELECT * FROM teams WHERE team_id = ?`).get(u2t[i].team_id));
+    }
+
+    for (let i = 0; i < userTeams.length; i++) {
+        if (userTeams[i].league_id.toString() === leagueID.toString()) {
+            inLeague = 1;
+        } 
+    }
 
     while (1) {
         var code = Math.floor(Math.random() * 90000) + 10000;
         var team = db.prepare(`SELECT * FROM teams WHERE code = ?`).get(code);
-        console.log(code);
-        console.log(team);
+
         if (!team) {
-            db.prepare(`INSERT INTO teams (teamName, league_id, code) VALUES (?, ?, ?)`).run(tn, leagueID, code);
+            if (inLeague === 0) {
+                db.prepare(`INSERT INTO teams (teamName, league_id, code) VALUES (?, ?, ?)`).run(tn, leagueID, code);
+                console.log('new league');
+            }
             break;
-        }
+        } 
     }
 
-    var team = db.prepare(`SELECT * FROM teams WHERE code = ?`).get(code);
-    db.prepare(`INSERT INTO userToTeam (user_id, team_id, captain) VALUES (?, ?, ?)`).run(logged_in.id, team.team_id, 1);
+    if (inLeague === 0) {
+        var team = db.prepare(`SELECT * FROM teams WHERE code = ?`).get(code);
+        db.prepare(`INSERT INTO userToTeam (user_id, team_id, captain) VALUES (?, ?, ?)`).run(logged_in.id, team.team_id, 1);
+    }else {
+        //tell user already in team in league
+        console.log('already in that league');
+    }
+    
 
     res.redirect('/home');
 });
@@ -180,6 +206,7 @@ router.post('/createTeam', function (req, res, next) {
 router.post('/joinTeam', function (req, res, next) {
     var tc = req.body.tc;
     var team = db.prepare(`SELECT * FROM teams WHERE code = ?`).get(tc);
+
     db.prepare(`INSERT INTO userToTeam (user_id, team_id, captain) VALUES (?, ?, ?)`).run(logged_in.id, team.team_id, 0);
     res.redirect('/home');
 });
