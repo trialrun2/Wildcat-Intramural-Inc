@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Roboto';
-    background: linear-gradient(90deg, #9900cc 0%, #9900cca4 50%);
+    background: linear-gradient(90deg, #8F00FFa4 0%, #8F00FFb4 50%);
 }
 
 .inner-row {
@@ -10,7 +10,7 @@ body {
 }
 
 .primaryBg {
-    background: #9900cc;
+    background: #8F00FF;
     color: white;
 }
 
@@ -30,7 +30,7 @@ h1 {
 }
 
 .primaryColor {
-    background: #9900cc;
+    background: #8F00FF;
 }
 
 .btn {
