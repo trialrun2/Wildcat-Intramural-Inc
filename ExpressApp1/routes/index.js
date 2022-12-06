@@ -203,11 +203,27 @@ router.post('/createTeam', function (req, res, next) {
     res.redirect('/home');
 });
 
+// Post for joinTeam
 router.post('/joinTeam', function (req, res, next) {
     var tc = req.body.tc;
     var team = db.prepare(`SELECT * FROM teams WHERE code = ?`).get(tc);
 
-    db.prepare(`INSERT INTO userToTeam (user_id, team_id, captain) VALUES (?, ?, ?)`).run(logged_in.id, team.team_id, 0);
+    var inLeague = 0;
+    var u2t = db.prepare(`SELECT * FROM userToTeam where user_id = ?`).all(logged_in.id);
+    var userTeams = [];
+    for (let i = 0; i < u2t.length; i++) {
+        userTeams.push(db.prepare(`SELECT * FROM teams WHERE team_id = ?`).get(u2t[i].team_id));
+    }
+
+    for (let i = 0; i < userTeams.length; i++) {
+        if (userTeams[i].league_id.toString() === leagueID.toString()) {
+            inLeague = 1;
+        }
+    }
+
+    if (inLeague === 0) {
+        db.prepare(`INSERT INTO userToTeam (user_id, team_id, captain) VALUES (?, ?, ?)`).run(logged_in.id, team.team_id, 0);
+    }
     res.redirect('/home');
 });
 
@@ -217,7 +233,7 @@ router.get('/addLeague', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();
     var leagues = db.prepare("SELECT * FROM leagues").all();
 
-    if (userID <= 2) {
+    if (logged_in.admin.toString() === '1') {
         res.render('addLeague', { title: 'Add League', user: logged_in, sports: sports, leagues: leagues });
     }
     else {
@@ -225,6 +241,7 @@ router.get('/addLeague', function (req, res, next) {
     }
 });
 
+// Post for addLeague page
 router.post('/addLeague', function (req, res, next) {
     var sport = req.body.sname;
     var div = req.body.div;
@@ -234,6 +251,7 @@ router.post('/addLeague', function (req, res, next) {
     res.redirect('/addLeague');
 });
 
+// Post for removeLeague
 router.post('/removeLeague', function (req, res, next) {
     var lid = req.body.lid;
     db.prepare(`DELETE FROM leagues WHERE league_id = ?`).run(lid);
@@ -246,7 +264,7 @@ router.get('/addSport', function (req, res, next) {
     var userID = logged_in.id;
     var sports = db.prepare("SELECT * FROM sports").all();
 
-    if (userID < 3) {
+    if (logged_in.admin.toString() === '1') {
         res.render('addSport', { title: 'Add Sport', user: logged_in, sports: sports });
     }
     else {
@@ -254,6 +272,7 @@ router.get('/addSport', function (req, res, next) {
     }
 });
 
+// Post for addSport
 router.post('/addSport', function (req, res, next) {
     var sportName = req.body.sport;
     var rules = req.body.rules;
@@ -262,6 +281,7 @@ router.post('/addSport', function (req, res, next) {
     res.redirect('/addSport');
 });
 
+// Post for removeSport
 router.post('/removeSport', function (req, res, next) {
     var sid = req.body.sid;
     db.prepare(`DELETE FROM sports WHERE sport_id = ?`).run(sid);
@@ -275,6 +295,7 @@ router.get('/removeTeam', function (req, res, next) {
     res.render('removeTeam', { title: 'Update User', user: logged_in, teams: teams });
 });
 
+// Post for removeTeam
 router.post('/removeTeam', function (req, res, next) {
     var tid = req.body.tid;
     
@@ -293,6 +314,7 @@ router.get('/updateUser', function (req, res, next) {
     res.render('updateUser', { title: 'Update User', user: logged_in, allUsers: allusers });
 });
 
+// Post for updateUser
 router.post('/updateUser', function (req, res, next) {
     var uID = req.body.auid;
     console.log(uID);
