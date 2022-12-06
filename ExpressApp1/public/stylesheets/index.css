@@ -1,8 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url(https://www.cssfontstack.com/Brush-Script-MT);
 
 body {
     font-family: 'Roboto';
-    background: linear-gradient(90deg, #9900cc 0%, #9900cca4 50%);
+    background: linear-gradient(90deg, #6F2DA8 0%, #6F2DA8 50%);
 }
 
 .inner-row {
@@ -10,7 +11,7 @@ body {
 }
 
 .primaryBg {
-    background: #9900cc;
+    background: #6F2DA8;
     color: white;
 }
 
@@ -30,7 +31,7 @@ h1 {
 }
 
 .primaryColor {
-    background: #9900cc;
+    background: #8F00FF;
 }
 
 .btn {
