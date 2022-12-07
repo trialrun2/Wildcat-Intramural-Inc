@@ -41,4 +41,10 @@ thead {
 
 #adminbut {
     width: 200px;
+    background-color: green;
+}
+#userbut {
+    width: 200px;
+    height: 75px;
+    background-color: red;
 }

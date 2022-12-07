@@ -20,7 +20,10 @@ block content
           tr
             td #{a.name}
             td 
-              button.btn.btn-light.ms-3(id= 'adminbut' data-bs-toggle='modal' data-bs-target='#adminModal' data-user-id= a.id onclick='makeAdmin(this);') Make Administrator
+              if a.admin === '1'
+                button.btn.ms-3(id= 'userbut' data-bs-toggle='modal' data-bs-target='#userModal' data-user-id= a.id onclick='makeNormal(this);') Remove Administrator
+              else 
+                 button.btn.ms-3(id= 'adminbut' data-bs-toggle='modal' data-bs-target='#adminModal' data-user-id= a.id onclick='makeAdmin(this);') Make Administrator
             td
               button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#deleteModal' data-user-id= a.id onclick='deleteUser(this);') Delete
     
@@ -63,6 +66,24 @@ block content
               button.btn.btn-danger(type='button' data-bs-dismiss='modal') No
 
 
+    #userModal.modal.fade
+      .modal-dialog.modal-dialog-centered
+        .modal-content
+          // Modal Header
+          .modal-header
+            h4.modal-title
+            button.btn-close(type='button' data-bs-dismiss='modal')
+          form(action='/updateAdmin' method='post')
+            // Modal body
+            .modal-body
+              label Are you sure you want to remove this administrator?
+              .form-floating.mb-3
+                input(id= 'ruid' name='ruid' type='hidden')
+            // Modal footer
+            .modal-footer
+              input.btn.btn-light.primaryBg(type= 'submit' value='Yes')
+              button.btn.btn-danger(type='button' data-bs-dismiss='modal') No
+
   script.
     function deleteUser(element){
         duid = element.getAttribute("data-user-id");
@@ -74,4 +95,10 @@ block content
         duid = element.getAttribute("data-user-id");
         var auid = document.getElementById('auid');
         auid.setAttribute("value", duid);
+    }
+
+    function makeNormal(element){
+        duid = element.getAttribute("data-user-id");
+        var ruid = document.getElementById('ruid');
+        ruid.setAttribute("value", duid);
     }
