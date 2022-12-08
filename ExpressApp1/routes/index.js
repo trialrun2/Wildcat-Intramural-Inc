@@ -61,7 +61,11 @@ router.post('/signup', function (req, res, next) {
         bcrypt.hash(pass, saltRounds, (err, hash) => {
             db.prepare(`INSERT INTO users (email, name, password_hash) VALUES (?, ?, ?)`).run(email, name, hash);
         });
-        res.redirect('/login');
+        setTimeout(function () {
+            logged_in = db.prepare(`SELECT * FROM users WHERE email = ?`).get(email);
+            res.redirect('/home');
+        }, 250);
+        
     }
     else {
         res.render('signup', { title: 'Signup', msg: 'Email already exists' });

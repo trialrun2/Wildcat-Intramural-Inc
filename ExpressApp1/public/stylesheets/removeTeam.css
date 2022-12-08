@@ -38,3 +38,8 @@ td {
 thead {
     font-size: 20px;
 }
+
+a {
+    color: black;
+    text-decoration: none;
+}
