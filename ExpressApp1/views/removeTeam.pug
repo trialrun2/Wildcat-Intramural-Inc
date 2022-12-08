@@ -18,7 +18,8 @@ block content
       tbody
         each team in teams
           tr
-            td #{team.teamName}
+            td
+              a(href='/teams/?tid=' + team.team_id) #{team.teamName}
             td
               button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#deleteModal' data-team-id= team.team_id onclick='deleteTeam(this);') Delete
 

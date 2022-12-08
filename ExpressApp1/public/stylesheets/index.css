@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-@import url(https://www.cssfontstack.com/Brush-Script-MT);
+@import url('https://fonts.googleapis.com/css2?family=Bilbo+Swash+Caps&display=swap');
+
 
 body {
     font-family: 'Roboto';
@@ -26,7 +27,8 @@ h1 {
     text-shadow: -.5px .5px 0 #000, .5px .5px 0 #000, .5px -.5px 0 #000;
 }
 .p-5 {
-    font-family: 'Brush Script MT';
+    font-family: 'Bilbo Swash Caps', cursive;
+    font-weight: bold;
     color: white;
 }
 
@@ -35,9 +37,8 @@ h1 {
 }
 
 .btn {
-    font-family: 'Bernard MT';
+    font-family: Century;
     font-size: 500%;
-    font-weight: bold;
     justify-content: center;
     height: 150px;
     padding-bottom: 10px;
