@@ -23,24 +23,22 @@ router.post('/login', function (req, res, next) {
     var user = db.prepare("SELECT * FROM users WHERE email = ?").get(email);
 
     if (!user) {
-        res.render('login', { title: 'Login', msg: 'Incorrect Usename/Password. Please try again.', users: (users) });
+        res.render('login', { title: 'Login', msg: 'Incorrect Usename/Password. Please try again.', users: (user) });
     }
 
     bcrypt.compare(pass, user.password_hash, (err, result) => {
         if (err) return serveError(req, res, 500, err);
         if (!result) {
-            if (pass === user.password_hash) {
+            if (pass == user.password_hash) {
                 logged_in = user;
-                message_code = 0;
                 res.redirect('./home');
             }
             else {
-                res.render('login', { title: 'Login', msg: 'Incorrect Username/Password. Please try again.', users: (users) });
+                res.render('login', { title: 'Login', msg: 'Incorrect Username/Password. Please try again.', users: (user) });
             }   
         }
         else {
             logged_in = user;
-            message_code = 0;
             res.redirect('./home');
         }
     });
@@ -78,10 +76,11 @@ router.get('/home', function (req, res, next) {
     var leagues = [];
     var userID = logged_in.id;
     var msg = "";
+    var joinmsg = "";
 
     var u2t = db.prepare("SELECT * FROM userToTeam WHERE user_id = ?").all(userID);
     if (u2t.length == 0) {
-        message_code = 3;
+        joinmsg = "Create or Join a team!";
     }
 
     for (let i = 0; i < u2t.length; i++) {
@@ -91,27 +90,20 @@ router.get('/home', function (req, res, next) {
     for (let i = 0; i < teams.length; i++) {
         leagues.push(db.prepare("SELECT * FROM leagues WHERE league_id = ?").get(teams[i].league_id));
     }
-
-    if (message_code === 1) {
+    
+    if (message_code == 1) {
         msg = "Invalid Team Code";
     }
-    else if (message_code === 2) {
+    else if (message_code == 2) {
         msg = "Cannot be on multiple teams in the same league";
-    }
-    else if (message_code === 3) {
-        msg = "Create or Join a team!";
     }
     else {
         msg = "";
     }
+    message_code = 0;
 
-    res.render('home', { title: 'Home', user: logged_in, teams: teams, u2t: u2t, leagues: leagues, sports: sports, msg: msg });
+    res.render('home', { title: 'Home', user: logged_in, teams: teams, u2t: u2t, leagues: leagues, sports: sports, msg: msg, joinmsg: joinmsg});
 });
-
-router.post('/home', function (req, res, next) {
-    
-});
-
 
 // Get teams page
 router.get('/teams', function (req, res, next) {
@@ -175,13 +167,16 @@ router.get('/createTeam', function (req, res, next) {
 router.post('/createTeam', function (req, res, next) {
     var tn = req.body.tn;
     var leagueID = req.body.lid;
+    console.log(leagueID);
     var u2t = db.prepare(`SELECT * FROM userToTeam where user_id = ?`).all(logged_in.id);
 
     for (let i = 0; i < u2t.length; i++) {
         var teams = db.prepare(`SELECT * FROM teams WHERE team_id =?`).get(u2t[i].team_id);
-        if (team.league_id === teams.league_id) {
+        console.log(teams.league_id);
+        if (leagueID == teams.league_id) {
             message_code = 2;
             res.redirect('/home');
+            return;
         }
     }
 
@@ -196,7 +191,6 @@ router.post('/createTeam', function (req, res, next) {
 
     var team = db.prepare(`SELECT * FROM teams WHERE code = ?`).get(code);
     db.prepare(`INSERT INTO userToTeam (user_id, team_id, captain) VALUES (?, ?, ?)`).run(logged_in.id, team.team_id, 1);
-    message_code = 0;
     res.redirect('/home');
 });
 
@@ -206,16 +200,22 @@ router.post('/joinTeam', function (req, res, next) {
     var team = db.prepare(`SELECT * FROM teams WHERE code = ?`).get(tc);
     var u2t = db.prepare(`SELECT * FROM userToTeam where user_id = ?`).all(logged_in.id);
 
+    if (!team) {
+        message_code = 1;
+        res.redirect('/home');
+        return;
+    }
+
     for (let i = 0; i < u2t.length; i++) {
         var teams = db.prepare(`SELECT * FROM teams WHERE team_id =?`).get(u2t[i].team_id);
-        if (team.league_id === teams.league_id) {
+        if (team.league_id == teams.league_id) {
             message_code = 2;
             res.redirect('/home');
+            return;
         }
     }
 
     db.prepare(`INSERT INTO userToTeam (user_id, team_id, captain) VALUES (?, ?, ?)`).run(logged_in.id, team.team_id, 0);
-    message_code = 0;
     res.redirect('/home');
 });
 
@@ -224,7 +224,7 @@ router.get('/addLeague', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();
     var leagues = db.prepare("SELECT * FROM leagues").all();
 
-    if (logged_in.admin === "1") {
+    if (logged_in.admin == 1) {
         res.render('addLeague', { title: 'Add League', user: logged_in, sports: sports, leagues: leagues });
     }
     else {
@@ -254,7 +254,7 @@ router.post('/removeLeague', function (req, res, next) {
 router.get('/addSport', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();
 
-    if (logged_in.admin === "1") {
+    if (logged_in.admin == 1) {
         res.render('addSport', { title: 'Add Sport', user: logged_in, sports: sports });
     }
     else {
@@ -305,7 +305,7 @@ router.post('/removeTeam', function (req, res, next) {
 // Gets the update User page
 router.get('/updateUser', function (req, res, next) {
     var allusers = db.prepare("SELECT * FROM users").all();
-    if (logged_in.admin === "1") {
+    if (logged_in.admin == 1) {
         res.render('updateUser', { title: 'Update User', user: logged_in, allUsers: allusers });
     }
     else {
@@ -343,7 +343,7 @@ router.post('/removeUser', function (req, res, next) {
 // Get u2t table to display, mostly for testing to see if users/ teams are deleted correctly
 router.get('/u2t', function (req, res, next) {
     var u2t = db.prepare(`SELECT * FROM userToTeam`).all();
-    if (logged_in.admin === "1") {
+    if (logged_in.admin == 1) {
         res.render('u2t', { title: 'U2T', user: logged_in, u2t: u2t })
     }
     else {

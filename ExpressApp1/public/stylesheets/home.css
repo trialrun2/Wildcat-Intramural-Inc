@@ -7,7 +7,17 @@ body {
     max-width: 300px;
 }
 
-a{
+a {
     color: black;
     text-decoration: none;
+}
+
+#msg {
+    color: red;
+    font-style: italic;
+}
+
+#joinmsg {
+    font-size: 50px;
+    font-weight: bold;
 }

@@ -34,6 +34,7 @@ block content
             a.nav-link.disabled(href='#') Disabled
         hr.d-sm-none
       .col-sm-8
+        p#msg= msg
         h2
           | My Teams
           a.btn.btn-light.ms-3(type='button' href='./createTeam') Create Team
@@ -66,7 +67,7 @@ block content
                       td #{team.code}
                     else
                       td
-
+        p#joinmsg= joinmsg
 
 
     // The Modal
