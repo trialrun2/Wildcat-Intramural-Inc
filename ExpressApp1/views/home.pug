@@ -52,15 +52,19 @@ block content
               tr
                 td
                   a(href='/teams/?tid=' + team.team_id) #{team.teamName}
-                each league in leagues
-                  each sport in sports
-                    if sport.sport_id === league.sport_id
-                      if league.league_id === team.league_id
-                        td 
-                          a(href='/rules/?sid=' + sport.sport_id) #{sport.sportName}
-                  if league.league_id === team.league_id
-                    td 
-                      a(href='/leagues/?lid=' + league.league_id) #{league.leagueName} #{league.gameDay} #{league.gameTime}
+                if team.league_id === 0
+                  td This League was removed
+                  td
+                else
+                  each league in leagues
+                    each sport in sports
+                      if sport.sport_id === league.sport_id
+                        if league.league_id === team.league_id
+                          td 
+                            a(href='/rules/?sid=' + sport.sport_id) #{sport.sportName}
+                    if league.league_id === team.league_id
+                      td 
+                        a(href='/leagues/?lid=' + league.league_id) #{league.leagueName} #{league.gameDay} #{league.gameTime}
                 each t in u2t
                   if t.team_id === team.team_id
                     if t.captain == 1
