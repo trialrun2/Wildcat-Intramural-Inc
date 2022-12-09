@@ -25,16 +25,16 @@ block content
           th Day
           th League
       tbody
-        each league in leagues
-          tr
-            each sport in sports
+        each sport in sports
+            each league in leagues
               if sport.sport_id === league.sport_id
-                td #{sport.sportName} 
-            td #{league.leagueName}
-            td #{league.gameDay} 
-            td #{league.gameTime}
-            td
-              button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#deleteModal' data-league-id= league.league_id onclick='deleteLeague(this);') Delete
+                tr
+                  td #{sport.sportName} 
+                  td #{league.leagueName}
+                  td #{league.gameDay} 
+                  td #{league.gameTime}
+                  td
+                    button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#deleteModal' data-league-id= league.league_id onclick='deleteLeague(this);') Delete
 
     #myModal.modal.fade
       .modal-dialog.modal-dialog-centered

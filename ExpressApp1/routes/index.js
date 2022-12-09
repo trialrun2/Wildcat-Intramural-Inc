@@ -71,7 +71,6 @@ router.post('/signup', function (req, res, next) {
     }
 });
 
-
 // Get home page
 router.get('/home', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();
@@ -267,7 +266,6 @@ router.post('/removeLeague', function (req, res, next) {
     res.redirect('/addLeague');
 });
 
-
 // Get addSports page
 router.get('/addSport', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();
@@ -307,7 +305,6 @@ router.post('/removeSport', function (req, res, next) {
     res.redirect('/addSport');
 });
 
-
 // Gets the remove Team page
 router.get('/removeTeam', function (req, res, next) {
     var teams = db.prepare("SELECT * FROM teams").all();
@@ -324,7 +321,6 @@ router.post('/removeTeam', function (req, res, next) {
     }
     res.redirect('/removeTeam');
 });
-
 
 // Gets the update User page
 router.get('/updateUser', function (req, res, next) {
@@ -351,7 +347,6 @@ router.post('/updateAdmin', function (req, res, next) {
     res.redirect('/updateUser');
 });
 
-
 // Post for remove user
 router.post('/removeUser', function (req, res, next) {
     var uID = req.body.uid;    
@@ -362,7 +357,6 @@ router.post('/removeUser', function (req, res, next) {
     }
     res.redirect('/updateUser');
 });
-
 
 // Get u2t table to display, mostly for testing to see if users/ teams are deleted correctly
 router.get('/u2t', function (req, res, next) {
