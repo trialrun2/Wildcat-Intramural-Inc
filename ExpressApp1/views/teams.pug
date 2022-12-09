@@ -31,7 +31,8 @@ block content
         .col-sm-8
           h2 
             | Team Members
-            button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#myModal') Edit Team
+            if captain.captain == 1
+              button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#myModal') Edit Team
           table.table.table-striped.table-hover
             thead
               tr

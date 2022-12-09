@@ -24,7 +24,7 @@ block content
         h2 
           | Teams
           if user == 1
-            button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#myModal' data-league-id= league.league_id onclick='generate(this);') Generate Games
+            button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#myModal') Generate Games
         table.table.table-striped.table-hover
           thead
             tr
@@ -47,14 +47,13 @@ block content
             .modal-body
               label Are you sure you want to generate the games?
               lable This action will also close the league to further teams.
-              .form-floating.mb-3
-                input(id= 'lid' name='lid' type='hidden')
+              input(id= 'lid' name='lid' type='hidden' value=league.league_id)
             // Modal footer
             .modal-footer
               input.btn.btn-light.primaryBg(type= 'submit' value='Yes')
               button.btn.btn-danger(type='button' data-bs-dismiss='modal') No
 
-  script.
+  //script.
     function generate(element){
         lid.setAttribute("value", league.league_id);
     }

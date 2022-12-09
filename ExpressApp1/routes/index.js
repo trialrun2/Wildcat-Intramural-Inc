@@ -136,8 +136,8 @@ router.get('/teams', function (req, res, next) {
 router.post('/changeName', function (req, res, next) {
     var teamName = req.body.tn;
     var teamId = req.body.tid;
-    db.prepare(`UPDATE users SET teamName = ? WHERE team_id = ?`).run(teamName, teamId);
-    res.redirect('/teams/tid=' + tid);
+    db.prepare(`UPDATE teams SET teamName = ? WHERE team_id = ?`).run(teamName, teamId);
+    res.redirect('/teams/?tid=' + teamId);
 });
 
 // Get leagues page
@@ -153,6 +153,7 @@ router.get('/leagues', function (req, res, next) {
 router.post('/generateGames', function (req, res, next) {
     var leagueID = req.body.lid;
     console.log(leagueID);
+    res.redirect('/leagues/?lid=' + leagueID);
 })
 
 // Get rules page
@@ -252,8 +253,8 @@ router.post('/joinTeam', function (req, res, next) {
 
 // Get addLeague page
 router.get('/addLeague', function (req, res, next) {
-    var sports = db.prepare("SELECT * FROM sports").all();
-    var leagues = db.prepare("SELECT * FROM leagues").all();
+    var sports = db.prepare("SELECT * FROM sports ORDER BY sportName").all();
+    var leagues = db.prepare("SELECT * FROM leagues ORDER BY leagueName, CASE WHEN gameDay = 'Sunday' THEN 1 WHEN gameDay = 'Monday' THEN 2 WHEN gameDay = 'Tuesday' THEN 3 WHEN gameDay = 'Wednesday' THEN 4 WHEN gameDay = 'Thursday' THEN 5 WHEN gameDay = 'Friday' THEN 6 WHEN gameDay = 'Saturday' THEN 7 END, gameTime").all();
 
     if (logged_in.admin == 1) {
         res.render('addLeague', { title: 'Add League', user: logged_in, sports: sports, leagues: leagues });
@@ -289,8 +290,7 @@ router.post('/removeLeague', function (req, res, next) {
 
 // Get addSports page
 router.get('/addSport', function (req, res, next) {
-    var sports = db.prepare("SELECT * FROM sports").all();
-
+    var sports = db.prepare("SELECT * FROM sports ORDER BY sportName").all();
     if (logged_in.admin == 1) {
         res.render('addSport', { title: 'Add Sport', user: logged_in, sports: sports });
     }
@@ -328,7 +328,7 @@ router.post('/removeSport', function (req, res, next) {
 
 // Gets the remove Team page
 router.get('/removeTeam', function (req, res, next) {
-    var teams = db.prepare("SELECT * FROM teams").all();
+    var teams = db.prepare("SELECT * FROM teams ORDER BY teamName").all();
     res.render('removeTeam', { title: 'Update User', user: logged_in, teams: teams });
 });
 
@@ -345,7 +345,7 @@ router.post('/removeTeam', function (req, res, next) {
 
 // Gets the update User page
 router.get('/updateUser', function (req, res, next) {
-    var allusers = db.prepare("SELECT * FROM users").all();
+    var allusers = db.prepare("SELECT * FROM users ORDER BY name").all();
     if (logged_in.admin == 1) {
         res.render('updateUser', { title: 'Update User', user: logged_in, allUsers: allusers });
     }
@@ -379,7 +379,7 @@ router.post('/removeUser', function (req, res, next) {
     res.redirect('/updateUser');
 });
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 // Post for gameInformation
 router.get('/gameInformation', function (req, res, next) {
     var games = db.prepare("SELECT * FROM games").all();
@@ -402,8 +402,8 @@ router.post('/gameInformation', function (req, res, next) {
 });
 
 
-=======
->>>>>>> 35d318c682e8f061dc47099d90bbfad82355f99c
+//=======
+//>>>>>>> 35d318c682e8f061dc47099d90bbfad82355f99c
 // Get u2t table to display, mostly for testing to see if users/ teams are deleted correctly
 router.get('/u2t', function (req, res, next) {
     var u2t = db.prepare(`SELECT * FROM userToTeam`).all();
