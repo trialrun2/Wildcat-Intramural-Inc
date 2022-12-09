@@ -15,10 +15,13 @@ block content
     .row
       .col-sm-4
         h2 #{team.teamName}
-        p Sport: #{sport.sportName}
-        p Division: #{league.leagueName}
-        p Day: #{league.gameDay}
-        p Times: #{league.gameTime}
+        if league === 0
+          p Unfortunately the league or sport that this team was in has been removed, you will still be able to view and access your team.
+        else
+          p Sport: #{sport.sportName}
+          p Division: #{league.leagueName}
+          p Day: #{league.gameDay}
+          p Times: #{league.gameTime}
         h3.mt-4 Stats
         ul.nav.nav-pills.flex-column
           li Wins: (input)

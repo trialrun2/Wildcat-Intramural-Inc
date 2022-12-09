@@ -11,7 +11,6 @@ router.get('/', function (req, res, next) {
     res.render('index', { title: 'Wildcat Intramural Inc.' });
 });
 
-
 // Get login page
 router.get('/login', function (req, res, next) {
     res.render('login', { title: 'Login', msg: '' });
@@ -73,7 +72,6 @@ router.post('/signup', function (req, res, next) {
     }
 });
 
-
 // Get home page
 router.get('/home', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();
@@ -93,7 +91,9 @@ router.get('/home', function (req, res, next) {
     }
 
     for (let i = 0; i < teams.length; i++) {
-        leagues.push(db.prepare("SELECT * FROM leagues WHERE league_id = ?").get(teams[i].league_id));
+        if (teams[i].league_id != 0) {
+            leagues.push(db.prepare("SELECT * FROM leagues WHERE league_id = ?").get(teams[i].league_id));
+        }
     }
     
     if (message_code == 1) {
@@ -113,11 +113,17 @@ router.get('/home', function (req, res, next) {
 // Get teams page
 router.get('/teams', function (req, res, next) {
     var players = [];
+    var sport;
     var tid = req.query.tid;
     var team = db.prepare(`SELECT * FROM teams WHERE team_id = ?`).get(tid);
     var u2t = db.prepare(`SELECT * FROM userToTeam WHERE team_id = ?`).all(team.team_id);
     var league = db.prepare(`SELECT * FROM leagues WHERE league_id = ?`).get(team.league_id);
-    var sport = db.prepare(`SELECT * FROM sports WHERE sport_id = ?`).get(league.sport_id);
+    if (league) {
+        sport = db.prepare(`SELECT * FROM sports WHERE sport_id = ?`).get(league.sport_id);
+    }
+    else {
+        league = 0;
+    }
 
     for (let i = 0; i < u2t.length; i++) {
         players.push(db.prepare(`SELECT * FROM users WHERE id = ?`).get(u2t[i].user_id));
@@ -262,10 +268,16 @@ router.post('/addLeague', function (req, res, next) {
 // Post for removeLeague
 router.post('/removeLeague', function (req, res, next) {
     var lid = req.body.lid;
+    var teams = db.prepare(`SELECT * FROM teams WHERE league_id = ?`).all(lid);
+
     db.prepare(`DELETE FROM leagues WHERE league_id = ?`).run(lid);
+
+    for (let i = 0; i < teams.length; i++) {
+        db.prepare(`UPDATE teams SET league_id = ? WHERE team_id = ?`).run(0, teams[i].team_id);
+    }
+    
     res.redirect('/addLeague');
 });
-
 
 // Get addSports page
 router.get('/addSport', function (req, res, next) {
@@ -291,15 +303,20 @@ router.post('/addSport', function (req, res, next) {
 // Post for removeSport
 router.post('/removeSport', function (req, res, next) {
     var sid = req.body.sid;
-    db.prepare(`DELETE FROM sports WHERE sport_id = ?`).run(sid);
+    var teams;
+    
     var leagues = db.prepare(`SELECT * FROM leagues WHERE sport_id = ?`).all(sid);
     for (let i = 0; i < leagues.length; i++) {
-        db.prepare(`DELETE FROM leagues WHERE sport_id = ?`).run(leagues[i].sport_id);
+        teams = db.prepare(`SELECT * FROM teams WHERE league_id = ?`).all(leagues[i].league_id);
+        for (let j = 0; j < teams.length; j++) {
+            db.prepare(`UPDATE teams SET league_id = ? WHERE team_id = ?`).run(0, teams[j].team_id);
+        }
+        db.prepare(`DELETE FROM leagues WHERE sport_id = ?`).run(sid);
     }
+    db.prepare(`DELETE FROM sports WHERE sport_id = ?`).run(sid);
 
     res.redirect('/addSport');
 });
-
 
 // Gets the remove Team page
 router.get('/removeTeam', function (req, res, next) {
@@ -317,7 +334,6 @@ router.post('/removeTeam', function (req, res, next) {
     }
     res.redirect('/removeTeam');
 });
-
 
 // Gets the update User page
 router.get('/updateUser', function (req, res, next) {
@@ -344,7 +360,6 @@ router.post('/updateAdmin', function (req, res, next) {
     res.redirect('/updateUser');
 });
 
-
 // Post for remove user
 router.post('/removeUser', function (req, res, next) {
     var uID = req.body.uid;    
@@ -356,6 +371,7 @@ router.post('/removeUser', function (req, res, next) {
     res.redirect('/updateUser');
 });
 
+<<<<<<< HEAD
 // Post for gameInformation
 router.get('/gameInformation', function (req, res, next) {
     var games = db.prepare("SELECT * FROM games").all();
@@ -378,6 +394,8 @@ router.post('/gameInformation', function (req, res, next) {
 });
 
 
+=======
+>>>>>>> 35d318c682e8f061dc47099d90bbfad82355f99c
 // Get u2t table to display, mostly for testing to see if users/ teams are deleted correctly
 router.get('/u2t', function (req, res, next) {
     var u2t = db.prepare(`SELECT * FROM userToTeam`).all();
