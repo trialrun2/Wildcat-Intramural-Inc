@@ -115,7 +115,8 @@ router.get('/teams', function (req, res, next) {
     var sport;
     var tid = req.query.tid;
     var team = db.prepare(`SELECT * FROM teams WHERE team_id = ?`).get(tid);
-    var u2t = db.prepare(`SELECT * FROM userToTeam WHERE team_id = ?`).all(team.team_id);
+    var u2t = db.prepare(`SELECT * FROM userToTeam WHERE team_id = ?`).all(tid);
+    var captain = db.prepare(`SELECT * FROM userToTeam WHERE team_id = ? AND user_id = ?`).get(tid, logged_in.id);
     var league = db.prepare(`SELECT * FROM leagues WHERE league_id = ?`).get(team.league_id);
     if (league) {
         sport = db.prepare(`SELECT * FROM sports WHERE sport_id = ?`).get(league.sport_id);
@@ -128,7 +129,14 @@ router.get('/teams', function (req, res, next) {
         players.push(db.prepare(`SELECT * FROM users WHERE id = ?`).get(u2t[i].user_id));
     }
 
-    res.render('teams', { title: 'Teams', team: team, user: logged_in, players: players, league: league, sport: sport });
+    res.render('teams', { title: 'Teams', team: team, user: logged_in, players: players, league: league, sport: sport, captain: captain });
+});
+
+router.post('/changeName', function (req, res, next) {
+    var teamName = req.body.tn;
+    var teamId = req.body.tid;
+    db.prepare(`UPDATE users SET teamName = ? WHERE team_id = ?`).run(teamName, teamId);
+    res.redirect('/teams/tid=' + tid);
 });
 
 // Get leagues page

@@ -10,32 +10,52 @@ block append style
         include ../public/stylesheets/teams.css
 
 block content
- body
-  .container.mt-5
-    .row
-      .col-sm-4
-        h2 #{team.teamName}
-        if league === 0
-          p Unfortunately the league or sport that this team was in has been removed, you will still be able to view and access your team.
-        else
-          p Sport: #{sport.sportName}
-          p Division: #{league.leagueName}
-          p Day: #{league.gameDay}
-          p Times: #{league.gameTime}
-        h3.mt-4 Stats
-        ul.nav.nav-pills.flex-column
-          li Wins: (input)
-          li Losses: (input)
-        hr.d-sm-none
+  body
+    .container.mt-5
+      .row
+        .col-sm-4
+          h2 #{team.teamName}
+          if league === 0
+            p Unfortunately the league or sport that this team was in has been removed, you will still be able to view and access your team.
+          else
+            p Sport: #{sport.sportName}
+            p Division: #{league.leagueName}
+            p Day: #{league.gameDay}
+            p Times: #{league.gameTime}
+          h3.mt-4 Stats
+          ul.nav.nav-pills.flex-column
+            li Wins: (input)
+            li Losses: (input)
+          hr.d-sm-none
 
-      .col-sm-8
-        h2 Team Members
-        table.table.table-striped.table-hover
-          thead
-            tr
-              th Name
-          tbody
-            each player in players
+        .col-sm-8
+          h2 
+            | Team Members
+            button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#myModal') Edit Team
+          table.table.table-striped.table-hover
+            thead
               tr
-                td #{player.name}
+                th Name
+            tbody
+              each player in players
+                tr
+                  td #{player.name}
   
+  // The Modal
+  #myModal.modal.fade
+    .modal-dialog.modal-dialog-centered
+      .modal-content
+        // Modal Header
+        .modal-header
+          h4.modal-title Change Team Name
+          button.btn-close(type='button' data-bs-dismiss='modal')
+        form(action='/changeName' method='post')
+          // Modal body
+          .modal-body
+            label.mb-3(for='tn') Name   
+            input.form-control.form-control-sm.float-end(id='tn' name='tn' type='text' placeholder='Team Name')
+            input(id='tid' name='tid' type='hidden' value=team.team_id)
+          // Modal footer
+          .modal-footer
+            input.btn.btn-light.primaryBg(type= 'submit' value='Enter')
+            button.btn.btn-danger(type='button' data-bs-dismiss='modal') Close
