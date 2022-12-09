@@ -95,6 +95,9 @@
     <Content Include="public\stylesheets\sports.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\stylesheets\stats.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\stylesheets\teams.css">
       <SubType>Code</SubType>
     </Content>

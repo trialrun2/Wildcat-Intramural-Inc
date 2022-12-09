@@ -1,29 +1,13 @@
-//-extends layout.pug
-
-//-block variables
-  - var PageID = 'stats';
-  - var user = user.id;
-
-  extends layout.pug
+extends layout.pug
 
 block variables
-  - var PageID = 'addLeague';
+  - var PageID = 'stats';
   - var user = user.admin;
-  - var divisions = ['Dorm', 'Co-Ed', 'Independent', 'Fraternity'];
-  - var days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  - var times = ['6:00', '7:00', '8:00', '9:00'];
-  - var leagueID;
 
 block append style
   style
-    include ../public/stylesheets/addLeague.css
+    include ../public/stylesheets/stats.css
 
 block content
   body
-    table.table.table-striped.table-hover
-      h2 All Leagues
-      each sport in sports
-        h2 #{sport.sportName}
-        each league in leagues
-          if (sport.sport_id === league.sport_id)
-            td #{league.leagueName}
+    h3 This page is currently not avaialble. Please check back later for future updates.
