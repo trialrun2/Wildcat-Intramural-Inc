@@ -21,7 +21,10 @@ block content
         p Times: #{league.gameTime}
 
       .col-sm-8
-        h2 Teams
+        h2 
+          | Teams
+          if user == 1
+            button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#myModal' data-league-id= league.league_id onclick='generate(this);') Generate Games
         table.table.table-striped.table-hover
           thead
             tr
@@ -31,3 +34,27 @@ block content
               tr
                 td #{team.teamName}
   
+    //generate modal
+    #myModal.modal.fade
+      .modal-dialog.modal-dialog-centered
+        .modal-content
+          // Modal Header
+          .modal-header
+            h4.modal-title
+            button.btn-close(type='button' data-bs-dismiss='modal')
+          form(action='/generateGames' method='post')
+            // Modal body
+            .modal-body
+              label Are you sure you want to generate the games?
+              lable This action will also close the league to further teams.
+              .form-floating.mb-3
+                input(id= 'lid' name='lid' type='hidden')
+            // Modal footer
+            .modal-footer
+              input.btn.btn-light.primaryBg(type= 'submit' value='Yes')
+              button.btn.btn-danger(type='button' data-bs-dismiss='modal') No
+
+  script.
+    function generate(element){
+        lid.setAttribute("value", league.league_id);
+    }

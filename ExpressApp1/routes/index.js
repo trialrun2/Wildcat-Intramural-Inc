@@ -48,6 +48,7 @@ router.get('/signup', function (req, res, next) {
     res.render('signup', { title: 'Sign Up' });
 });
 
+// post sign up page
 router.post('/signup', function (req, res, next) {
     var fname = req.body.fname;
     var lname = req.body.lname;
@@ -148,6 +149,12 @@ router.get('/leagues', function (req, res, next) {
     res.render('leagues', { title: 'Leagues', league: league, teams: teams, user: logged_in, sport: sport });
 });
 
+
+router.post('/generateGames', function (req, res, next) {
+    var leagueID = req.body.lid;
+    console.log(leagueID);
+})
+
 // Get rules page
 router.get('/rules', function (req, res, next) {
     var sid = req.query.sid;
@@ -185,31 +192,37 @@ router.get('/createTeam', function (req, res, next) {
 router.post('/createTeam', function (req, res, next) {
     var tn = req.body.tn;
     var leagueID = req.body.lid;
-    console.log(leagueID);
-    var u2t = db.prepare(`SELECT * FROM userToTeam where user_id = ?`).all(logged_in.id);
+    var league = db.prepare(`SELECT * FROM legues WHERE league_id = ?`).get(leagueID);
+    var u2t = db.prepare(`SELECT * FROM userToTeam WHERE user_id = ?`).all(logged_in.id);
 
-    for (let i = 0; i < u2t.length; i++) {
-        var teams = db.prepare(`SELECT * FROM teams WHERE team_id =?`).get(u2t[i].team_id);
-        console.log(teams.league_id);
-        if (leagueID == teams.league_id) {
-            message_code = 2;
-            res.redirect('/home');
-            return;
+    if (league.length() == 8) {
+        //message_code = something;
+        res.redirect('/home');
+        return;
+    } else {
+        for (let i = 0; i < u2t.length; i++) {
+            var teams = db.prepare(`SELECT * FROM teams WHERE team_id =?`).get(u2t[i].team_id);
+            console.log(teams.league_id);
+            if (leagueID == teams.league_id) {
+                message_code = 2;
+                res.redirect('/home');
+                return;
+            }
         }
-    }
 
-    while (1) {
-        var code = Math.floor(Math.random() * 90000) + 10000;
-        var team = db.prepare(`SELECT * FROM teams WHERE code = ?`).get(code);
-        if (!team) {
+        while (1) {
+            var code = Math.floor(Math.random() * 90000) + 10000;
+            var team = db.prepare(`SELECT * FROM teams WHERE code = ?`).get(code);
+            if (!team) {
                 db.prepare(`INSERT INTO teams (teamName, league_id, code) VALUES (?, ?, ?)`).run(tn, leagueID, code);
-            break;
-        } 
-    }
+                break;
+            }
+        }
 
-    var team = db.prepare(`SELECT * FROM teams WHERE code = ?`).get(code);
-    db.prepare(`INSERT INTO userToTeam (user_id, team_id, captain) VALUES (?, ?, ?)`).run(logged_in.id, team.team_id, 1);
-    res.redirect('/home');
+        var team = db.prepare(`SELECT * FROM teams WHERE code = ?`).get(code);
+        db.prepare(`INSERT INTO userToTeam (user_id, team_id, captain) VALUES (?, ?, ?)`).run(logged_in.id, team.team_id, 1);
+        res.redirect('/home');
+    }
 });
 
 // Post for joinTeam
@@ -366,6 +379,31 @@ router.post('/removeUser', function (req, res, next) {
     res.redirect('/updateUser');
 });
 
+<<<<<<< HEAD
+// Post for gameInformation
+router.get('/gameInformation', function (req, res, next) {
+    var games = db.prepare("SELECT * FROM games").all();
+    var leagues = db.prepare("SELECT * FROM leagues").all();
+    var sports = db.prepare("SELECT * FROM sports").all();
+    if (logged_in.admin == 1) {
+        res.render('gameInformation', {
+            title: 'Game Information', user: logged_in,
+            games: games, leagues: leagues, sports: sports
+        });
+    }
+    else {
+        res.redirect('/home');
+    }
+});
+
+
+router.post('/gameInformation', function (req, res, next) {
+
+});
+
+
+=======
+>>>>>>> 35d318c682e8f061dc47099d90bbfad82355f99c
 // Get u2t table to display, mostly for testing to see if users/ teams are deleted correctly
 router.get('/u2t', function (req, res, next) {
     var u2t = db.prepare(`SELECT * FROM userToTeam`).all();

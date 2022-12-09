@@ -25,17 +25,20 @@ block content
           th Day
           th League
       tbody
-        each sport in sports
-            each league in leagues
+        each league in leagues
+          tr
+            each sport in sports
               if sport.sport_id === league.sport_id
-                tr
-                  td #{sport.sportName} 
-                  td #{league.leagueName}
-                  td #{league.gameDay} 
-                  td #{league.gameTime}
-                  td
-                    button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#deleteModal' data-league-id= league.league_id onclick='deleteLeague(this);') Delete
+                td #{sport.sportName} 
+            td #{league.leagueName}
+            td #{league.gameDay} 
+            td #{league.gameTime}
+            td
+              a(href='/leagues/?lid=' + league.league_id) Teams
+            td
+              button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#deleteModal' data-league-id= league.league_id onclick='deleteLeague(this);') Delete
 
+    //add modal
     #myModal.modal.fade
       .modal-dialog.modal-dialog-centered
         .modal-content
@@ -75,6 +78,7 @@ block content
               input.btn.btn-light.primaryBg(type= 'submit' value='Add')
               button.btn.btn-danger(type='button' data-bs-dismiss='modal') Close
 
+    //delete modal
     #deleteModal.modal.fade
       .modal-dialog.modal-dialog-centered
         .modal-content
@@ -92,6 +96,7 @@ block content
             .modal-footer
               input.btn.btn-light.primaryBg(type= 'submit' value='Yes')
               button.btn.btn-danger(type='button' data-bs-dismiss='modal') No
+
 
   script.
     function deleteLeague(element){
