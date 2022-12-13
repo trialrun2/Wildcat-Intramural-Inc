@@ -28,40 +28,14 @@ block content
               th Game Location
           tbody
             each game in games
-              if game.sport_id === sport.sport_id
                 tr
-                  td #{game.team1_id}
-                  td #{game.team2.id}
-                  td #{game.date} + " at " #{game.time} + "pm"
+                  each team in teams
+                    if team.team_id === game.team1_id
+                      td #{team.teamName}
+                  each team in teams
+                    if team.team_id === game.team2_id
+                      td #{team.teamName}
+                  td #{game.date} at #{game.time} pm
                   td #{game.location}
-                  td
-                    button.btn.btn-light(data-bs-toggle='modal' data-bs-target='#nameModal' data-league-id= league.league_id onclick='setLeagueID(this);') Select
-
-    // modal to get name for team
-    #nameModal.modal.fade
-      .modal-dialog.modal-dialog-centered
-        .modal-content
-          // Modal Header
-          .modal-header
-            h4.modal-title Team Name
-            button.btn-close(type='button' data-bs-dismiss='modal')
-          form(action='/createTeam' method='post')
-            // Modal body
-            .modal-body
-              label.mb-3(for='tn') What would you like to name your team?
-              input.form-control.form-control-sm.float-end(id='tn' name='tn' type='text' placeholder='Team Name')
-              input(id='lid' name='lid' type='hidden')
-            // Modal footer
-            .modal-footer
-              input.btn.btn-light.primaryBg(type= 'submit' value='Create')
-              button.btn.btn-danger(type='button' data-bs-dismiss='modal') Close
-
-
-  script.
-    function setLeagueID(element){
-        leagueID = element.getAttribute("data-league-id");
-        var lid = document.getElementById('lid');
-        lid.setAttribute("value", leagueID);
-    }
 
   
