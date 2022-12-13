@@ -20,23 +20,22 @@ block content
       h2 All Leagues
       thead
         tr
+          th Sport
           th Division
-          th Sport 
           th Day
           th League
       tbody
-        each league in leagues
-          tr
-            each sport in sports
-              if sport.sport_id === league.sport_id
-                td #{sport.sportName} 
-            td #{league.leagueName}
-            td #{league.gameDay} 
-            td #{league.gameTime}
-            td
-              a(href='/leagues/?lid=' + league.league_id) Teams
-            td
-              button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#deleteModal' data-league-id= league.league_id onclick='deleteLeague(this);') Delete
+        each sport in sports
+            each league in leagues
+              tr
+                if sport.sport_id === league.sport_id
+                  td #{sport.sportName} 
+                  td #{league.leagueName}
+                  td #{league.gameDay} 
+                  td #{league.gameTime}             
+                  td
+                    button.btn.btn-danger.ms-3(data-bs-toggle='modal' data-bs-target='#deleteModal' data-league-id= league.league_id onclick='deleteLeague(this);') Delete
+                    a#viewbtn.btn.btn-light.ms-3(href='/leagues/?lid=' + league.league_id) View League
 
     //add modal
     #myModal.modal.fade
