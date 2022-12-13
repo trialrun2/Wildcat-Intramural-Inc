@@ -119,6 +119,9 @@ router.get('/teams', function (req, res, next) {
     var team = db.prepare(`SELECT * FROM teams WHERE team_id = ?`).get(tid);
     var u2t = db.prepare(`SELECT * FROM userToTeam WHERE team_id = ?`).all(tid);
     var captain = db.prepare(`SELECT * FROM userToTeam WHERE team_id = ? AND user_id = ?`).get(tid, logged_in.id);
+    if (!captain) {
+        captain = {'captain' : '0'};
+    }
     var league = db.prepare(`SELECT * FROM leagues WHERE league_id = ?`).get(team.league_id);
     if (league) {
         sport = db.prepare(`SELECT * FROM sports WHERE sport_id = ?`).get(league.sport_id);
@@ -152,23 +155,37 @@ router.get('/leagues', function (req, res, next) {
 
 
 router.post('/generateGames', function (req, res, next) {
-    var leagueID = req.body.lid;
-    console.log(leagueID);
-    var teams = [1, 2, 3, 4, 5];
-    //db.prepare(`SELECT * FROM teams WHERE league_id = ?`).all(leagueID);
-    var length = Math.floor(teams.length /2);
+    var lid = req.body.lid;
+    console.log(lid);
+    
+    var date = '2022-5-31';
+
+    //var teams = [1, 2, 3, 4, 5];
+    var teams = db.prepare(`SELECT * FROM teams WHERE league_id = ?`).all(lid);
+
+    var length = Math.floor(teams.length / 2);
     console.log(length);
-    for (let i = 0; i < length; i++){
+
+    var gamedate = new Date(date);
+    console.log(gamedate);
+    var day = gamedate.getDate();
+
+    for (let i = 0; i < length; i++) {
+        console.log(i);
         for (let j = length; j < teams.length; j++) {
-            console.log(teams[i] + "vs" + teams[j]);
+            console.log(teams[i].team_id + " vs " + teams[j].team_);
+            console.log(gamedate);
+            day = day + 7;
+            console.log(day);
+            gamedate.setDate(day);
         }
     }
 
 
-    res.redirect('/leagues/?lid=' + leagueID);
-})
+    res.redirect('/leagues/?lid=' + lid);
+});
 
-// Get rules page
+// Get rules page 
 router.get('/rules', function (req, res, next) {
     var sid = req.query.sid;
     var sport = db.prepare(`SELECT * FROM sports WHERE sport_id = ?`).get(sid);
