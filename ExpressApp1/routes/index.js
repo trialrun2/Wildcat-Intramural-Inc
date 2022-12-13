@@ -16,6 +16,7 @@ router.get('/login', function (req, res, next) {
     res.render('login', { title: 'Login', msg: '' });
 });
 
+// Post Login page
 router.post('/login', function (req, res, next) {
     var email = req.body.email;
     var pass = req.body.password;
@@ -153,6 +154,17 @@ router.get('/leagues', function (req, res, next) {
 router.post('/generateGames', function (req, res, next) {
     var leagueID = req.body.lid;
     console.log(leagueID);
+    var teams = [1, 2, 3, 4, 5];
+    //db.prepare(`SELECT * FROM teams WHERE league_id = ?`).all(leagueID);
+    var length = Math.floor(teams.length /2);
+    console.log(length);
+    for (let i = 0; i < length; i++){
+        for (let j = length; j < teams.length; j++) {
+            console.log(teams[i] + "vs" + teams[j]);
+        }
+    }
+
+
     res.redirect('/leagues/?lid=' + leagueID);
 })
 
