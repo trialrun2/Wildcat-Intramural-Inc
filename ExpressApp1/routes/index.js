@@ -144,7 +144,7 @@ router.post('/changeName', function (req, res, next) {
 router.get('/leagues', function (req, res, next) {
     var lid = req.query.lid;
     var league = db.prepare(`SELECT * FROM leagues WHERE league_id = ?`).get(lid);
-    var teams = db.prepare(`SELECT * FROM teams WHERE league_id = ?`).all(lid);
+    var teams = db.prepare(`SELECT * FROM teams WHERE league_id ORDER BY teamName = ?`).all(lid);
     var sport = db.prepare(`SELECT * FROM sports WHERE sport_id = ?`).get(league.sport_id);
     res.render('leagues', { title: 'Leagues', league: league, teams: teams, user: logged_in, sport: sport });
 });
@@ -165,7 +165,7 @@ router.get('/rules', function (req, res, next) {
 
 // Get sports page
 router.get('/sports', function (req, res, next) {
-    var sports = db.prepare("SELECT * FROM sports").all();
+    var sports = db.prepare("SELECT * FROM sports ORDER BY sportName").all();
     res.render('sports', { title: 'Sports', sports: sports, user: logged_in, s: JSON.stringify(sports) });
 });
 
@@ -184,8 +184,17 @@ router.get('/about', function (req, res, next) {
 
 // get createTeam page
 router.get('/createTeam', function (req, res, next) {
-    var sports = db.prepare("SELECT * FROM sports").all();
-    var leagues = db.prepare("SELECT * FROM leagues").all();
+    var sports = db.prepare("SELECT * FROM sports ORDER BY sportName").all();
+    var leagues = db.prepare("SELECT * FROM leagues ORDER BY leagueName, " +
+        "CASE" +
+        " WHEN gameDay = 'Sunday' THEN 1" +
+        " WHEN gameDay = 'Monday' THEN 2" +
+        " WHEN gameDay = 'Tuesday' THEN 3" +
+        " WHEN gameDay = 'Wednesday' THEN 4" +
+        " WHEN gameDay = 'Thursday' THEN 5" +
+        " WHEN gameDay = 'Friday' THEN 6" +
+        " WHEN gameDay = 'Saturday' THEN 7" +
+        " END, gameTime").all();
     res.render('createTeam', { title: 'CreateTeam', sports: sports, leagues: leagues, user: logged_in });
 });
 
@@ -254,7 +263,16 @@ router.post('/joinTeam', function (req, res, next) {
 // Get addLeague page
 router.get('/addLeague', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports ORDER BY sportName").all();
-    var leagues = db.prepare("SELECT * FROM leagues ORDER BY leagueName, CASE WHEN gameDay = 'Sunday' THEN 1 WHEN gameDay = 'Monday' THEN 2 WHEN gameDay = 'Tuesday' THEN 3 WHEN gameDay = 'Wednesday' THEN 4 WHEN gameDay = 'Thursday' THEN 5 WHEN gameDay = 'Friday' THEN 6 WHEN gameDay = 'Saturday' THEN 7 END, gameTime").all();
+    var leagues = db.prepare("SELECT * FROM leagues ORDER BY leagueName, " +
+        "CASE" +
+        " WHEN gameDay = 'Sunday' THEN 1" +
+        " WHEN gameDay = 'Monday' THEN 2" +
+        " WHEN gameDay = 'Tuesday' THEN 3" +
+        " WHEN gameDay = 'Wednesday' THEN 4" +
+        " WHEN gameDay = 'Thursday' THEN 5" +
+        " WHEN gameDay = 'Friday' THEN 6" +
+        " WHEN gameDay = 'Saturday' THEN 7" +
+        " END, gameTime").all();
 
     if (logged_in.admin == 1) {
         res.render('addLeague', { title: 'Add League', user: logged_in, sports: sports, leagues: leagues });
