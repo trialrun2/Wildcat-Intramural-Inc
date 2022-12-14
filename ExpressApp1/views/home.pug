@@ -72,6 +72,22 @@ block content
                     else
                       td
         p#joinmsg= joinmsg
+        h2 Upcoming Games
+        table.table.table-striped.table-hover
+          thead 
+            tr
+              th Home Team
+              th Away Team
+              th Date and Time
+              th Location
+          tbody
+            tr
+              each game in games
+                td #{game.team1_id}
+                td #{game.team2_id}
+                th #{game.date} 
+                th #{game.location}
+              
 
 
     // The Modal
