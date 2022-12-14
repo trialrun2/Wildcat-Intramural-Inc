@@ -159,57 +159,59 @@ router.get('/leagues', function (req, res, next) {
 
 
 router.post('/generateGames', function (req, res, next) {
+    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var count = 0;
     var lid = req.body.lid;
     var league = db.prepare(`SELECT * FROM leagues WHERE league_id = ?`).get(lid);
-    
-    var date = '2022-5-31';
-    db.prepare(`INSERT INTO games (team1_id, team2_id, location, date, time) VALUES (?, ?, ?, ?, ?)`).run(4, 9, 'K-State Rec', '2022-5-15', '9:00');
 
-    //var teams = [1, 2, 3, 4, 5];
+    let date = new Date();
+    var day = weekdays[date.getDay()];
+    
+    do {
+        date.setDate(date.getDate() + 1);
+        day = weekdays[date.getDay()];
+        console.log(date + " " + day);
+        count++;
+    } while ((day != league.gameDay) || (day == league.gameDay && count < 6)); // 
+
+
     var teams = db.prepare(`SELECT * FROM teams WHERE league_id = ?`).all(lid);
     var length = Math.floor(teams.length / 2);
 
-    /*for (let i = 0; i < length; i++) {
+    for (let i = 0; i < length; i++) {
         for (let j = length; j < teams.length; j++) {
-            var gamedate = new Date(date);
+            //var look = 1;
 
-            while (1) {
-                var month = gamedate.getMonth();
-                var day = gamedate.getDate();
-                var year = gamedate.getFullYear();
-                var date = year + "-" + month + "-" + day;
-                var games = db.prepare(`SELECT * FROM games WHERE date = ?`).all(date);
+            //while (look == 1) {
+                
+            //var games = db.prepare(`SELECT * FROM games WHERE date = ?`).all(date);
+            //console.log(games);
+         
 
-                if (!games) {
-                    db.prepare(`INSERT INTO games (team1_id, team2_id, location, date, time), values (?, ?, ?, ?)`).run(teams[i].team_id, teams[j].team_id, date, league.gameTime);
+            //if (games) {
+
+                    //db.prepare(`INSERT INTO games (team1_id, team2_id, location, date, time, league_id) VALUES (?, ?, ?, ?, ?, ?)`).run(teams[i].team_id, teams[j].team_id, 'K-State Rec', date, league.gameTime, lid);
                     res.redirect('/leagues/?lid=' + lid);
+                    //look = 0;
                     return;
                 }
 
-                for (let k = 0; k < games.length; k++) {
+                /*for (let k = 0; k < games.length; k++) {
                     if ((games[k].team1_id != teams[i].team_id) && (games[k].team2_id != teams[i].team_id) &&
                         (games[k].team1_id != teams[j].team_id) && (games[k].team2_id != teams[j].team_id)) {
-                        db.prepare(`INSERT INTO games (team1_id, team2_id, location, date, time), values (?, ?, ?, ?)`).run(teams[i].team_id, teams[j].team_id, date, league.gameTime);
+                        db.prepare(`INSERT INTO games (team1_id, team2_id, location, date, time, league_id) VALUES (?, ?, ?, ?, ?, ?)`).run(teams[i].team_id, teams[j].team_id, 'K-State Rec', date, league.gameTime, lid);
                         res.redirect('/leagues/?lid=' + lid);
+                        look = 0;
                         return;
                     }
-                }
-
-                console.log(teams[i].team_id + " vs " + teams[j].team_id);
-                var day = gamedate.getDate() + 7;
-                console.log(gamedate);
-                gamedate.setDate(day);
-            }
-
-
-            /*console.log(teams[i].team_id + " vs " + teams[j].team_id);
-            var day = gamedate.getDate() + 7;
-            console.log(gamedate);
-            gamedate.setDate(day);  
+                }*/
+            
+            
+            //}
             
         }
         
-    }*/
+    
 
 
     res.redirect('/leagues/?lid=' + lid);
@@ -455,7 +457,6 @@ router.post('/removeUser', function (req, res, next) {
     res.redirect('/updateUser');
 });
 
-//<<<<<<< HEAD
 // Post for gameInformation
 router.get('/gameInformation', function (req, res, next) {
     var games = db.prepare("SELECT * FROM games").all();
@@ -478,9 +479,6 @@ router.post('/gameInformation', function (req, res, next) {
 
 });
 
-
-//=======
-//>>>>>>> 35d318c682e8f061dc47099d90bbfad82355f99c
 // Get u2t table to display, mostly for testing to see if users/ teams are deleted correctly
 router.get('/u2t', function (req, res, next) {
     var u2t = db.prepare(`SELECT * FROM userToTeam`).all();
