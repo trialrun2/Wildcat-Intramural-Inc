@@ -77,10 +77,14 @@ router.post('/signup', function (req, res, next) {
 router.get('/home', function (req, res, next) {
     var sports = db.prepare("SELECT * FROM sports").all();
     var teams = [];
+    var games = [];
     var leagues = [];
     var userID = logged_in.id;
+    var team1;
+    var team2;
     var msg = "";
     var joinmsg = "";
+    var allgames = db.prepare("SELECT * FROM games").all();
 
     var u2t = db.prepare("SELECT * FROM userToTeam WHERE user_id = ?").all(userID);
     if (u2t.length == 0) {
@@ -94,9 +98,17 @@ router.get('/home', function (req, res, next) {
     for (let i = 0; i < teams.length; i++) {
         if (teams[i].league_id != 0) {
             leagues.push(db.prepare("SELECT * FROM leagues WHERE league_id = ?").get(teams[i].league_id));
+            for (let j = 0; j < allgames.length; j++) {
+                if (allgames[j].team1_id == teams[i].team_id) {
+                    games.push(allgames[j]);
+                    console.log("pushing1");
+                } else if (allgames[j].team2_id == teams[i].team_id) {
+                    games.push(allgames[j]);
+                    console.log("pushing2");
+                }
+            }
         }
     }
-    
     if (message_code == 1) {
         msg = "Invalid Team Code";
     }
@@ -108,7 +120,11 @@ router.get('/home', function (req, res, next) {
     }
     message_code = 0;
 
-    res.render('home', { title: 'Home', user: logged_in, teams: teams, u2t: u2t, leagues: leagues, sports: sports, msg: msg, joinmsg: joinmsg});
+    res.render('home', {
+        title: 'Home', user: logged_in,
+        teams: teams, u2t: u2t, leagues: leagues,
+        sports: sports, msg: msg, joinmsg: joinmsg, games: games
+    });
 });
 
 // Get teams page
