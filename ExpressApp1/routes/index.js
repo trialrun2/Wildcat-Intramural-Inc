@@ -164,56 +164,60 @@ router.post('/generateGames', function (req, res, next) {
     var lid = req.body.lid;
     var league = db.prepare(`SELECT * FROM leagues WHERE league_id = ?`).get(lid);
 
-    let date = new Date();
-    var day = weekdays[date.getDay()];
-    
-    do {
-        date.setDate(date.getDate() + 1);
-        day = weekdays[date.getDay()];
-        console.log(date + " " + day);
-        count++;
-    } while ((day != league.gameDay) || (day == league.gameDay && count < 6)); // 
-
+    //console.log(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate());
 
     var teams = db.prepare(`SELECT * FROM teams WHERE league_id = ?`).all(lid);
     var length = Math.floor(teams.length / 2);
 
     for (let i = 0; i < length; i++) {
         for (let j = length; j < teams.length; j++) {
-            //var look = 1;
 
-            //while (look == 1) {
-                
-            //var games = db.prepare(`SELECT * FROM games WHERE date = ?`).all(date);
-            //console.log(games);
-         
+            var date = new Date();
+            var day = weekdays[date.getDay()];
+            do {
+                date.setDate(date.getDate() + 1);
+                day = weekdays[date.getDay()];
+                count++;
+            } while ((day != league.gameDay) || (day == league.gameDay && count < 6));
 
-            //if (games) {
+            var look = 1;
+            var datecounter = 0;
+            while (1) {
+                currentDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 
-                    //db.prepare(`INSERT INTO games (team1_id, team2_id, location, date, time, league_id) VALUES (?, ?, ?, ?, ?, ?)`).run(teams[i].team_id, teams[j].team_id, 'K-State Rec', date, league.gameTime, lid);
-                    res.redirect('/leagues/?lid=' + lid);
-                    //look = 0;
-                    return;
+                var games = db.prepare(`SELECT * FROM games WHERE date = ?`).all(currentDate);
+
+                console.log('DateCount: ' + datecounter + ', How many games today: ' + games.length);
+
+                if (games.length == 0) {
+                    db.prepare(`INSERT INTO games (team1_id, team2_id, location, date, time, league_id) VALUES (?, ?, ?, ?, ?, ?)`).run(teams[i].team_id, teams[j].team_id, 'K-State Rec', currentDate, league.gameTime, lid);
+                    break;
                 }
 
-                /*for (let k = 0; k < games.length; k++) {
-                    if ((games[k].team1_id != teams[i].team_id) && (games[k].team2_id != teams[i].team_id) &&
-                        (games[k].team1_id != teams[j].team_id) && (games[k].team2_id != teams[j].team_id)) {
-                        db.prepare(`INSERT INTO games (team1_id, team2_id, location, date, time, league_id) VALUES (?, ?, ?, ?, ?, ?)`).run(teams[i].team_id, teams[j].team_id, 'K-State Rec', date, league.gameTime, lid);
-                        res.redirect('/leagues/?lid=' + lid);
-                        look = 0;
-                        return;
+                for (let k = 0; k < games.length; k++) {
+                    if (games[k].team1_id == teams[i].team_id || games[k].team2_id == teams[i].team_id || games[k].team1_id == teams[j].team_id || games[k].team2_id == teams[j].team_id) {
+                        console.log('need another week');
                     }
-                }*/
-            
-            
-            //}
-            
+                    else {
+                        db.prepare(`INSERT INTO games (team1_id, team2_id, location, date, time, league_id) VALUES (?, ?, ?, ?, ?, ?)`).run(teams[i].team_id, teams[j].team_id, 'K-State Rec', currentDate, league.gameTime, lid);
+                        look = 0;
+                        break;
+                    }
+                    look = 1;
+                }
+
+                if (look == 1) {
+                    date.setDate(date.getDate() + 7);
+                    console.log(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                    datecounter += 1;
+                }
+                else {
+                    break;
+                }
+            }
         }
+    }
         
-    
-
-
     res.redirect('/leagues/?lid=' + lid);
 });
 
