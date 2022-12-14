@@ -215,6 +215,10 @@ router.post('/generateGames', function (req, res, next) {
                     break;
                 }
             }
+
+            /*while (1) {
+                team1_games = db.prepare(`SELECT * FROM games WHERE team1_id = ? OR team2_id = ?`).all(teams[i].team_id, teams[i].team_id);
+            }*/
         }
     }
         
