@@ -21,6 +21,7 @@ block content
         p Times: #{league.gameTime}
 
       .col-sm-8
+        p#msg= msg
         h2 
           | Teams
           if user == 1
@@ -45,8 +46,9 @@ block content
           form(action='/generateGames' method='post')
             // Modal body
             .modal-body
-              label Are you sure you want to generate the games?
-              lable This action will also close the league to further teams.
+              label.
+                Are you sure you want to generate the games? 
+                This action will also close the league to further teams.
               input(id= 'lid' name='lid' type='hidden' value=league.league_id)
             // Modal footer
             .modal-footer

@@ -78,15 +78,27 @@ block content
             tr
               th Home Team
               th Away Team
+              th Sport
               th Date and Time
               th Location
           tbody
             tr
               each game in games
-                td #{game.team1_id}
-                td #{game.team2_id}
-                th #{game.date} 
-                th #{game.location}
+                tr
+                  each team in allTeams
+                    if team.team_id === game.team1_id
+                      td #{team.teamName}
+                  each team in allTeams
+                    if team.team_id === game.team2_id
+                      td #{team.teamName}
+                  each league in leagues
+                    each sport in sports
+                      if game.league_id === league.league_id
+                        if sport.sport_id === league.sport_id
+                          td 
+                            a(href='/rules/?sid=' + sport.sport_id) #{sport.sportName}
+                  td #{game.date} 
+                  td #{game.location}
               
 
 
