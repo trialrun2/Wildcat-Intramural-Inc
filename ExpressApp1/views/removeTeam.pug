@@ -14,12 +14,14 @@ block content
     table.table.table-striped.table-hover
       thead
         tr
-          th All Teams
+          th Teams
+          th Team Code
       tbody
         each team in teams
           tr
             td
               a(href='/teams/?tid=' + team.team_id) #{team.teamName}
+            td #{team.code}
             td
               button.btn.btn-light.ms-3(data-bs-toggle='modal' data-bs-target='#deleteModal' data-team-id= team.team_id onclick='deleteTeam(this);') Delete
 
@@ -33,7 +35,7 @@ block content
           form(action='/removeTeam' method='post')
             // Modal body
             .modal-body
-              label Are you sure you want to delete this league?
+              label Are you sure you want to delete this team? This team's league's games will also be deleted.
               .form-floating.mb-3
                 input(id= 'tid' name='tid' type='hidden')
             // Modal footer
