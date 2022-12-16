@@ -162,6 +162,16 @@ router.get('/teams', function (req, res, next) {
 router.post('/changeName', function (req, res, next) {
     var teamName = req.body.tn;
     var teamId = req.body.tid;
+    var teams = db.prepare(`SELECT * FROM teams`).all();
+
+    for (let i = 0; i < teams.length; i++) {
+        if (teams[i].teamName == teamName) {
+            message_code = 4;
+            res.redirect('/home');
+            return;
+        }
+    }
+
     db.prepare(`UPDATE teams SET teamName = ? WHERE team_id = ?`).run(teamName, teamId);
     res.redirect('/teams/?tid=' + teamId);
 });
@@ -212,7 +222,7 @@ router.post('/generateGames', function (req, res, next) {
 
             while (1) {
                 var addWeek = 0;
-                currentDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+                currentDate = (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear();
 
                 for (let k = 0; k < team1_games.length; k++) {
                     if (team1_games[k].date == currentDate) {
@@ -284,9 +294,15 @@ router.get('/createTeam', function (req, res, next) {
 router.post('/createTeam', function (req, res, next) {
     var tn = req.body.tn;
     var leagueID = req.body.lid;
-    var league = db.prepare(`SELECT * FROM leagues WHERE league_id = ?`).get(leagueID);
+    var league = db.prepare(`SELECT * FROM teams WHERE league_id = ?`).all(leagueID);
     var u2t = db.prepare(`SELECT * FROM userToTeam WHERE user_id = ?`).all(logged_in.id);
     var teams = db.prepare(`SELECT * FROM teams`).all();
+
+    if (league.length >= 8) {
+        message_code = 3;
+        res.redirect('/home');
+        return;
+    }
 
     for (let i = 0; i < teams.length; i++) {
         if (teams[i].teamName == tn) {
@@ -294,12 +310,6 @@ router.post('/createTeam', function (req, res, next) {
             res.redirect('/home');
             return;
         }
-    }
-
-    if (league.length == 8) {
-        message_code = 3;
-        res.redirect('/home');
-        return;
     }
 
     for (let i = 0; i < u2t.length; i++) {
